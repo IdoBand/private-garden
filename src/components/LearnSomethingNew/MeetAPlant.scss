@@ -1,0 +1,23 @@
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#meet-a-plant-container{
+    @include flexCenter();
+    flex-direction: column;
+    padding: 10px
+}
+#content {
+    @include flexCenter();
+    width: 80%;
+}
+#sub-content {
+    padding: 20px;
+    width: 80%;
+    background-color: white;
+    box-shadow: inset;
+    border: solid black;
+    border-radius: 10px;
+  }
