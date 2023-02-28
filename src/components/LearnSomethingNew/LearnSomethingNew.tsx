@@ -1,14 +1,13 @@
 import { useState } from "react"
 import { plantNames } from "./plants"
-import Button from "../Button/Button"
+import GreenButton from "../Button/GreenButton"
 
 export default function LearnSomethingNew() {
     const [plant, setPlant] = useState('')
 
-    async function fetchPlant() {
+    async function fetchPlant(): Promise<void> {
         const plantString = plantNames[Math.floor(Math.random() * plantNames.length)]
         console.log(plantString)
-        ''
         const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${plantString}?redirect=false`
         const response = await fetch(url)
         const info = await response.json()
@@ -18,16 +17,11 @@ export default function LearnSomethingNew() {
     return (
         <>
             <div id="meet-a-plant-container">
-                <Button 
-                    border="solid"
-                    backgroundColor="rgb(0, 150, 0)"
-                    color="white"
-                    height="25px"
+                <GreenButton 
+                    text="Fetch"
                     onClick={fetchPlant}
-                    borderRadius="10px"
-                    width="80px"
-                    children="Fetch" 
-                />
+                    width="85"
+                    />
                 <br />
                 <div id="content"> {plant? 
                 
