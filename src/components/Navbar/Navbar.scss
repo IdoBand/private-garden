@@ -46,11 +46,11 @@ body::-webkit-scrollbar {
     flex-direction: row;
     justify-content: space-around;
     border-bottom: 5px solid white;
-    
 
     #nav-container {
       display: flex;
       flex-direction: row;
+      flex-wrap: nowrap;
   
       .nav-links {
         margin-left: 10px;

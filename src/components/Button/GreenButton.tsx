@@ -19,9 +19,10 @@ const GreenButton: React.FC<Props> = ({
   border-radius: 10px;
   height: 25px;
   width: ${width}px;
+  margin: 5px;
   &:hover {
-    color: black;
-    background-color: white;
+    color: dark-grey;
+    background-color: rgb(0, 150, 0);
   }
 `
 return (

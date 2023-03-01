@@ -1,0 +1,54 @@
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+#my-Garden-container{
+    margin-top: 10px;
+    @include flexCenter();
+    width: 100%;
+}
+#my-garden-content {
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: solid lightgray 2px;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    min-width: 600px;
+    min-height: 350px;
+}
+#my-garden-options{
+    @include flexCenter();
+    justify-content: space-between;
+}
+
+#plants-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 170px);
+    justify-content: center;
+    margin: 10px;
+}
+.plant-card {
+    h5{
+        margin: 2px;
+    }
+    img {
+        border-radius: 5px;
+        margin: 2px 0 0 0;
+    }
+    @include flexCenter();
+    margin: 10px 0 0 0;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: solid lightgray 2px;
+    border-radius: 5px;
+    box-shadow: 2px 2px green;
+    
+    &:hover {
+        border-color: green;
+    }
+}

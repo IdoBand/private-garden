@@ -4,10 +4,25 @@ import { router } from './routes'
 import './components/Navbar/Navbar.scss'
 import './components/LearnSomethingNew/MeetAPlant.scss'
 import './components/Home/Home.scss'
+import './components/MyGarden/MyGarden.scss'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false,
+      enabled: false, // disable this query from automatically running on page load
+    },
+  },
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
-    <RouterProvider router={router} />
+  <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   // </React.StrictMode>,
 )

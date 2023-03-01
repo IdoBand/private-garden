@@ -3,6 +3,7 @@ import LearnSomethingNew from './components/LearnSomethingNew/LearnSomethingNew'
 import App from './App';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
+import MyGarden from './components/MyGarden/MyGarden';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -17,7 +18,8 @@ export const router = createBrowserRouter([
                 element: <LearnSomethingNew />
             },
             {
-              
+                path: '/MyGarden',
+                element: <MyGarden />
             },
          
 
