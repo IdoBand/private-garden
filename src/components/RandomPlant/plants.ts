@@ -101,5 +101,5 @@ export const plantNames = [
             arr.push(plantString)
         }
     }
-    return arr
+    return arr.length
   }

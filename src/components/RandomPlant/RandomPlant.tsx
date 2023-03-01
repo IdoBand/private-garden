@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { plantNames } from "./plants"
 import GreenButton from "../Button/GreenButton"
 // import { useQuery } from "@tanstack/react-query"
 import { PropagateLoader } from "react-spinners"
 
-export default function LearnSomethingNew() {
+export default function RandomPlant() {
     const [plant, setPlant] = useState('Click for content')
 
     async function fetchPlant(): Promise<any> {

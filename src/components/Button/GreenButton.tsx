@@ -13,9 +13,11 @@ const GreenButton: React.FC<Props> = ({
   width,
   }) => {
   const NewButton = styled.button`
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: 200;
   color: white;
-  border: 1.5px solid lightgray;
-  background-color: rgb(0, 100, 0);
+  border: 0px solid lightgray;
+  background-color: rgb(0, 90, 0);
   border-radius: 10px;
   height: 25px;
   width: ${width}px;

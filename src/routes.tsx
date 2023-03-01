@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LearnSomethingNew from './components/LearnSomethingNew/LearnSomethingNew';
+import RandomPlant from './components/RandomPlant/RandomPlant';
 import App from './App';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/LearnSomethingNew',
-                element: <LearnSomethingNew />
+                element: <RandomPlant />
             },
             {
                 path: '/MyGarden',
