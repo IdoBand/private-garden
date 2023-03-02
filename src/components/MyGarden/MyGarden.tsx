@@ -1,8 +1,11 @@
 import { useState } from "react"
 import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
+import Modal from "../Modal/Modal"
+import AddPlant from "../AddPlantForm/AddPlantForm"
 
 export default function MyGarden() {
+    const [addPlant, setAddPlant] = useState(false)
 
     const [plants, setPlants] = useState([])
     const plant1 = new Plant('Alocasia Dragon')
@@ -19,7 +22,7 @@ export default function MyGarden() {
                 <div id="my-garden-content">
                     <div id="my-garden-options">
                         <div id="buttons">
-                        <GreenButton text="Add a Plant" onClick={func} width="100"/>
+                        <GreenButton text="Add a Plant" onClick={() => setAddPlant(true)} width="100"/>
                         <GreenButton text="Remove a Plant" onClick={func} width="120"/>
                         </div>
                         
@@ -37,6 +40,7 @@ export default function MyGarden() {
                     </div>
                 </div>
             </div>
+            {addPlant && <Modal open={addPlant} onClose={() => setAddPlant(false)} content={<AddPlant />}></Modal>}
         </>
     )
 }

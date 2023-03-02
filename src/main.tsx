@@ -5,8 +5,9 @@ import './components/Navbar/Navbar.scss'
 import './components/RandomPlant/RandomPlant.scss'
 import './components/Home/Home.scss'
 import './components/MyGarden/MyGarden.scss'
+import './components/Modal/Modal.scss'
+import './components/AddPlantForm/AddPlantForm.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 
 const queryClient = new QueryClient({
   defaultOptions: {

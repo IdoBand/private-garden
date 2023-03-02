@@ -1,5 +1,3 @@
-import GreenButton from "../components/Button/GreenButton"
-
 export class AbstractPlant {
     name: string;
     dateAdded: number;

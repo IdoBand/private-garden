@@ -45,9 +45,9 @@ body::-webkit-scrollbar {
     // background-color: rgba(8, 180, 8, 0.45);
     flex-direction: row;
     justify-content: space-around;
-    border-bottom: 5px solid white;
+    border-bottom: 2px solid white;
 
-    #nav-container {
+    .nav-container {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -71,4 +71,14 @@ body::-webkit-scrollbar {
       }
     }
   }
+
+  ///////////////   A B O U T   ///////////////
   
+.logo{
+  margin: 0 5px 0 0;
+  width: 20px;
+  height: 20px;
+}
+h2 {
+  margin: 0 0 10px 0 ;
+}
