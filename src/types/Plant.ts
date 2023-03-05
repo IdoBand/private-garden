@@ -1,15 +1,17 @@
 export class AbstractPlant {
+    id: string
     name: string;
-    dateAdded: number;
+    #dateAdded: number;
     irrigations: [];
     path: string;
-    constructor (name: string) {
+    checked: boolean
+    constructor (name: string, id: string) {
+        this.id = id
         this.name = name
-        this.dateAdded = 1
+        this.#dateAdded = 1
         this.irrigations = []
+        this.checked = false
         this.path = `/src/assets/plants/${this.validateName(name)}.jpeg`
-       
-        console.log(this.path)
     }
     validateName(name: string): string {
         const subNames = name.split(' ')
@@ -18,7 +20,7 @@ export class AbstractPlant {
 }
 
 export class Plant extends AbstractPlant {
-    constructor(name: string) {
-        super(name)
+    constructor(name: string, id: string) {
+        super(name, id)
     }
 }

@@ -31,13 +31,14 @@
 }
 .plant-card {
     h5{
-        margin: 2px;
+        margin: 2px 0 0 0;
     }
     img {
         border-radius: 5px;
         margin: 2px 0 0 0;
     }
     @include flexCenter();
+    position: relative;
     margin: 10px 0 0 0;
     width: 160px;
     height: 160px;
@@ -47,8 +48,44 @@
     border: solid lightgray 2px;
     border-radius: 5px;
     box-shadow: 2px 2px green;
-    
     &:hover {
         border-color: green;
     }
 }
+
+
+//////////     C H E C K   B O X     //////////
+
+input[type="checkbox"] {
+    appearance: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: rgb(190, 60, 60);
+  }
+  
+  input[type="checkbox"]:checked::before {
+    font-family:Arial, Helvetica, sans-serif;
+    content: "X";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -46%);
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    line-height: 18px;
+  }
+  
+
+  

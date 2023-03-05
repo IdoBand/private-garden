@@ -6,7 +6,7 @@ interface Props {
   onClick: any;
 }
 
-const GreenButton: React.FC<Props> = ({
+const RedButton: React.FC<Props> = ({
   text, 
   onClick,
   }) => {
@@ -15,13 +15,13 @@ const GreenButton: React.FC<Props> = ({
   font-weight: 200;
   color: white;
   border: 0px solid lightgray;
-  background-color: rgb(0, 90, 0);
+  background-color: rgb(190, 60, 60);
   border-radius: 10px;
   height: 25px;
   min-width: 100px;
   margin: 5px;
   &:hover {
-    background-color: rgb(0, 150, 0);
+    background-color: rgb(180, 0, 0);
   }
 `
 return (
@@ -32,4 +32,4 @@ return (
   </NewButton>
 )
 }
-export default GreenButton
+export default RedButton
