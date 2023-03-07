@@ -7,19 +7,37 @@ interface dataObject {
   plantImage: 'image/jpeg' | 'image/jpg';
 }
 interface AddPlantFormProps {
-  plants: Array<Plant>
+  plants: Plant[]
   setPlants: React.Dispatch<React.SetStateAction<Plant[]>>
   setModal: React.Dispatch<React.SetStateAction<boolean>>
 }
+
+const BASIC_URL = 'http://localhost:8000/'
+
+async function addPlantRequest(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null) {
+  const formData = new FormData();
+ 
+  formData.append('plantName', plantName)
+  if (plantImage) {
+    formData.append('plantImage', plantImage);
+  };
+  for (let ex of formData.entries()) {
+    console.log(ex)
+  }
+  const response = await fetch(`${BASIC_URL}addPlant`, {
+    method: 'POST',
+    body: formData
+  });
+};
 
 export default function AddPlant({plants, setPlants, setModal}: AddPlantFormProps) {
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
 
-  function extractNewPlantFromForm(data: dataObject) {
-
-    const newPlants = [...plants, new Plant(data.plantName, data.plantName)]
-    setPlants(newPlants)
+  async function extractNewPlantFromForm(data: dataObject) {
+    const response = await addPlantRequest(data.plantName, data.plantImage)
+    // const newPlants = [...plants, new Plant(response.plantName, response.plantImage)]
+    // setPlants(newPlants)
     reset()
     setModal(false)
   }
@@ -42,13 +60,14 @@ export default function AddPlant({plants, setPlants, setModal}: AddPlantFormProp
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
+                <input type="file" onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    field.onChange(e.target.files[0])
+                  }
+                }} />
                 )}
-                
             />
-            
           </div>
-          
           <GreenButton onClick={handleSubmit} text="Submit"/>
         </form>
     </>

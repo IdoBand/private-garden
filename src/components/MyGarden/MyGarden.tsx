@@ -4,16 +4,42 @@ import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
 import AddPlant from "../AddPlantForm/AddPlantForm"
+import { useQuery } from "@tanstack/react-query"
+
+function bufferToImage(arrayBuffer: any) {
+    let binary: string = ''
+    const bytes = new Uint8Array(arrayBuffer)
+    const len = bytes.byteLength
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    // const base64String = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    return btoa(binary)
+}
+
 
 export default function MyGarden() {
     const [addPlantModal, setAddPlantModal] = useState(false)
     const [removeButtons, setRemoveButtons] = useState(false)
 
-    const plant1 = new Plant('Alocasia Dragon', '1')
-    const plant2 = new Plant('Alocasia Green Velvet', '2')
-    const plant3 = new Plant('Monstera Deliciosa','3')
-    const arr: Plant[] = [plant1, plant2, plant3]
-    const [plants, setPlants] = useState<Plant[]>(arr)
+
+    const [plants, setPlants] = useState<Plant[]>([])
+
+
+    useEffect(() => {
+        fetch('http://localhost:8000/getEntireGarden')
+            .then(res => res.json())
+            .then((data) => {
+                const newPlants: Plant[] = []
+                for (let p of data) {
+                const newPlant = new Plant(p._id, p.plantName, p.dateAdded, p.irrigations, p.img.data.data)
+                newPlants.push(newPlant)
+                setPlants(newPlants)
+                }
+            })
+            .catch(() => console.log('there was an error fetching the garden'))
+    }, [])
+ 
 
     async function removePlantsPermanently() {
         const newPlants: Plant[] = plants.filter(plant => plant.checked === false)
@@ -36,6 +62,9 @@ export default function MyGarden() {
         })
         setPlants(newPlants)
     }
+    function searchPlant(str: string){
+        return str
+    }
 
     return (
         <>
@@ -52,11 +81,16 @@ export default function MyGarden() {
                         }
                         </div>
                         
-                        <div id="search-bar"><div>Search Bar</div></div>
-                        <div id="plants-counter">You Have {plants.length} Plants</div>
+                        <div id="search-bar-and-count">
+                            <input id="search-bar-left" type="text" defaultValue="&#128269;"/>
+                            {/* <input id="search-bar" type="text" onChange={searchPlant('s')} placeholder=" Search" /> */}
+                            <div id="plants-counter">You Have {plants.length} Plants</div>
+                        </div>
+                        
                     </div>
                     <div id="plants-container">
-                        {plants.map(plant =>
+              
+                        {plants && plants.map(plant => 
                             <div className="plant-card" key={plant.id}>
                                 {removeButtons && <input
                                                     checked={plant.checked}
@@ -64,12 +98,11 @@ export default function MyGarden() {
                                                     type="checkbox"
                                                     onChange={() => checkBoxPlant(plant.id)}/>
                                 }
-                                
-                                <img src={plant.path} width="100"/>
+
+                                <img width="100" src={`data:image/png;base64,${bufferToImage(plant.imageBufferArray)}`} alt=""/>
                                 <h5> {plant.name} </h5>
                             </div>
-                            
-                            )}
+                        )}
                     </div>
                 </div>
             </div>

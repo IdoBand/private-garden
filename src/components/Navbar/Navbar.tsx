@@ -17,24 +17,23 @@ export default function Navbar() {
                     <div id="details-container">
                         <h2>Created by Ido Band</h2>
 
-                        <b>FrontEnd</b>
+                        <b className='sub-header'>FrontEnd</b>
                         <ul className='tools'>
-                            
                                 <li><img className='logo' src={generatePath('react')} />React</li>
                                 <li><img className='logo' src={generatePath('typescript')}  />TypeScript</li>
                                 <li><img className='logo' src={generatePath('vite')} />Vite</li>
                         </ul>
-                        <b>BackEnd</b>
+                        <b className='sub-header'>BackEnd</b>
                         <ul className='tools'>
-                            
                                 <li><img className='logo' src={generatePath('nodejs')} />node.js</li>
                                 <li>Express</li>
                                 <li><img className='logo' src={generatePath('typescript')}  />TypeScript</li>
                         </ul > 
+                        <b className='sub-header'>Contact</b>
                         <ul className='nav-container'>
-                        <li><img className='logo' src={generatePath('linkedin')} /><a href='https://www.linkedin.com/in/ido-band/' target="_blank">LinkedIn</a></li>
-                        <li><img className='logo' src={generatePath('github')} /><a href='https://github.com/IdoBand' target="_blank">GitHub</a></li>
-                        <li><img className='logo' src={generatePath('gmail')} /><a href="mailto:ido.bandd@gmail.com">ido.bandd@gmail.com</a></li>
+                            <li className="nav-links"><a href='https://www.linkedin.com/in/ido-band/' target="_blank"><img className='logo' src={generatePath('linkedin')} /></a></li>
+                            <li className="nav-links"><a href='https://github.com/IdoBand' target="_blank"><img className='logo' src={generatePath('github')} /></a></li>
+                            <li className="nav-links"><a href="mailto:ido.bandd@gmail.com"><img className='logo' src={generatePath('gmail')} /></a></li>
                         </ul>
                         
                     </div>
@@ -47,7 +46,7 @@ export default function Navbar() {
                 
 
                 <ul className="nav-container">
-                    <li><Link to={'/Home'} className="nav-links">Home</Link></li>
+                    <li><Link to={'/'} className="nav-links">Home</Link></li>
                     <li><Link to={'MyGarden'}className="nav-links">My Garden</Link></li>
                     <li><Link className="nav-links">Identify Plant</Link></li>
                     <li><Link to={'LearnSomethingNew'} className="nav-links">Random Plant</Link></li>

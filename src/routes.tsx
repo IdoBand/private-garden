@@ -7,10 +7,10 @@ import MyGarden from './components/MyGarden/MyGarden';
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Navbar />,
+        element: <App />,
         children: [
             {
-                path: '/Home',
+                path: '/',
                 element: <Home />
             },
             {
