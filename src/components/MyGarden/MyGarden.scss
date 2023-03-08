@@ -10,7 +10,7 @@
 }
 #my-garden-content {
     width: 90%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
     border: solid lightgray 1px;
     border-radius: 5px;
     padding: 10px;
@@ -53,8 +53,6 @@
         border-color: green;
     }
 }
-
-
 //////////     C H E C K   B O X     //////////
 
 input[type="checkbox"] {
@@ -91,6 +89,9 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    #plants-counter{
+        color: white;
+    }
 }  
 #search-bar {
     border: 0;
@@ -102,7 +103,7 @@ input[type="checkbox"] {
   }
   #search-bar-left{
     border: none;
-    background-color: green;
+    background-color: rgb(0, 150, 0);
     border-radius: 5px 0 0 5px;
     width: 20px;
     &:focus {

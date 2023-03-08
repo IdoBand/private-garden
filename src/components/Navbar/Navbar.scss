@@ -1,5 +1,5 @@
 *{
-    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
     list-style: none;
 }
@@ -41,12 +41,18 @@ body::-webkit-scrollbar {
 
   header {
     @include flexCenter();
-    // background-color: rgba(8, 180, 8, 0.45);
     flex-direction: row;
     justify-content: space-around;
-    border-bottom: 2px solid white;
-
-    
+  }
+  #logo-container{
+    @include flexCenter();
+    flex-direction: row;
+    #page-logo{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
   }
   .nav-container {
     display: flex;
@@ -67,7 +73,7 @@ body::-webkit-scrollbar {
       position: absolute;
       margin-left: 10px;
       width: 0.5px;
-      height: 20px;
+      height: 15px;
     }
   }
   ///////////////   A B O U T   ///////////////

@@ -5,12 +5,7 @@ interface Props {
   text: string;
   onClick: any;
 }
-
-const RedButton: React.FC<Props> = ({
-  text, 
-  onClick,
-  }) => {
-  const NewButton = styled.button`
+const NewButton = styled.button`
   font-family:Arial, Helvetica, sans-serif;
   font-weight: 200;
   color: white;
@@ -22,14 +17,17 @@ const RedButton: React.FC<Props> = ({
   margin: 5px;
   &:hover {
     background-color: rgb(180, 0, 0);
+    cursor: pointer;
   }
 `
+
+const RedButton: React.FC<Props> = ({
+  text, 
+  onClick,
+  }) => {
+  
 return (
-  <NewButton
-    onClick={onClick}
-  > 
-    {text}
-  </NewButton>
+  <NewButton onClick={onClick}> {text} </NewButton>
 )
 }
 export default RedButton

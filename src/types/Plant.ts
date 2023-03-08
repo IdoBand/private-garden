@@ -3,17 +3,17 @@ export class AbstractPlant {
     name: string;
     family: string | null;
     #dateAdded: string;
-    irrigations: [];
-    path: string;
+    irrigations: any[];
+    imageBufferArray: any;
     checked: boolean
-    constructor (name: string, id: string) {
+    constructor (id: string, name: string, dateAdded: string, irrigations: any[], imageBufferArray: any) {
         this.id = id
         this.name = name
         this.family = null
-        this.#dateAdded = this.dateValidator()
-        this.irrigations = []
+        this.#dateAdded = dateAdded
+        this.irrigations = irrigations
         this.checked = false
-        this.path = `/src/assets/plants/${this.validateName(name)}.jpeg`
+        this.imageBufferArray = imageBufferArray
     }
     validateName(name: string): string {
         if (name.includes(' ')) {
@@ -31,19 +31,14 @@ export class AbstractPlant {
     }
 }
 
-
-
-export class Plant {
-    id: string
-    name: string;
+export class Plant extends AbstractPlant {
     family: string | null;
     #dateAdded: string;
     irrigations: any[];
     imageBufferArray: any;
     checked: boolean
     constructor (id: string, name: string, dateAdded: string, irrigations: any[], imageBufferArray: any) {
-        this.id = id
-        this.name = name
+        super(id, name, dateAdded, irrigations, imageBufferArray)
         this.family = null
         this.#dateAdded = dateAdded
         this.irrigations = irrigations

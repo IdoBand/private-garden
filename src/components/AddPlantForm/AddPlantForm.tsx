@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import GreenButton from '../Button/GreenButton';
 import { Plant } from "../../types/Plant";
 
+
 interface dataObject {
   plantName: string;
   plantImage: 'image/jpeg' | 'image/jpg';
@@ -12,7 +13,7 @@ interface AddPlantFormProps {
   setModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const BASIC_URL = 'http://localhost:8000/'
+const BASIC_URL = 'http://localhost:8000'
 
 async function addPlantRequest(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null) {
   const formData = new FormData();
@@ -21,10 +22,7 @@ async function addPlantRequest(plantName: string, plantImage?: 'image/jpeg' | 'i
   if (plantImage) {
     formData.append('plantImage', plantImage);
   };
-  for (let ex of formData.entries()) {
-    console.log(ex)
-  }
-  const response = await fetch(`${BASIC_URL}addPlant`, {
+  const response = await fetch(`${BASIC_URL}/addPlant`, {
     method: 'POST',
     body: formData
   });
@@ -36,8 +34,6 @@ export default function AddPlant({plants, setPlants, setModal}: AddPlantFormProp
 
   async function extractNewPlantFromForm(data: dataObject) {
     const response = await addPlantRequest(data.plantName, data.plantImage)
-    // const newPlants = [...plants, new Plant(response.plantName, response.plantImage)]
-    // setPlants(newPlants)
     reset()
     setModal(false)
   }
