@@ -1,21 +1,21 @@
-@mixin flexCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+@use '../../mixin.scss';
 
   #home-container {
     height: 100%;
     margin-top: 50px;
-    @include flexCenter();
+    @include mixin.flexCenter();
     border-radius: 5px;
   }
   #welcome-message {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: solid lightgray 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid lightgray 2px;
     border-radius: 5px;
     padding: 10px;
     text-align: center;
     min-width: 600px;
     min-height: 200px;
   }
+  h1 :has(h3){
+    color: #fff;
+  }
+  

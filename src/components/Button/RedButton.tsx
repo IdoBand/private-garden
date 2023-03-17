@@ -6,15 +6,15 @@ interface Props {
   onClick: any;
 }
 const NewButton = styled.button`
-  font-family:Arial, Helvetica, sans-serif;
   font-weight: 200;
   color: white;
-  border: 0px solid lightgray;
-  background-color: rgb(190, 60, 60);
+  border: none;
+  background: linear-gradient(25deg, rgb(190, 60, 60), rgb(255, 0, 0));
   border-radius: 10px;
   height: 25px;
   min-width: 100px;
   margin: 5px;
+  white-space: nowrap;
   &:hover {
     background-color: rgb(180, 0, 0);
     cursor: pointer;

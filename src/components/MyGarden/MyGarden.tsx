@@ -3,46 +3,59 @@ import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
-import AddPlant from "../AddPlantForm/AddPlantForm"
+import AddPlantForm from "../forms/AddPlantForm/AddPlantForm"
 import { useQuery } from "@tanstack/react-query"
+import searchLogo from '../../assets/search_icon-white2.png'
+import { Link } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
+import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
+import Spinner from "../Spinner/Spinner"
+import { bufferToImage, capitalize } from "../../hooks/helpfulFunctions"
+import { fetchEntireGarden, fetchRemovePlantsPermanently } from '../../hooks/fetchers'
 
-function bufferToImage(arrayBuffer: any) {
-    let binary: string = ''
-    const bytes = new Uint8Array(arrayBuffer)
-    const len = bytes.byteLength
-    for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
-    }
-    return btoa(binary)
-}
 
-let originalPlantsHolder: Plant[] =[]
+let originalPlantsHolder: Plant[] = []
 
 export default function MyGarden() {
-    
+    const [isFetching, setIsFetching] = useState(false)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const [removeButtons, setRemoveButtons] = useState(false)
     const [plants, setPlants] = useState<Plant[]>([])
     const searchBarInputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        fetch('http://localhost:8000/getEntireGarden')
-            .then(res => res.json())
-            .then((data) => {
-                const newPlants: Plant[] = []
-                for (let p of data) {
-                const newPlant = new Plant(p._id, p.plantName, p.dateAdded, p.irrigations, p.img.data.data)
-                newPlants.push(newPlant)
-                }
-                setPlants(newPlants)
-                originalPlantsHolder = newPlants
-            })
-            .catch(() => console.log('there was an error fetching the garden'))
-    }, [])
-
-    async function removePlantsPermanently() {
-        const newPlants: Plant[] = plants.filter(plant => plant.checked === false)
+    // Redux
+    // const plants = useAppSelector(state => state.plants.plants)
+    const dispatch = useAppDispatch()
+    async function onMyGardenMount () {
+        setIsFetching(true)
+        const plantsDB = await fetchEntireGarden()
+        const newPlants: Plant[] = []
+        for (let p of plantsDB) {
+        const newPlant = new Plant(p._id, p.plantName, p.dateAdded, p.img.data.data)
+        newPlants.push(newPlant)
+        }
+        dispatch(addPlants(newPlants))
+        setIsFetching(false)
         setPlants(newPlants)
+        originalPlantsHolder = newPlants
+    }
+    useEffect(() => {
+        onMyGardenMount()
+}, [])
+
+    async function handleRemovePlantsPermanently() {
+        const newPlants: Plant[] = []
+        let IdsToRemove: string[] =[]
+        for (let plant of originalPlantsHolder) {
+            plant.checked ? IdsToRemove.push(plant.id) : newPlants.push(plant);
+        }
+        if (IdsToRemove.length > 0) {
+            setIsFetching(true)
+            await fetchRemovePlantsPermanently(IdsToRemove)
+            setIsFetching(false)
+            setPlants(newPlants)
+            IdsToRemove = []
+            originalPlantsHolder = newPlants
+        }
     }
     function checkBoxPlant(plantId: string) {
         const newPlants: Plant[] =[]
@@ -51,6 +64,7 @@ export default function MyGarden() {
                 plant.checked = !plant.checked}
             newPlants.push(plant)
         })
+        originalPlantsHolder = newPlants
         setPlants(newPlants)
     }
     function selectAll() {
@@ -59,11 +73,10 @@ export default function MyGarden() {
             plant.checked = !plant.checked;
             newPlants.push(plant)
         })
+        originalPlantsHolder = newPlants
         setPlants(newPlants)
     }
     function handleSearch(){
-        const searchValue = searchBarInputRef.current!.value
-        console.log(searchValue)
         if (searchBarInputRef.current!.value !== '') {
             const searchValue = searchBarInputRef.current!.value.toLocaleLowerCase()
             const filteredPlants: Plant[] = originalPlantsHolder.filter(plant => plant.name.includes(searchValue))
@@ -72,53 +85,56 @@ export default function MyGarden() {
             setPlants(originalPlantsHolder)
         }
     }
-    function CapitalizeName(name: string): string {
-        const words = name.split(' ')
-        const capitalizedWords = words.map(word => {
-            const firstLetter = word.charAt(0).toUpperCase();
-            const restOfWord = word.slice(1);
-            return `${firstLetter}${restOfWord}`;
-        })
-        return capitalizedWords.join(' ')   
+    function updateCurrentPlant(plant: Plant) {
+        dispatch(setCurrentPlant(plant))
     }
+    
     return (
         <>
-            <div id="my-Garden-container">
+            <div className="page-container">
                 <div id="my-garden-content">
                     <div id="my-garden-options">
                         <div id="buttons">
+
                         <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)}/>
-                        <GreenButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
+                        <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
                         {removeButtons && <>
                             <RedButton text="Select All" onClick={selectAll}/>
-                            <RedButton text="Remove Permanently" onClick={() => removePlantsPermanently()}/>
+                            <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
                                         </>
                         }
                         </div>
                         <div id="search-bar-and-count">
-                            <input id="search-bar-left" type="text" defaultValue="&#128269;"/>
+                            <div id="search-bar-left"><img src={searchLogo}/></div>
                             <input id="search-bar" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
                             <div id="plants-counter">You Have {plants.length} Plants</div>
                         </div>    
                     </div>
+                    {isFetching ? <Spinner />
+                                :
                     <div id="plants-container">
-              
-                        {plants && plants.map(plant => 
-                            <div className="plant-card" key={plant.id}>
+                        {plants.map(plant =>
+                        <Link to={`/PlantTimeline/${plant.id}`} key={plant.id}>
+                            <div className="plant-card" onClick={() => updateCurrentPlant(plant)}>
                                 {removeButtons && <input
                                                     checked={plant.checked}
                                                     className="toggle"
                                                     type="checkbox"
+                                                    onClick={(e) => e.stopPropagation()}
                                                     onChange={() => checkBoxPlant(plant.id)}/>
                                 }
-                                <img width="100" src={`data:image/png;base64,${bufferToImage(plant.imageBufferArray)}`} alt=""/>
-                                <h5> {CapitalizeName(plant.name)} </h5>
+                                <img width="100" src={`data:image/png;base64,${bufferToImage(plant.imageBufferArray)}`} alt={plant.name}/>
+                                <h5> {capitalize(plant.name)} </h5>
                             </div>
-                        )}
-                    </div>
+                        </Link>
+                        )
+                        }
+                    </div>}
                 </div>
+    
+                
             </div>
-            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddPlant plants={plants} setPlants={setPlants} setModal={setAddPlantModal}/>}></Modal>}
+            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddPlantForm setModal={setAddPlantModal} refetch={onMyGardenMount}/>}></Modal>}
         </>
     )
 }

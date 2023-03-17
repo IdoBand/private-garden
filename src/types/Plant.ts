@@ -1,17 +1,18 @@
+import { PlantUpdate } from "./PlantUpdate";
 export class AbstractPlant {
     id: string
     name: string;
     family: string | null;
     #dateAdded: string;
-    irrigations: any[];
+    updates: PlantUpdate[];
     imageBufferArray: any;
     checked: boolean
-    constructor (id: string, name: string, dateAdded: string, irrigations: any[], imageBufferArray: any) {
+    constructor (id: string, name: string, dateAdded: string, imageBufferArray: any) {
         this.id = id
         this.name = name
         this.family = null
         this.#dateAdded = dateAdded
-        this.irrigations = irrigations
+        this.updates = []
         this.checked = false
         this.imageBufferArray = imageBufferArray
     }
@@ -33,15 +34,15 @@ export class AbstractPlant {
 
 export class Plant extends AbstractPlant {
     family: string | null;
-    #dateAdded: string;
-    irrigations: any[];
+    dateAdded: string;
+    updates: PlantUpdate[];
     imageBufferArray: any;
     checked: boolean
-    constructor (id: string, name: string, dateAdded: string, irrigations: any[], imageBufferArray: any) {
-        super(id, name, dateAdded, irrigations, imageBufferArray)
+    constructor (id: string, name: string, dateAdded: string, imageBufferArray: any) {
+        super(id, name, dateAdded, imageBufferArray)
         this.family = null
-        this.#dateAdded = dateAdded
-        this.irrigations = irrigations
+        this.dateAdded = dateAdded
+        this.updates = []
         this.checked = false
         this.imageBufferArray = imageBufferArray
     }

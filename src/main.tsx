@@ -6,24 +6,28 @@ import './components/RandomPlant/RandomPlant.scss'
 import './components/Home/Home.scss'
 import './components/MyGarden/MyGarden.scss'
 import './components/Modal/Modal.scss'
-import './components/AddPlantForm/AddPlantForm.scss'
+import './components/forms/Form.scss'
+import './components/PlantTimeline/PlantTimeline.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       retry: false,
-      enabled: false, // disable this query from automatically running on page load
+      enabled: true, // disable this query from automatically running on page load
     },
   },
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
-  <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+  <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Provider>
   // </React.StrictMode>,
 )

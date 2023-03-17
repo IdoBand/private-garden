@@ -1,25 +1,23 @@
-@mixin flexCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+@use '../../mixin.scss';
 
-#meet-a-plant-container{
-    @include flexCenter();
-    flex-direction: column;
-    padding: 10px
+.page-container{
+    @include mixin.page-container();
+    
 }
-#content {
-    @include flexCenter();
-    width: 80%;
+#random-plant-container {
+    @include mixin.content-container();
 }
-#sub-content {
-   @include flexCenter();
+#random-plant-options{
+    display: flex;
+    margin: 10px 0 0  0;
+}
+#random-plant-content {
+   @include mixin.flexCenter();
     padding: 20px;
     width: 80%;
     background-color: white;
-    box-shadow: inset;
     border: solid black;
     border-radius: 10px;
     min-height: 70px;
+    white-space: normal;
   }

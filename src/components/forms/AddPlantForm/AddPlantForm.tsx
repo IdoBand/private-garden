@@ -1,54 +1,42 @@
 import { useForm, Controller } from "react-hook-form";
-import GreenButton from '../Button/GreenButton';
-import { Plant } from "../../types/Plant";
+import GreenButton from '../../Button/GreenButton';
+import { Plant } from "../../../types/Plant";
+import { fetchAddPlant } from "../../../hooks/fetchers";
 
-
-interface dataObject {
+interface addPlantDataObject {
   plantName: string;
   plantImage: 'image/jpeg' | 'image/jpg';
 }
 interface AddPlantFormProps {
-  plants: Plant[]
-  setPlants: React.Dispatch<React.SetStateAction<Plant[]>>
+  // plants: Plant[]
+  // setPlants: React.Dispatch<React.SetStateAction<Plant[]>>
   setModal: React.Dispatch<React.SetStateAction<boolean>>
+  refetch: any
 }
 
-const BASIC_URL = 'http://localhost:8000'
-
-async function addPlantRequest(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null) {
-  const formData = new FormData();
- 
-  formData.append('plantName', plantName)
-  if (plantImage) {
-    formData.append('plantImage', plantImage);
-  };
-  const response = await fetch(`${BASIC_URL}/addPlant`, {
-    method: 'POST',
-    body: formData
-  });
-};
-
-export default function AddPlant({plants, setPlants, setModal}: AddPlantFormProps) {
+export default function AddPlantForm({setModal, refetch}: AddPlantFormProps) {
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
 
-  async function extractNewPlantFromForm(data: dataObject) {
-    const response = await addPlantRequest(data.plantName, data.plantImage)
+  async function extractNewPlantFromForm(data: addPlantDataObject) {
+    const response = await fetchAddPlant(data.plantName, data.plantImage)
+    console.log(response);
+    refetch()
     reset()
     setModal(false)
   }
   
   return (
     <>
-        <form onSubmit={handleSubmit(data => {
-          extractNewPlantFromForm(data as dataObject);
+        <form className="form" onSubmit={handleSubmit(data => {
+          extractNewPlantFromForm(data as addPlantDataObject);
         })} id="add-plant-form">
-          <h2>Add a New Plant</h2>
+          <div className="form-header">Add a New Plant</div>
           <div className="form-section">
             <label>Plant Name:</label>
             <input {...register("plantName", {required: true})} />
+            {errors.plantName && <span className="error-span">Plant name is required.</span>}
           </div>
-          {errors.plantName && <span className="error-span">Plant name is required.</span>}
           <div className="form-section">
             <label>Plant Image:</label>
             <Controller

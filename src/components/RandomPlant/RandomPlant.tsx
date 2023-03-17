@@ -2,7 +2,7 @@ import { useState } from "react"
 import { plantNames } from "./plants"
 import GreenButton from "../Button/GreenButton"
 // import { useQuery } from "@tanstack/react-query"
-import { PropagateLoader } from "react-spinners"
+import Spinner from "../Spinner/Spinner"
 
 export default function RandomPlant() {
     const [plant, setPlant] = useState('Click for content')
@@ -26,24 +26,21 @@ export default function RandomPlant() {
  
     return (
         <>
-            <div id="meet-a-plant-container">
-                <GreenButton 
-                    text="Fetch"
-                    onClick={fetchPlant}
-                    width="85"
-                    />
-                <br />
-                <div id="content"> 
-                    <div id="sub-content">
+            <div className="page-container">
+                <div id="random-plant-container">
+                    <div id="random-plant-options">
+                        <GreenButton 
+                        text="Fetch"
+                        onClick={fetchPlant}
+                        />
+                    </div>
+                    <div id="random-plant-content">
                         {plant? 
                             plant
                             : 
-                            <PropagateLoader color="green"/>}
+                            <Spinner />}
                     </div>
                 </div>
-                
-                
-                    
             </div>
         </>
     )

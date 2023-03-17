@@ -2,8 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import RandomPlant from './components/RandomPlant/RandomPlant';
 import App from './App';
 import Home from './components/Home/Home';
-import Navbar from './components/Navbar/Navbar';
 import MyGarden from './components/MyGarden/MyGarden';
+import PlantTimeline from './components/PlantTimeline/PlantTimeline';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -14,15 +14,17 @@ export const router = createBrowserRouter([
                 element: <Home />
             },
             {
-                path: '/LearnSomethingNew',
+                path: '/RandomPlant',
                 element: <RandomPlant />
             },
             {
                 path: '/MyGarden',
                 element: <MyGarden />
             },
-         
-
+            {
+                path: '/PlantTimeline/:id',
+                element: <PlantTimeline />
+            },
         ]
     }
 ])

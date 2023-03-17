@@ -11,8 +11,12 @@ export default function Modal({open, onClose, content}: ModalProps) {
         <>
                     <div className="overlay">
                         <div className="modal">
-                            <button className="x-button" onClick={onClose}>X</button>
-                            {content}
+
+                                <button className="x-button" onClick={onClose}>X</button>
+                            <div className="modal-content">
+                                {content}
+                            </div>
+                            
                         </div>
                     </div>  
                 </>,

@@ -1,0 +1,20 @@
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+@mixin page-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0 0 10px 0;
+    margin: 0 0 0 0;
+}
+@mixin content-container {
+  padding: 10px 60px 10px 60px;
+  margin: 0;
+}
+@mixin scroll-bar {
+  
+}
