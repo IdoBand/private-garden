@@ -1,13 +1,5 @@
 @use '../../mixin.scss';
 
-.page-container{
-    @include mixin.page-container();
-    flex-direction: column;
-}
-
-#plant-timeline-container{
-    @include mixin.content-container();
-}
 .plant-options{
     display: flex;
     justify-content: space-between;
@@ -19,7 +11,8 @@
     margin: 0 0 10px 0;
     .plant-logo{
        margin: 2px;
-        width: 80px;
+        width: 150px;
+        height: 150px;
         border-radius: 10px;
     }
     #current-plant-details{

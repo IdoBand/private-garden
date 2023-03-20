@@ -11,6 +11,7 @@ export class PlantUpdate {
         fertilizerQuantity?: Number | undefined
     }
     notes: string
+    checked: boolean
     constructor(id: string, plantId: string, plantName: string, dateAdded: string, updateImageBufferArray: any,
         IrrigationBoolean: boolean, waterQuantity: number | undefined, fertilizer: string | undefined, fertilizerQuantity: number | undefined, notes: string) {
         this.id = id
@@ -25,6 +26,7 @@ export class PlantUpdate {
             fertilizerQuantity
         }
         this.notes = notes
+        this.checked = false
     }
     dateValidator(date?: string | null) {
         if (date) {return date}

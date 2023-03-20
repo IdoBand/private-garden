@@ -4,6 +4,7 @@ import App from './App';
 import Home from './components/Home/Home';
 import MyGarden from './components/MyGarden/MyGarden';
 import PlantTimeline from './components/PlantTimeline/PlantTimeline';
+import IdentifyPlant from './components/IdentifyPlant/IdentifyPlant'
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
             {
                 path: '/PlantTimeline/:id',
                 element: <PlantTimeline />
+            },
+            {
+                path: '/IdentifyPlant',
+                element: <IdentifyPlant />
             },
         ]
     }

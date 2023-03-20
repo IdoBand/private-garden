@@ -1,3 +1,5 @@
+@use '../../mixin.scss';
+
 .form{
     text-align: center;
     max-height: 80%;
@@ -8,13 +10,13 @@
     align-items: center;
     justify-content: space-between;
     margin: 15px 0 15px 0;
+    min-width: 400px;
 }
 .error-span{
     position: absolute;
     color: red;
-    font-size: small;
-    right: 6%;
-    bottom: -15px;
+    font-size: 15px;
+    right: 2%;
 }
 #notes-form-input {
     width: 100%;
@@ -25,12 +27,33 @@
     font-size: large;
 }
 .form-subheader {
+    position: relative;
     font-size: medium;
-    color: linear-gradient(25deg, rgb(0, 150, 0), rgb(0,255,0))
+    @include mixin.flexCenter();
+    padding: 1px 0 1px 0;
+    color: white;
+    &::before{
+        content: '';
+        z-index: -1;
+        position: absolute;
+        border-radius: 10px;
+        background: linear-gradient(25deg, rgb(0, 150, 0, 0.5), rgb(0, 255, 0));
+        width: 60%;
+        height: 100%;
+    }
 }
 .form-label {
     font-size: small;
 }
+.image-select-container{
+    margin: 15px 0 15px 0;
+    display: flex;
+    justify-content: flex-start;
+}
 input[type="file"] {
     max-width: 180px;
+    margin: 0 0 0 20px;
+}
+input[type="text"] {
+    width: 250px;
 }

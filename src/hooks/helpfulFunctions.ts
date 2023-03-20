@@ -1,5 +1,3 @@
-export const BASIC_URL: string = 'http://localhost:8000'
-
 export function bufferToImage(arrayBuffer: any) {
     let binary: string = ''
     const bytes = new Uint8Array(arrayBuffer)

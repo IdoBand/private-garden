@@ -20,6 +20,7 @@ export default function MyGarden() {
     const [isFetching, setIsFetching] = useState(false)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const [removeButtons, setRemoveButtons] = useState(false)
+    const [responseMessage, setResponseMessage] = useState<string>('')
     const [plants, setPlants] = useState<Plant[]>([])
     const searchBarInputRef = useRef<HTMLInputElement>(null);
     // Redux
@@ -50,8 +51,10 @@ export default function MyGarden() {
         }
         if (IdsToRemove.length > 0) {
             setIsFetching(true)
-            await fetchRemovePlantsPermanently(IdsToRemove)
+            const responseMessage = await fetchRemovePlantsPermanently(IdsToRemove)
             setIsFetching(false)
+            setRemoveButtons(false)
+            setResponseMessage(responseMessage)
             setPlants(newPlants)
             IdsToRemove = []
             originalPlantsHolder = newPlants
@@ -92,10 +95,9 @@ export default function MyGarden() {
     return (
         <>
             <div className="page-container">
-                <div id="my-garden-content">
+                <div className="page-content">
                     <div id="my-garden-options">
                         <div id="buttons">
-
                         <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)}/>
                         <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
                         {removeButtons && <>
@@ -124,17 +126,15 @@ export default function MyGarden() {
                                                     onChange={() => checkBoxPlant(plant.id)}/>
                                 }
                                 <img width="100" src={`data:image/png;base64,${bufferToImage(plant.imageBufferArray)}`} alt={plant.name}/>
-                                <h5> {capitalize(plant.name)} </h5>
+                                <div className="plant-name"> {capitalize(plant.name)} </div>
                             </div>
                         </Link>
-                        )
-                        }
+                        )}
                     </div>}
                 </div>
-    
-                
             </div>
-            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddPlantForm setModal={setAddPlantModal} refetch={onMyGardenMount}/>}></Modal>}
+            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddPlantForm setModal={setAddPlantModal} refetch={onMyGardenMount} setResponseMessage={setResponseMessage}/>}></Modal>}
+            {responseMessage && <Modal open={true} onClose={() => setResponseMessage('')} content={responseMessage}></Modal>}
         </>
     )
 }

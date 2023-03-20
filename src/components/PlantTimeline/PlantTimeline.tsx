@@ -1,5 +1,6 @@
 import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
+import RedButton from "../Button/RedButton"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
 import { useEffect, useState, useRef } from "react"
 import { PlantUpdate } from "../../types/PlantUpdate"
@@ -8,13 +9,15 @@ import checkedSVG from '../../assets/checked.png'
 import redXsvg from '../../assets/redX.png'
 import Modal from "../Modal/Modal"
 import AddPlantUpdateForm from "../forms/AddUpdateForm/AddUpdateForm"
-import { setCurrentPlant } from "../../redux/plantsSlice"
-import EditPlantForm from '../forms/EditPlantForm/EditPlantForm'
+import { setCurrentPlant, setCurrentUpdate } from "../../redux/plantsSlice"
 import {fetchUpdatesByPlantId }from '../../hooks/fetchers'
 import Spinner from "../Spinner/Spinner"
+import EditUpdateForm from "../forms/EditUpdateForm/EditUpdateForm"
+import EditPlantForm from "../forms/EditPlantForm/EditPlantForm"
 export default function PlantTimeline() {
     const [isFetching, setIsFetching] = useState(false)
     const [addPlantUpdateModal, setAddPlantUpdateModal] = useState<boolean>(false)
+    const [editPlantModal, setEditPlantModal] = useState<boolean>(false)
     const [editPlantUpdateModal, setEditPlantUpdateModal] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const currentPlant = useAppSelector(state => state.plants.currentPlant)
@@ -25,7 +28,8 @@ export default function PlantTimeline() {
     async function onPlantTimelineMount() {
         setIsFetching(true)
         const updates = await fetchUpdatesByPlantId(currentPlant!.id)
-        const newUpdates = []
+        const newUpdates: PlantUpdate[] = []
+        currentPlant!.updates = newUpdates
         for (let update of updates) {
             const newUpdate = new PlantUpdate(update._id, update.plantId, update.plantName, update.dateAdded, update.img.data.data,
                             update.irrigation.boolean, update.irrigation.waterQuantity,
@@ -50,11 +54,18 @@ export default function PlantTimeline() {
             }
         }
     }
+    function handleUpdateModal(plantUpdate: PlantUpdate): void {
+        dispatch(setCurrentUpdate(plantUpdate))
+        setEditPlantUpdateModal(true)
+    }
+    async function handleRemove() {
+
+    }
 
     return(
         <>
         <div className="page-container">
-            <div id="plant-timeline-container">
+            <div className="page-content">
             {isFetching ? <Spinner />
                                 : 
                 <>
@@ -69,11 +80,12 @@ export default function PlantTimeline() {
                         </div>
                         <div className="plant-timeline-buttons">
                             <GreenButton text="Add an Update" onClick={() => setAddPlantUpdateModal(true)}/>
-                            <GreenButton text="Edit Plant" onClick={() => setEditPlantUpdateModal(true)}/>
+                            <GreenButton text="Edit Plant" onClick={() => setEditPlantModal(true)}/>
+                            <RedButton text="Remove Updates" onClick={handleRemove} />
                         </div>
                         <div className="select-current-plant">
                             Select Current Plant<br />
-                            <select defaultValue={currentPlant?.name} ref={selectInput} onChange={switchCurrentPlant}>
+                            <select value={currentPlant?.name} ref={selectInput} onChange={switchCurrentPlant}>
                                 {plants.map(plant => {
                                     return(
                                         <option key={plant.id} data-key={plant.id}>{plant.name}</option>
@@ -88,7 +100,7 @@ export default function PlantTimeline() {
                             <div className="update-card" key={update.id}>
                                 <div className="date-and-edit">
                                     <div className="card-date">{update.dateAdded}</div>
-                                    <GreenButton text="Edit Update" onClick={editUpdate}/>
+                                    <GreenButton text="Edit Update" onClick={() => handleUpdateModal(update)}/>
                                 </div>
                                 <div className="info">
                                     <div className="update-irrigation">
@@ -114,7 +126,8 @@ export default function PlantTimeline() {
             </div>
         </div>
         {addPlantUpdateModal && <Modal open={addPlantUpdateModal} onClose={() => setAddPlantUpdateModal(false)} content={<AddPlantUpdateForm currentPlant={currentPlant as Plant} setModal={setAddPlantUpdateModal} refetch={onPlantTimelineMount}/>}></Modal>}
-        {editPlantUpdateModal && <Modal open={editPlantUpdateModal} onClose={() => setEditPlantUpdateModal(false)} content={<EditPlantForm setModal={setEditPlantUpdateModal}/>}></Modal>}
+        {editPlantModal && <Modal open={editPlantModal} onClose={() => setEditPlantModal(false)} content={<EditPlantForm setModal={setEditPlantModal}/>}></Modal>}
+        {editPlantUpdateModal && <Modal open={editPlantUpdateModal} onClose={() => setEditPlantUpdateModal(false)} content={<EditUpdateForm currentPlant={currentPlant as Plant} setModal={setEditPlantUpdateModal} />}></Modal>}
         </>
     )
 }

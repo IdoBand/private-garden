@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Plant } from '../types/Plant'
+import { PlantUpdate } from '../types/PlantUpdate';
 interface plantsState {
     plants: Plant[];
     currentPlant: Plant | null
+    currentUpdate: PlantUpdate | null
 }
 
 const initialState: plantsState = {
     plants: [],
-    currentPlant: null
+    currentPlant: null,
+    currentUpdate: null
 }
 
 const plantsSlice = createSlice({
@@ -29,10 +32,17 @@ const plantsSlice = createSlice({
             prepare: (newPlant: Plant) => {
                 return { payload: newPlant}
             }
+        },
+        setCurrentUpdate: {
+            reducer: (state, action: PayloadAction<PlantUpdate>) => {
+                state.currentUpdate = action.payload
+            },
+            prepare: (newPlantUpdate: PlantUpdate) => {
+                return { payload: newPlantUpdate}
+            }
         }
-        
     }
 })
 
-export const { addPlants, setCurrentPlant } = plantsSlice.actions
+export const { addPlants, setCurrentPlant, setCurrentUpdate } = plantsSlice.actions
 export default plantsSlice.reducer

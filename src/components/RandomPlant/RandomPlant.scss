@@ -1,20 +1,12 @@
 @use '../../mixin.scss';
 
-.page-container{
-    @include mixin.page-container();
-    
-}
-#random-plant-container {
-    @include mixin.content-container();
-}
 #random-plant-options{
     display: flex;
-    margin: 10px 0 0  0;
 }
 #random-plant-content {
    @include mixin.flexCenter();
     padding: 20px;
-    width: 80%;
+    color: black;
     background-color: white;
     border: solid black;
     border-radius: 10px;

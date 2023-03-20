@@ -14,7 +14,7 @@ interface EditPlantFormProps {
 }
 
 
-export default function AddPlantForm({setModal}: EditPlantFormProps) {
+export default function EditPlantForm({setModal}: EditPlantFormProps) {
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const currentPlant = useAppSelector(state => state.plants.currentPlant)

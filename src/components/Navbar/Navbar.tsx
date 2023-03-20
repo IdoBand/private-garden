@@ -27,7 +27,7 @@ export default function Navbar() {
                 <ul className="nav-container">
                     <li><Link to={'/'} className="nav-links">Home</Link></li>
                     <li><Link to={'MyGarden'}className="nav-links">My Garden</Link></li>
-                    <li><Link className="nav-links">Identify Plant</Link></li>
+                    <li><Link to={'IdentifyPlant'} className="nav-links">Identify Plant</Link></li>
                     <li><Link to={'RandomPlant'} className="nav-links">Random Plant</Link></li>
                     <li><Link className="nav-links" onClick={() => setAbout(true)}>About</Link></li>
                 </ul>

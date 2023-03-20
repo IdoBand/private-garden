@@ -1,13 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
 import GreenButton from '../../Button/GreenButton';
 import { PlantUpdate } from "../../../types/PlantUpdate";
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Plant } from "../../../types/Plant";
 import { capitalize, todaysDateString, dateInRightFormat } from "../../../hooks/helpfulFunctions";
 import { fetchAddPlantUpdate } from "../../../hooks/fetchers";
+import ImageCropDialog from '../../ImageCrop/ImageCropDialog'
 interface addPlantUpdateDataObject {
   date: string;
-  updateImage?: File |'image/jpeg' | 'image/jpg';
+  updateImage?: File |'image/jpeg' | 'image/jpg' | null;
   irrigationBoolean: boolean;
   waterQuantity?: string;
   fertilizer?: string;
@@ -25,15 +26,16 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const [irrigationFormSection, setIrrigationFormSection] = useState<boolean>(false)
-
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const imageFileRef = useRef(null);
+  const imageFileNameRef = useRef<string>('noname')
+  function assignCroppedImageToRef(file: any) {
+    imageFileRef.current = file
+  }
   async function extractNewUpdateFromForm(data: addPlantUpdateDataObject) {
-    
     data.date = dateInRightFormat(data.date)
-    console.log(data.updateImage);
-    
-    if (!data.updateImage) {
-      data.updateImage = await new File(['logo.jpg'], '../../assets/logo.jpg', { type: "image/jpg" })
-      console.log('default image should be uploaded')
+    if (data.updateImage) {
+      data.updateImage = imageFileRef.current
     }
     await addPlantUpdateRequest(data)
     refetch()
@@ -58,7 +60,6 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
         updateObject.notes as string
         )
     }
-    console.log(res.message)
   };
   
   return (
@@ -81,13 +82,33 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <input type="file" onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0) {
-                    field.onChange(e.target.files[0])
-                  }
-                }} />
+                <>
+                    <input type="file" onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        const selectedFile = e.target.files[0];
+                        // imageFileNameRef makes sure that the cropped image will receive the image's original name
+                        imageFileNameRef.current = selectedFile.name
+                        console.log(imageFileNameRef.current)
+                        field.onChange(e.target.files[0]);
+                        setImagePreviewUrl(URL.createObjectURL(selectedFile));
+                      }
+                    }} />
+                  </>
                 )}
             />
+          </div>
+          <div className="form-section">
+          {imagePreviewUrl && <>
+                                <ImageCropDialog 
+                                  imageUrl={imagePreviewUrl} 
+                                  cropInit={null} 
+                                  zoomInit={null} 
+                                  aspectInit={null}
+                                  assignCroppedImageToRef={assignCroppedImageToRef}
+                                  imageFileName={imageFileNameRef.current}
+                                />
+                                <img src={imagePreviewUrl} width="350" alt="Preview" />
+                              </>}
           </div>
           <div className="form-section">
             <label className="form-label">Irrigation:</label>

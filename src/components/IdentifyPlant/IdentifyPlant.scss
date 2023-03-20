@@ -1,0 +1,11 @@
+@use '../../mixin';
+.image-and-result {
+    @include mixin.flexCenter();
+}
+.image-to-identify {
+    margin: 0 10px 10px 0;
+}
+.identified-plant {
+    margin: 0 0 0 10px;
+    font-size: 20px;
+}

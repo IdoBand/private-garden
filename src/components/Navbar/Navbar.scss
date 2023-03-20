@@ -98,12 +98,29 @@ body::-webkit-scrollbar {
     &::before {
       content: '';
       background: lightgray;
-      width: 1px;
+      width: 1.5px;
       height: 15px;
       margin: 0 10px 0 0;
     }
   }
-  ///////////////   A B O U T   ///////////////
+///////////////   appearance in multiple pages   ///////////////
+.page-container{
+  @include mixin.page-container();
+}
+.page-content {
+  @include mixin.page-content();
+}
+.a{
+  color: white;
+  text-decoration: underline;
+  &:hover{
+    color: rgba(0,255,0,0.8);
+  }
+}
+.footer-message{
+  font-size: 10px;
+}
+///////////////   A B O U T   ///////////////
   
 .logo{
   margin: 0 5px 0 0;

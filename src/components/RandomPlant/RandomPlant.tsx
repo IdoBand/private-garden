@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { plantNames } from "./plants"
 import GreenButton from "../Button/GreenButton"
-// import { useQuery } from "@tanstack/react-query"
 import Spinner from "../Spinner/Spinner"
 
 export default function RandomPlant() {
@@ -16,18 +15,10 @@ export default function RandomPlant() {
         setPlant(data.extract)
       }
 
-    // const plantQuery = useQuery({
-    //     queryKey: ['plant'],
-    //     queryFn: fetchPlant,
-    //     initialData: false
-    // })
-    // console.log(plantQuery.isLoading)
-
- 
     return (
         <>
             <div className="page-container">
-                <div id="random-plant-container">
+                <div className="page-content">
                     <div id="random-plant-options">
                         <GreenButton 
                         text="Fetch"

@@ -18,7 +18,7 @@ export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
     return resultString.message
 }
 
-export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null) {
+export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
     console.log('adding plant')
     const formData = new FormData();
  
@@ -68,4 +68,16 @@ export async function fetchAddPlantUpdate(updateObject: any, currentPlant: Plant
     });
     const res = await response.json()
     return res.message
+}
+export async function fetchIdentifyPlant(plantImage: File) {
+    const formData = new FormData();
+    formData.append('plantImage', plantImage)
+    const response = await fetch(`${BASIC_URL}/IdentifyPlant`, 
+    {
+        method: 'POST',
+        body: formData
+  })
+    const result = await response.json()
+    console.log(result);
+    return result.message   
 }
