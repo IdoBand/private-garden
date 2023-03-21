@@ -7,16 +7,59 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
+    flex-direction: column;
+    // background-color: rgba(255, 255, 255, 0.2);
     padding: 0 0 10px 0;
     margin: 0 0 0 0;
-    flex-direction: column;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      background: rgba(0, 0, 0, 0.3);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 }
 @mixin page-content {
   padding: 10px 60px 10px 60px;
   margin: 0;
   color: white;
+  // @include flexCenter();
+  // flex-direction: column;
 }
-@mixin scroll-bar {
-  
+@mixin main-scrollbar {
+  &::-webkit-scrollbar {
+    width: 14px;               /* width of the entire scrollbar */
+  }
+  &::-webkit-scrollbar-track {
+    background: white;        /* color of the tracking area */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: lightgray;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 4px solid white;  /* creates padding around scroll thumb */
+    &:hover {
+      background: rgb(0,150,0);
+    }
+  }
+}
+@mixin secondary-scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;               /* width of the entire scrollbar */
+  }
+  &::-webkit-scrollbar-track {
+    background: white;        /* color of the tracking area */
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: lightgray;    /* color of the scroll thumb */
+    border-radius: 10px;       /* roundness of the scroll thumb */
+    border: 1px solid white;  /* creates padding around scroll thumb */
+    &:hover {
+      background: rgb(0,150,0);
+    }
+  }
 }

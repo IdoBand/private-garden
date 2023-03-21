@@ -98,24 +98,40 @@ export default function PlantTimeline() {
                         {plantUpdates.map((update) => {
                         return (
                             <div className="update-card" key={update.id}>
-                                <div className="date-and-edit">
-                                    <div className="card-date">{update.dateAdded}</div>
-                                    <GreenButton text="Edit Update" onClick={() => handleUpdateModal(update)}/>
-                                </div>
-                                <div className="info">
-                                    <div className="update-irrigation">
-                                        <div className="card-property">Irrigation: {update.irrigation.IrrigationBoolean as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>} </div>
-                                        {update.irrigation.IrrigationBoolean as boolean && 
-                                        <>
-                                        <div className="card-property">Water Quantity: {update.irrigation.waterQuantity?.toString()} ml</div>
-                                        <div className="card-property">Fertilizer: {update.irrigation.fertilizer}</div>
-                                        <div className="card-property">Fertilizer Quantity: {update.irrigation.fertilizerQuantity?.toString()}</div>
-                                        </>
-                                        }
+                                <div className="update-card-content">
+                                    <div className="date-and-edit">
+                                        <div className="card-date">{update.dateAdded}</div>
+                                        <GreenButton text="Edit Update" onClick={() => handleUpdateModal(update)}/>
                                     </div>
-                                    <div className="card-property" id="update-notes">Notes: <br />{update.notes} </div>
-                                    <div className="update-images">
-                                        <div className="card-property"><img className="update-image" src={`data:image/png;base64,${bufferToImage(update.updateImageBufferArray)}`}/> </div>
+                                    <div className="info">
+                                        <div className="update-card-irrigation-container">
+                                            <div className="update-card-subheader">
+                                                <div className="irrigation-property">Irrigation {update.irrigation.IrrigationBoolean as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>} </div>
+                                            </div>
+                                            {update.irrigation.IrrigationBoolean as boolean && 
+                                            <>
+                                            <div className="irrigation-property">Water Quantity: <br />{update.irrigation.waterQuantity?.toString()} ml</div>
+                                            <div className="irrigation-property">Fertilizer: <br />
+                                                    {update.irrigation.fertilizer}</div>
+                                            <div className="irrigation-property">Fertilizer Quantity:<br /> {update.irrigation.fertilizerQuantity?.toString()}</div>
+                                            </>
+                                            }
+                                        </div>
+                                        <div className="update-card-notes-container">
+                                            <div className="update-card-subheader">
+                                                Notes {update.notes ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>}
+                                            </div>
+                                            <div className="actual-notes">
+                                                {update.notes && update.notes}
+                                            </div>
+                                                
+                                        </div>
+                                        <div className="update-card-images-container">
+                                            <div className="update-card-subheader">
+                                                Images {update.updateImageBufferArray as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>}
+                                            </div>
+                                            <img className="update-image" src={`data:image/png;base64,${bufferToImage(update.updateImageBufferArray)}`}/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

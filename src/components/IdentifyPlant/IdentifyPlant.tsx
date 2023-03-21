@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner'
 import AddPlantForm from "../forms/AddPlantForm/AddPlantForm"
 import { fetchIdentifyPlant } from '../../hooks/fetchers'
 import Modal from '../Modal/Modal'
+import { handleImageLoad } from '../../hooks/helpfulFunctions';
 interface IdentifyPlantDataObject {
     plantImages: File[];
   }
@@ -17,6 +18,7 @@ export default function IdentifyPlant() {
     const [responseMessage, setResponseMessage] = useState<string>('')
     const { register, handleSubmit, reset, formState: { errors }, control, setError, clearErrors } = useForm();
 
+    
     async function extractImageFromForm(data: IdentifyPlantDataObject) {
         setIsFetching(true)
         const result = await fetchIdentifyPlant(data.plantImages[0])
@@ -75,7 +77,7 @@ export default function IdentifyPlant() {
                             </div>
                             <div className="image-and-result">
                                 {imageFile &&  <>
-                                    <img className='image-to-identify' src={URL.createObjectURL(imageFile)} width="350"/>
+                                    <img className='image-to-identify' src={URL.createObjectURL(imageFile)} onLoad={handleImageLoad}/>
                                                 </>
                                 }
                                 {identifiedPlant && 

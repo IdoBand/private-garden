@@ -12,23 +12,28 @@
     margin: 10px;
 }
 .plant-card {
-    @include mixin.flexCenter();
+    display: flex;
+    align-items: center;
     justify-content: flex-end;
+    flex-direction: column;
     position: relative;
     margin: 25px 0 0 0;
     width: 160px;
     height: 110px;
-    display: flex;
-    flex-direction: column;
     background: linear-gradient(45deg, white, rgb(181, 228, 181));
     border: none;
     border-radius: 5px;
 
     .plant-name{
-        @include mixin.flexCenter();
+        text-align: center;
+        padding: 2px;
+        width: 100%;
         font-size: 14px;
         color: black;
         margin: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     img {
         position: absolute;

@@ -11,8 +11,8 @@
     margin: 0 0 10px 0;
     .plant-logo{
        margin: 2px;
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         border-radius: 10px;
     }
     #current-plant-details{
@@ -20,62 +20,187 @@
         color: white;
     }
 }
+
+
+// @mixin timelime-cards-before-line {
+//     content: '';
+//     background: #888;
+//     width: 3em;
+//     height:3px;
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//   }
+
+// @mixin timelime-cards-before-circle {
+//     content: '';
+//     background: #fff;
+//     box-shadow: 0 0 0.5em #0d71fc;
+//     width: 0.8em;
+//     height: 0.8em;
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     border-radius: 50%;
+// }
 #plant-updates{
-    display: flex;
-    flex-direction: column;
-    .update-card{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        width:100%;
-        height: 180px;
-        margin: 5px;
-        border-radius: 10px;
-        .card-property{
-            margin: 5px;
-        }
-    }
+    margin: 0 auto 0em;
+    max-width: 34.15em;
 }
+.update-card {
+    max-width: 34em;
+    padding: 1em 0 1em 0;
+    position: relative;
+  }
+  
+  .update-card:nth-child(odd) {
+    border-left: 3px solid #888;
+    padding-left: 3em;
+    transform: translate(17em);
+  }
+  
+  .update-card:nth-child(odd)::before {
+    content: '';
+    background: #888;
+    width: 3em;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+  }
+  
+  .update-card:nth-child(odd) .update-card-content::before {
+    content: '';
+    background: #fff;
+    box-shadow: 0 0 0.5em #0d71fc;
+    width: 0.8em;
+    height: 0.8em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -0.5em;
+    border-radius: 50%;
+  }
+  
+  .update-card:nth-child(even) {
+    border-right: 3px solid #888;
+    padding-right: 3em;
+    transform: translate(-17em);
+  }
+  
+  .update-card:nth-child(even)::before {
+    content: '';
+    background: #888;
+    width: 3em;
+    height: 3px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+  
+  .update-card:nth-child(even) .update-card-content::before {
+    content: '';
+    background: #fff;
+    box-shadow: 0 0 0.5em #0d71fc;
+    width: 0.8em;
+    height: 0.8em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -0.5em;
+    border-radius: 50%;
+  }
+
+.update-card-content {
+    border: 2px solid #888;
+    border-radius: 10px;
+    padding: 0.2em 0.5em 0.5em 0.5em;
+}
+
 .date-and-edit{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5px 0 10px;
 }
 .info{
-    margin: 5px;
-    display: flex;
-    justify-content: space-around;
+    margin: 3px 0 0 0;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 0.6fr;
 }
-.update-irrigation{
-    margin: 5px;
+
+
+.update-card-subheader {
+    @include mixin.flexCenter();
+    font-size: 20px;
 }
+
 .checked-logo{
-    width: 15px;
+    width: 13px;
+}
+@mixin flex-center-start-column{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.update-card-irrigation-container{
+    @include flex-center-start-column();
 }
 
-#update-notes{
-    width: 250px;
-    height: 100px;
-    overflow-y: scroll;
-    min-height: 50px;
-    font-size: small;
-    color: black;
-}
-
-.update-images{
-    .update-image{
-        width: 100px;
+.update-card-notes-container{
+    
+    @include flex-center-start-column();
+    align-items: center;
+    max-height: 120px;
+    
+    .actual-notes {
+        @include mixin.secondary-scrollbar();
+        overflow-y: auto;
     }
 }
-.select-current-plant{
-    color: white;
+
+.update-card-images-container{
+    @include mixin.flexCenter();
+    flex-direction: column;
+    .update-image{
+        width: 100px;
+        border-radius: 5px;
+    }
 }
+
 select {
-    min-width: 145px;
+    width: 145px;
     border-radius: 5px;
     &:focus {
         outline: none;
     }
+}
+
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 1150px) {
+  
+    #plant-updates {
+        width: 80vw;
+    }
+    #plant-updates .update-card {
+        width: 100%;
+        transform: none;
+        padding-left: 0;
+        padding-right: 0;
+        border: none;
+    }
+    #plant-updates .update-card::before {
+        width: 3px;
+        height: 2em;
+        top: -1em;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #plant-updates .update-card .update-card-content::before {
+        top: -0.5em;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+   
 }
