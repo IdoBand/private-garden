@@ -1,24 +1,25 @@
+import { ImgBuffer } from "./interface";
 export class PlantUpdate {
-    id: string
-    plantId: String;
-    plantName: String;
-    dateAdded: String;
+    updateId: string
+    plantId: string;
+    plantName: string;
+    dateAdded: string;
     updateImageBufferArray: any
     irrigation: {
-        IrrigationBoolean: Boolean,
-        waterQuantity?: Number | undefined,
-        fertilizer?: String | undefined,
+        IrrigationBoolean: boolean,
+        waterQuantity?: number | undefined,
+        fertilizer?: string | undefined,
         fertilizerQuantity?: Number | undefined
     }
     notes: string
     checked: boolean
-    constructor(id: string, plantId: string, plantName: string, dateAdded: string, updateImageBufferArray: any,
+    constructor(updateId: string, plantId: string, plantName: string, dateAdded: string, updateImageBufferArray: any,
         IrrigationBoolean: boolean, waterQuantity: number | undefined, fertilizer: string | undefined, fertilizerQuantity: number | undefined, notes: string) {
-        this.id = id
+        this.updateId = updateId
         this.plantId = plantId
         this.plantName = plantName
         this.dateAdded = dateAdded
-        this.updateImageBufferArray = updateImageBufferArray
+        this.updateImageBufferArray = this.decideImg(updateImageBufferArray)
         this.irrigation = {
             IrrigationBoolean,
             waterQuantity,
@@ -34,5 +35,11 @@ export class PlantUpdate {
         const options = {day: '2-digit', month: '2-digit', year: 'numeric' }as const;
         const dateString = newDate.toLocaleDateString('en-US', options);
         return dateString;
+    }
+    decideImg(img: any) {
+        if (img.data.data.length) {
+            return img.data.data
+        }
+        return 0
     }
 }

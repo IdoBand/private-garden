@@ -28,12 +28,15 @@ export function todaysDateString() {
 export function dateInRightFormat(date: string): string{
     return date.slice(8,10) + '-' + date.slice(5,7) + '-' + date.slice(0,4)
 }
+export function dateInInputFormat(date: string): string{
+    return date.slice(6,10)  + date.slice(2,6) + date.slice(0,2)
+}
 export function handleImageLoad(event: React.SyntheticEvent<HTMLImageElement>) {
     const img = event.currentTarget;
     if (img.width > img.height) {
-      img.width = 600;
+      img.width = 500;
     } else {
-      img.width = 300;
+      img.width = 200;
 
     }
   }

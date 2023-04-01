@@ -3,8 +3,8 @@ import GreenButton from '../../Button/GreenButton';
 import { PlantUpdate } from "../../../types/PlantUpdate";
 import { useState, useRef } from 'react'
 import { Plant } from "../../../types/Plant";
-import { capitalize, todaysDateString, dateInRightFormat } from "../../../hooks/helpfulFunctions";
-import { fetchAddPlantUpdate } from "../../../hooks/fetchers";
+import { capitalize, todaysDateString, dateInRightFormat, dateInInputFormat } from "../../../hooks/helpfulFunctions";
+import { fetchAddPlantUpdate, fetchEditPlantUpdate } from "../../../hooks/fetchers";
 import ImageCropDialog from '../../ImageCrop/ImageCropDialog'
 interface addPlantUpdateDataObject {
   date: string;
@@ -20,24 +20,36 @@ interface AddPlantUpdateFormProps {
   refetch: any
 //   setPlants: React.Dispatch<React.SetStateAction<PlantUpdate[]>>
   setModal: React.Dispatch<React.SetStateAction<boolean>>
+  addOrEdit: string
+  currentUpdate?: PlantUpdate
 }
 
-export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: AddPlantUpdateFormProps) {
-  
+export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refetch, addOrEdit, currentUpdate }: AddPlantUpdateFormProps) {
+  if (currentUpdate) {
+
+  }
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
-  const [irrigationFormSection, setIrrigationFormSection] = useState<boolean>(false)
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [irrigationFormSection, setIrrigationFormSection] = useState<boolean>(currentUpdate ? currentUpdate.irrigation.IrrigationBoolean : false)
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
   const imageFileRef = useRef(null);
   const imageFileNameRef = useRef<string>('noname')
+  const formHeader: string = addOrEdit === 'add' ? 'Add a New Update': 'Edit an Update' ;
   function assignCroppedImageToRef(file: any) {
     imageFileRef.current = file
   }
+  
   async function extractNewUpdateFromForm(data: addPlantUpdateDataObject) {
     data.date = dateInRightFormat(data.date)
     if (data.updateImage) {
       data.updateImage = imageFileRef.current
     }
-    await addPlantUpdateRequest(data)
+   
+    if (addOrEdit === 'add') {
+      await addPlantUpdateRequest(data)
+    } else if (addOrEdit === 'edit') {
+      // await fetchEditPlantUpdate()
+    }
+    
     refetch()
     setModal(false)
   }
@@ -67,11 +79,11 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
         <form className="form" onSubmit={handleSubmit(data => {
           extractNewUpdateFromForm(data as addPlantUpdateDataObject);
           })} >
-          <div className="form-header">Add a New Update</div>
+          <div className="form-header">{formHeader}</div>
           <div className="form-subheader">{capitalize(currentPlant.name)}</div>
           <div className="form-section">
             <label className="form-label">Date:</label>
-            <input type="date" defaultValue={todaysDateString()} {...register("date", {required: true})} />
+            <input type="date" {...register("date", {required: true})} defaultValue={addOrEdit === 'add' ? todaysDateString() : dateInInputFormat(currentUpdate!.dateAdded)} />
             {errors.date && <span className="error-span">Date is required.</span>}
           </div>
           
@@ -105,28 +117,28 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
                                   zoomInit={null} 
                                   aspectInit={null}
                                   assignCroppedImageToRef={assignCroppedImageToRef}
-                                  imageFileName={imageFileNameRef.current}
+                                  imageName={currentPlant?.name as string}
                                 />
                                 <img src={imagePreviewUrl} width="350" alt="Preview" />
                               </>}
           </div>
           <div className="form-section">
             <label className="form-label">Irrigation:</label>
-            <input type="checkbox" {...register("irrigationBoolean")} onChange={() => setIrrigationFormSection(!irrigationFormSection)}/>
+            <input type="checkbox" {...register("irrigationBoolean")} onChange={() => setIrrigationFormSection(!irrigationFormSection)} checked={irrigationFormSection}/>
           </div>
           {irrigationFormSection && 
           <>
             <div className="form-section">
                 <label className="form-label">Water Quantity (ml):</label>
-                <input {...register("waterQuantity")} />
+                <input {...register("waterQuantity")} type="number" min="0" defaultValue={currentUpdate!.irrigation.waterQuantity ? +currentUpdate!.irrigation.waterQuantity : undefined}/>
             </div>
                 <div className="form-section">
                 <label className="form-label">Fertilizer:</label>
-                <input {...register("fertilizer")} />
+                <input {...register("fertilizer")} defaultValue={currentUpdate!.irrigation.fertilizer ? currentUpdate!.irrigation.fertilizer : ''}/>
             </div>
                 <div className="form-section">
                 <label className="form-label">Fertilizer Quantity (ml):</label>
-                <input {...register("fertilizerQuantity")} />
+                <input {...register("fertilizerQuantity")} type="number" min="0" defaultValue={currentUpdate!.irrigation.fertilizerQuantity ? +currentUpdate!.irrigation.fertilizerQuantity : undefined}/>
             </div>
           </>
           }
@@ -135,7 +147,7 @@ export default function AddPlantUpdateForm({currentPlant,setModal , refetch }: A
           </div>
           <>
             <div className="form-section">
-                <textarea id="notes-form-input" {...register("notes")} />
+                <textarea id="notes-form-input" {...register("notes")} defaultValue={currentUpdate ? currentUpdate.notes : ''}/>
             </div>
           </>
           <GreenButton onClick={handleSubmit} text="Submit"/>

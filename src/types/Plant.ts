@@ -14,7 +14,7 @@ export class AbstractPlant {
         this.#dateAdded = dateAdded
         this.updates = []
         this.checked = false
-        this.imageBufferArray = imageBufferArray
+        this.imageBufferArray = this.decideImg(imageBufferArray)
     }
     validateName(name: string): string {
         if (name.includes(' ')) {
@@ -30,6 +30,12 @@ export class AbstractPlant {
         const dateString = newDate.toLocaleDateString('en-US', options);
         return dateString;
     }
+    decideImg(img: any) {
+        if (img.data.data.length) {
+            return img.data.data
+        }
+        return 0
+    }
 }
 
 export class Plant extends AbstractPlant {
@@ -44,6 +50,6 @@ export class Plant extends AbstractPlant {
         this.dateAdded = dateAdded
         this.updates = []
         this.checked = false
-        this.imageBufferArray = imageBufferArray
+        this.imageBufferArray = this.decideImg(imageBufferArray)
     }
 }

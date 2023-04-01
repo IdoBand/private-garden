@@ -3,16 +3,16 @@ import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
-import AddPlantForm from "../forms/AddPlantForm/AddPlantForm"
+import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 import { useQuery } from "@tanstack/react-query"
 import searchLogo from '../../assets/search_icon-white2.png'
+import logo from '../../assets/logo.jpg'
 import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
 import Spinner from "../Spinner/Spinner"
 import { bufferToImage, capitalize } from "../../hooks/helpfulFunctions"
 import { fetchEntireGarden, fetchRemovePlantsPermanently } from '../../hooks/fetchers'
-
 
 let originalPlantsHolder: Plant[] = []
 
@@ -31,7 +31,7 @@ export default function MyGarden() {
         const plantsDB = await fetchEntireGarden()
         const newPlants: Plant[] = []
         for (let p of plantsDB) {
-        const newPlant = new Plant(p._id, p.plantName, p.dateAdded, p.img.data.data)
+        const newPlant = new Plant(p._id, p.plantName, p.dateAdded, p.img)
         newPlants.push(newPlant)
         }
         dispatch(addPlants(newPlants))
@@ -71,10 +71,9 @@ export default function MyGarden() {
         setPlants(newPlants)
     }
     function selectAll() {
-        const newPlants: Plant[] = [];
-        plants.forEach(plant => {
-            plant.checked = !plant.checked;
-            newPlants.push(plant)
+        const newPlants: Plant[] = plants.map(plant => {
+            plant.checked = !plant.checked
+            return plant
         })
         originalPlantsHolder = newPlants
         setPlants(newPlants)
@@ -120,12 +119,12 @@ export default function MyGarden() {
                             <div className="plant-card" onClick={() => updateCurrentPlant(plant)}>
                                 {removeButtons && <input
                                                     checked={plant.checked}
-                                                    className="toggle"
+                                                    className="plant-card-toggle"
                                                     type="checkbox"
                                                     onClick={(e) => e.stopPropagation()}
                                                     onChange={() => checkBoxPlant(plant.id)}/>
                                 }
-                                <img width="100" src={`data:image/png;base64,${bufferToImage(plant.imageBufferArray)}`} alt={plant.name}/>
+                                <img width="100" src={plant.imageBufferArray ? `data:image/png;base64,${bufferToImage(plant.imageBufferArray)}` : logo} alt={plant.name}/>
                                 <div className="plant-name"> {capitalize(plant.name)} </div>
                             </div>
                         </Link>
@@ -133,7 +132,7 @@ export default function MyGarden() {
                     </div>}
                 </div>
             </div>
-            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddPlantForm setModal={setAddPlantModal} refetch={onMyGardenMount} setResponseMessage={setResponseMessage}/>}></Modal>}
+            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddOrEditPlantForm setModal={setAddPlantModal} addOrEdit="add" setResponseMessage={setResponseMessage}/>}></Modal>}
             {responseMessage && <Modal open={true} onClose={() => setResponseMessage('')} content={responseMessage}></Modal>}
         </>
     )

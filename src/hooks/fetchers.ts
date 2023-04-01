@@ -21,7 +21,8 @@ export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
 export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
     console.log('adding plant')
     const formData = new FormData();
- 
+    console.log(plantImage);
+    
     formData.append('plantName', plantName)
     if (plantImage) {
         formData.append('plantImage', plantImage);
@@ -30,21 +31,24 @@ export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg'
         method: 'POST',
         body: formData
   });
-  const message =  await response.json()
+  const message = await response.json()
   return message.message
 }
-export async function fetchEditPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null) {
-    console.log('adding plant')
+export async function fetchEditPlant(plantId: string, plantName: string, plantImage?: File | 'image/jpeg' | 'image/jpg' | null) {
+    console.log('editing plant')
+    
     const formData = new FormData();
- 
+    formData.append('plantId', plantId)
     formData.append('plantName', plantName)
     if (plantImage) {
         formData.append('plantImage', plantImage);
     };
-    const response = await fetch(`${BASIC_URL}/addPlant`, {
+    const response = await fetch(`${BASIC_URL}/editPlantById`, {
         method: 'POST',
         body: formData
   });
+    const message = await response.json()
+    return message.message
 }
 
 export async function fetchUpdatesByPlantId(plantId: string) {
@@ -61,7 +65,7 @@ export async function fetchAddPlantUpdate(updateObject: any, currentPlant: Plant
       const value: any = updateObject[key]
       formData.append(key, value)
     }
-    console.log(updateObject)
+    
     const response = await fetch(`${BASIC_URL}/addPlantUpdate`, {
       method: 'POST',
       body: formData
@@ -69,15 +73,20 @@ export async function fetchAddPlantUpdate(updateObject: any, currentPlant: Plant
     const res = await response.json()
     return res.message
 }
-export async function fetchIdentifyPlant(plantImage: File) {
+export async function fetchEditPlantUpdate(updateObject: any) {
+    
+}
+export async function fetchIdentifyPlant(plantImages: File[]) {
     const formData = new FormData();
-    formData.append('plantImage', plantImage)
+    for (let i = 0 ; i < plantImages.length ; i++) {
+        formData.append('plantImages', plantImages[i])
+    } 
+    
     const response = await fetch(`${BASIC_URL}/IdentifyPlant`, 
     {
         method: 'POST',
         body: formData
   })
     const result = await response.json()
-    console.log(result);
     return result.message   
 }
