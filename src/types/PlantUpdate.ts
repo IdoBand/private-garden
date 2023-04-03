@@ -7,14 +7,14 @@ export class PlantUpdate {
     updateImageBufferArray: any
     irrigation: {
         IrrigationBoolean: boolean,
-        waterQuantity?: number | undefined,
+        waterQuantity: number,
         fertilizer?: string | undefined,
-        fertilizerQuantity?: Number | undefined
+        fertilizerQuantity: Number
     }
     notes: string
     checked: boolean
     constructor(updateId: string, plantId: string, plantName: string, dateAdded: string, updateImageBufferArray: any,
-        IrrigationBoolean: boolean, waterQuantity: number | undefined, fertilizer: string | undefined, fertilizerQuantity: number | undefined, notes: string) {
+        IrrigationBoolean: boolean, waterQuantity: number, fertilizer: string | undefined, fertilizerQuantity: number, notes: string) {
         this.updateId = updateId
         this.plantId = plantId
         this.plantName = plantName

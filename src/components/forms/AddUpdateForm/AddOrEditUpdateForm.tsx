@@ -7,27 +7,26 @@ import { capitalize, todaysDateString, dateInRightFormat, dateInInputFormat } fr
 import { fetchAddPlantUpdate, fetchEditPlantUpdate } from "../../../hooks/fetchers";
 import ImageCropDialog from '../../ImageCrop/ImageCropDialog'
 interface addPlantUpdateDataObject {
-  date: string;
-  updateImage?: File |'image/jpeg' | 'image/jpg' | null;
-  irrigationBoolean: boolean;
-  waterQuantity?: string;
-  fertilizer?: string;
-  fertilizerQuantity?: string;
-  notes?: string;
+  date: string
+  updateImage?: File |'image/jpeg' | 'image/jpg' | null
+  irrigationBoolean: boolean
+  waterQuantity?: string
+  fertilizer?: string
+  fertilizerQuantity?: string
+  notes?: string
+  updateId?: string
 }
 interface AddPlantUpdateFormProps {
   currentPlant: Plant
   refetch: any
-//   setPlants: React.Dispatch<React.SetStateAction<PlantUpdate[]>>
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   addOrEdit: string
+  setResponseMessage: React.Dispatch<React.SetStateAction<string>>
   currentUpdate?: PlantUpdate
 }
 
-export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refetch, addOrEdit, currentUpdate }: AddPlantUpdateFormProps) {
-  if (currentUpdate) {
+export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refetch, addOrEdit, currentUpdate, setResponseMessage }: AddPlantUpdateFormProps) {
 
-  }
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const [irrigationFormSection, setIrrigationFormSection] = useState<boolean>(currentUpdate ? currentUpdate.irrigation.IrrigationBoolean : false)
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
@@ -38,46 +37,28 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
     imageFileRef.current = file
   }
   
-  async function extractNewUpdateFromForm(data: addPlantUpdateDataObject) {
+  async function extractAndOrganize(data: addPlantUpdateDataObject) {
     data.date = dateInRightFormat(data.date)
+    console.log(data);
     if (data.updateImage) {
       data.updateImage = imageFileRef.current
     }
-   
+    let responseMessage: string = ''
     if (addOrEdit === 'add') {
-      await addPlantUpdateRequest(data)
+      responseMessage = await await fetchAddPlantUpdate(data, currentPlant)
     } else if (addOrEdit === 'edit') {
-      // await fetchEditPlantUpdate()
+      data.updateId = currentUpdate?.updateId
+      responseMessage = await fetchEditPlantUpdate(data, currentPlant)
     }
-    
     refetch()
+    setResponseMessage(responseMessage)
     setModal(false)
   }
-
-
-  async function addPlantUpdateRequest(updateObject: addPlantUpdateDataObject) {
-    
-    const res = await fetchAddPlantUpdate(updateObject, currentPlant)
-    if (res.message === 'Update was saved successfully!') {
-      const newPlantUpdate = new PlantUpdate(
-        res.newUpdateId,
-        currentPlant.id,
-        currentPlant.name,
-        updateObject.date,
-        updateObject.updateImage,
-        updateObject.irrigationBoolean,
-        +(updateObject.waterQuantity as string),
-        updateObject.fertilizer,
-        +(updateObject.fertilizerQuantity as string),
-        updateObject.notes as string
-        )
-    }
-  };
   
   return (
     <>
         <form className="form" onSubmit={handleSubmit(data => {
-          extractNewUpdateFromForm(data as addPlantUpdateDataObject);
+          extractAndOrganize(data as addPlantUpdateDataObject);
           })} >
           <div className="form-header">{formHeader}</div>
           <div className="form-subheader">{capitalize(currentPlant.name)}</div>
@@ -130,15 +111,15 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
           <>
             <div className="form-section">
                 <label className="form-label">Water Quantity (ml):</label>
-                <input {...register("waterQuantity")} type="number" min="0" defaultValue={currentUpdate!.irrigation.waterQuantity ? +currentUpdate!.irrigation.waterQuantity : undefined}/>
+                <input {...register("waterQuantity")} type="number" min="0" defaultValue={currentUpdate! ? +currentUpdate!.irrigation.waterQuantity : 0}/>
             </div>
                 <div className="form-section">
                 <label className="form-label">Fertilizer:</label>
-                <input {...register("fertilizer")} defaultValue={currentUpdate!.irrigation.fertilizer ? currentUpdate!.irrigation.fertilizer : ''}/>
+                <input {...register("fertilizer")} defaultValue={currentUpdate ? currentUpdate!.irrigation.fertilizer : ''}/>
             </div>
                 <div className="form-section">
                 <label className="form-label">Fertilizer Quantity (ml):</label>
-                <input {...register("fertilizerQuantity")} type="number" min="0" defaultValue={currentUpdate!.irrigation.fertilizerQuantity ? +currentUpdate!.irrigation.fertilizerQuantity : undefined}/>
+                <input {...register("fertilizerQuantity")} type="number" min="0" defaultValue={currentUpdate ? +currentUpdate!.irrigation.fertilizerQuantity : 0}/>
             </div>
           </>
           }

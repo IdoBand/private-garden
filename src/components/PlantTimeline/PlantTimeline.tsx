@@ -11,7 +11,7 @@ import logo from '../../assets/logo.jpg'
 import Modal from "../Modal/Modal"
 import AddOrEditUpdateForm from "../forms/AddUpdateForm/AddOrEditUpdateForm"
 import { setCurrentPlant, setCurrentUpdate } from "../../redux/plantsSlice"
-import {fetchUpdatesByPlantId }from '../../hooks/fetchers'
+import {fetchUpdatesByPlantId, fetchRemovePlantUpdatesPermanently }from '../../hooks/fetchers'
 import Spinner from "../Spinner/Spinner"
 import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 export default function PlantTimeline() {
@@ -27,27 +27,24 @@ export default function PlantTimeline() {
     const plants = useAppSelector(state => state.plants.plants)
     const selectInput = useRef<HTMLSelectElement>(null)
     const [plantUpdates, setPlantUpdates] = useState<PlantUpdate[]>([])
-
+    const firstSelectAllClick = useRef<boolean>(false)
     async function onPlantTimelineMount() {
         setIsFetching(true)
         const updates = await fetchUpdatesByPlantId(currentPlant!.id)
-        const newUpdates: PlantUpdate[] = []
-        currentPlant!.updates = newUpdates
-        for (let update of updates) {
+        const newUpdates: PlantUpdate[] = updates.map((update: any) => {
             const newUpdate = new PlantUpdate(update._id, update.plantId, update.plantName, update.dateAdded, update.img,
-                            update.irrigation.boolean, update.irrigation.waterQuantity,
-                            update.irrigation.fertilizer, update.irrigation.fertilizerQuantity, update.notes)
-            newUpdates.push(newUpdate)
-        }
+                update.irrigation.boolean, update.irrigation.waterQuantity,
+                update.irrigation.fertilizer, update.irrigation.fertilizerQuantity, update.notes)
+            return newUpdate
+        })
+        currentPlant!.updates = newUpdates
         setPlantUpdates(newUpdates)
         setIsFetching(false)
     }
     useEffect(() => {
         onPlantTimelineMount()
     },[currentPlant])
-    function editUpdate() {
-        return
-    }
+
     function switchCurrentPlant(): void {
         const selectedOptionId = selectInput.current?.options[selectInput.current.selectedIndex].dataset.key;
         for (let plant of plants) {
@@ -63,26 +60,22 @@ export default function PlantTimeline() {
         setEditPlantUpdateModal(true)
     }
     async function handleRemovePlantsPermanently() {
-        let IdsToRemove: string[] =[]
-        const newUpdates = plantUpdates.map(update => {
-            if (update.checked) {
-                return update
-            } else {
-                IdsToRemove.push(update.updateId)
-            }
-        })
+        let IdsToRemove: string[] = []
+        const newUpdates = plantUpdates.filter(update =>
+            update.checked ? (IdsToRemove.push(update.updateId), false) : update
+        )
         
         if (IdsToRemove.length > 0) {
             setIsFetching(true)
-            // const responseMessage = await fetchRemoveUpdatesPermanently(IdsToRemove)
+            const responseMessage = await fetchRemovePlantUpdatesPermanently(IdsToRemove)
             setIsFetching(false)
             setRemoveButtons(false)
             setResponseMessage(responseMessage)
             setPlantUpdates(newUpdates as PlantUpdate[])
-            IdsToRemove = []
         }
     }
     function checkBoxUpdate(updateId: string) {
+        firstSelectAllClick.current = false
         const newUpdates: PlantUpdate[] = plantUpdates.map(update => {
             if (update.updateId === updateId) {
                 update.checked = !update.checked
@@ -92,10 +85,19 @@ export default function PlantTimeline() {
         setPlantUpdates(newUpdates)
     }
     function selectAll() {
-        const newUpdates: PlantUpdate[] = plantUpdates.map(update => {
-            update.checked = !update.checked
-            return update
-        })
+        let newUpdates: PlantUpdate[];
+        if (firstSelectAllClick.current) {
+            newUpdates = plantUpdates.map(update => {
+                update.checked = !update.checked
+                return update
+            })
+        } else {
+            newUpdates = plantUpdates.map(update => {
+                update.checked = true
+                return update
+            })
+            firstSelectAllClick.current = true
+        }
         setPlantUpdates(newUpdates)
     }
 
@@ -110,7 +112,7 @@ export default function PlantTimeline() {
                         <div id="plant-intro">
                             <img className="plant-logo" 
                                  src={currentPlant?.imageBufferArray ? 
-                                 `data:image/png;base64,${bufferToImage(currentPlant?.imageBufferArray)}`
+                                 bufferToImage(currentPlant?.imageBufferArray)
                                  :
                                  logo
                                 }/>
@@ -185,10 +187,7 @@ export default function PlantTimeline() {
                                             <div className="update-card-subheader">
                                                 Images {update.updateImageBufferArray as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>}
                                             </div>
-                                            <img className="update-image" src={update.updateImageBufferArray ?
-                                                                         `data:image/png;base64,${bufferToImage(update.updateImageBufferArray)}`
-                                                                                    :
-                                                                                    logo}/>
+                                            <img className="update-image" src={update.updateImageBufferArray ?bufferToImage(update.updateImageBufferArray) : logo}/>
                                         </div>
                                     </div>
                                 </div>
@@ -199,10 +198,38 @@ export default function PlantTimeline() {
                 </>}
             </div>
         </div>
-        {addPlantUpdateModal && <Modal open={addPlantUpdateModal} onClose={() => setAddPlantUpdateModal(false)} content={<AddOrEditUpdateForm currentPlant={currentPlant as Plant} setModal={setAddPlantUpdateModal} refetch={onPlantTimelineMount} addOrEdit="add"/>}></Modal>}
-        {editPlantModal && <Modal open={editPlantModal} onClose={() => setEditPlantModal(false)} content={<AddOrEditPlantForm setModal={setEditPlantModal} addOrEdit="edit" setResponseMessage={setResponseMessage} plantName={currentPlant?.name} plantImageString={`data:image/png;base64,${bufferToImage(currentPlant?.imageBufferArray)}`} />}></Modal>}
-        {editPlantUpdateModal && <Modal open={editPlantUpdateModal} onClose={() => setEditPlantUpdateModal(false)} content={<AddOrEditUpdateForm currentPlant={currentPlant as Plant} setModal={setEditPlantUpdateModal} refetch={onPlantTimelineMount} addOrEdit="edit" currentUpdate={currentUpdateRef.current}/>}></Modal>}
-        {responseMessage && <Modal open={true} onClose={() => setResponseMessage('')} content={responseMessage}></Modal>}
+        {addPlantUpdateModal && <Modal 
+                                    open={addPlantUpdateModal} 
+                                    onClose={() => setAddPlantUpdateModal(false)} 
+                                    content={<AddOrEditUpdateForm 
+                                                currentPlant={currentPlant as Plant} 
+                                                setModal={setAddPlantUpdateModal} 
+                                                refetch={onPlantTimelineMount} 
+                                                setResponseMessage={setResponseMessage}
+                                                addOrEdit="add"/>} 
+                                                />}
+        {editPlantModal && <Modal 
+                                open={editPlantModal} 
+                                onClose={() => setEditPlantModal(false)} 
+                                content={<AddOrEditPlantForm 
+                                            setModal={setEditPlantModal} 
+                                            addOrEdit="edit" 
+                                            setResponseMessage={setResponseMessage} 
+                                            plantName={currentPlant?.name} 
+                                            plantImageString={bufferToImage(currentPlant?.imageBufferArray)} />} 
+                                            />}
+        {editPlantUpdateModal && <Modal open={editPlantUpdateModal} 
+                                        onClose={() => setEditPlantUpdateModal(false)} 
+                                        content={<AddOrEditUpdateForm 
+                                                    currentPlant={currentPlant as Plant} 
+                                                    setModal={setEditPlantUpdateModal} 
+                                                    refetch={onPlantTimelineMount} 
+                                                    addOrEdit="edit"
+                                                    setResponseMessage={setResponseMessage} 
+                                                    currentUpdate={currentUpdateRef.current}/>} />}
+        {responseMessage && <Modal open={true} 
+                                    onClose={() => setResponseMessage('')} 
+                                    content={responseMessage} />}
         </>
     )
 }

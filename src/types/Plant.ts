@@ -17,11 +17,12 @@ export class AbstractPlant {
         this.imageBufferArray = this.decideImg(imageBufferArray)
     }
     validateName(name: string): string {
-        if (name.includes(' ')) {
-            const subNames = name.split(' ')
-            return  subNames.map(name => name.toLowerCase()).join('')
+        const sanitizedName = name.replace(/\s{2,}/g, ' ').trim()
+        if (sanitizedName.includes(' ')) {
+            const subNames = sanitizedName.split(' ')
+            return  subNames.map(sanitizedName => sanitizedName.toLowerCase()).join('')
         }
-        return name
+        return sanitizedName
     }
     dateValidator(date?: string | null) {
         if (date) {return date}

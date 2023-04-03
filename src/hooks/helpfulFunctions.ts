@@ -1,11 +1,12 @@
-export function bufferToImage(arrayBuffer: any) {
+export function bufferToImage(arrayBuffer: any): string {
     let binary: string = ''
     const bytes = new Uint8Array(arrayBuffer)
     const len = bytes.byteLength
     for (let i = 0; i < len; i++) {
         binary += String.fromCharCode( bytes[ i ] );
     }
-    return btoa(binary)
+    const bin = btoa(binary)
+    return `data:image/png;base64,${bin}`
 }
 export function capitalize(str: string): string {
     const words = str.split(' ')

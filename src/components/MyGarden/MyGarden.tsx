@@ -23,6 +23,7 @@ export default function MyGarden() {
     const [responseMessage, setResponseMessage] = useState<string>('')
     const [plants, setPlants] = useState<Plant[]>([])
     const searchBarInputRef = useRef<HTMLInputElement>(null);
+    const firstSelectAllClick = useRef<boolean>(false)
     // Redux
     // const plants = useAppSelector(state => state.plants.plants)
     const dispatch = useAppDispatch()
@@ -45,7 +46,7 @@ export default function MyGarden() {
 
     async function handleRemovePlantsPermanently() {
         const newPlants: Plant[] = []
-        let IdsToRemove: string[] =[]
+        let IdsToRemove: string[] = []
         for (let plant of originalPlantsHolder) {
             plant.checked ? IdsToRemove.push(plant.id) : newPlants.push(plant);
         }
@@ -56,11 +57,11 @@ export default function MyGarden() {
             setRemoveButtons(false)
             setResponseMessage(responseMessage)
             setPlants(newPlants)
-            IdsToRemove = []
             originalPlantsHolder = newPlants
         }
     }
     function checkBoxPlant(plantId: string) {
+        firstSelectAllClick.current = false
         const newPlants: Plant[] =[]
         plants.forEach(plant => {
             if (plant.id === plantId) {
@@ -71,10 +72,19 @@ export default function MyGarden() {
         setPlants(newPlants)
     }
     function selectAll() {
-        const newPlants: Plant[] = plants.map(plant => {
-            plant.checked = !plant.checked
-            return plant
-        })
+        let newPlants: Plant[]
+        if (firstSelectAllClick.current) {
+            newPlants = plants.map(plant => {
+                plant.checked = !plant.checked
+                return plant
+            })
+        } else {
+            newPlants = plants.map(plant => {
+                plant.checked = true
+                return plant
+            })
+            firstSelectAllClick.current = true
+        }
         originalPlantsHolder = newPlants
         setPlants(newPlants)
     }
@@ -95,45 +105,56 @@ export default function MyGarden() {
         <>
             <div className="page-container">
                 <div className="page-content">
-                    <div id="my-garden-options">
-                        <div id="buttons">
-                        <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)}/>
-                        <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
-                        {removeButtons && <>
-                            <RedButton text="Select All" onClick={selectAll}/>
-                            <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
-                                        </>
-                        }
-                        </div>
-                        <div id="search-bar-and-count">
-                            <div id="search-bar-left"><img src={searchLogo}/></div>
-                            <input id="search-bar" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
-                            <div id="plants-counter">You Have {plants.length} Plants</div>
-                        </div>    
-                    </div>
-                    {isFetching ? <Spinner />
+                {isFetching ? <Spinner />
                                 :
-                    <div id="plants-container">
-                        {plants.map(plant =>
-                        <Link to={`/PlantTimeline/${plant.id}`} key={plant.id}>
-                            <div className="plant-card" onClick={() => updateCurrentPlant(plant)}>
-                                {removeButtons && <input
-                                                    checked={plant.checked}
-                                                    className="plant-card-toggle"
-                                                    type="checkbox"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    onChange={() => checkBoxPlant(plant.id)}/>
-                                }
-                                <img width="100" src={plant.imageBufferArray ? `data:image/png;base64,${bufferToImage(plant.imageBufferArray)}` : logo} alt={plant.name}/>
-                                <div className="plant-name"> {capitalize(plant.name)} </div>
+                    <>
+                        <div id="my-garden-options">
+                            <div id="buttons">
+                            <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)}/>
+                            <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
+                            {removeButtons && <>
+                                <RedButton text="Select All" onClick={selectAll}/>
+                                <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
+                                            </>
+                            }
                             </div>
-                        </Link>
-                        )}
-                    </div>}
+                            <div id="search-bar-and-count">
+                                <div id="search-bar-left"><img src={searchLogo}/></div>
+                                <input id="search-bar" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
+                                <div id="plants-counter">You Have {plants.length} Plants</div>
+                            </div>    
+                        </div>
+                        
+                        <div id="plants-container">
+                            {plants.map(plant =>
+                            <Link to={`/PlantTimeline/${plant.id}`} key={plant.id}>
+                                <div className="plant-card" onClick={() => updateCurrentPlant(plant)}>
+                                    {removeButtons && <input
+                                                        checked={plant.checked}
+                                                        className="plant-card-toggle"
+                                                        type="checkbox"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        onChange={() => checkBoxPlant(plant.id)}/>
+                                    }
+                                    <img width="100" src={plant.imageBufferArray ? bufferToImage(plant.imageBufferArray) : logo} alt={plant.name}/>
+                                    <div className="plant-name"> {capitalize(plant.name)} </div>
+                                </div>
+                            </Link>
+                            )}
+                        </div>
+                    </>}
                 </div>
             </div>
-            {addPlantModal && <Modal open={addPlantModal} onClose={() => setAddPlantModal(false)} content={<AddOrEditPlantForm setModal={setAddPlantModal} addOrEdit="add" setResponseMessage={setResponseMessage}/>}></Modal>}
-            {responseMessage && <Modal open={true} onClose={() => setResponseMessage('')} content={responseMessage}></Modal>}
+            {addPlantModal && <Modal open={addPlantModal} 
+                                     onClose={() => setAddPlantModal(false)} 
+                                     content={<AddOrEditPlantForm 
+                                     setModal={setAddPlantModal} 
+                                     addOrEdit="add" 
+                                     setResponseMessage={setResponseMessage}/>} 
+                                     />}
+            {responseMessage && <Modal open={true} 
+                                       onClose={() => setResponseMessage('')} 
+                                       content={responseMessage} />}
         </>
     )
 }

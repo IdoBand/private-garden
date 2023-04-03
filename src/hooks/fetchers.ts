@@ -2,6 +2,8 @@ import { useQuery, useMutation } from "@tanstack/react-query"
 import { Plant } from "../types/Plant"
 const BASIC_URL: string = 'http://localhost:8000'
 
+///////////////////       P  L  A  N  T  S        ///////////////////
+
 export async function fetchEntireGarden() {
     console.log('fetching garden')
     const response = await fetch(`${BASIC_URL}/getEntireGarden`)
@@ -50,6 +52,7 @@ export async function fetchEditPlant(plantId: string, plantName: string, plantIm
     const message = await response.json()
     return message.message
 }
+///////////////////       U  P  D  A  T  E  S        ///////////////////
 
 export async function fetchUpdatesByPlantId(plantId: string) {
     const response = await fetch(`${BASIC_URL}/getAllUpdatesByPlantId?id=${plantId}`)
@@ -73,9 +76,35 @@ export async function fetchAddPlantUpdate(updateObject: any, currentPlant: Plant
     const res = await response.json()
     return res.message
 }
-export async function fetchEditPlantUpdate(updateObject: any) {
+export async function fetchEditPlantUpdate(updateObject: any, currentPlant: Plant) {
+    const formData = new FormData();
+    formData.append('plantId',currentPlant?.id as string)
+    formData.append('plantName', currentPlant?.name as string)
+    for (const key in updateObject) {
+      const value: any = updateObject[key]
+      formData.append(key, value)
+    }
     
+    const response = await fetch(`${BASIC_URL}/editPlantUpdate`, {
+      method: 'POST',
+      body: formData
+    });
+    const res = await response.json()
+    return res.message
 }
+
+export async function fetchRemovePlantUpdatesPermanently(IdsToRemove: string[]) {
+        console.log('removing updates')
+        const response = await fetch(`${BASIC_URL}/removeUpdates`, {method: 'POST',
+                                                                        headers: {'Content-Type': 'application/json'},
+                                                                        body: JSON.stringify({IdsToRemove: IdsToRemove})
+                                                                        })
+        const resultString = await response.json()
+        return resultString.message
+}
+
+///////////////////       I  D  E  N  T  I  F  Y        ///////////////////
+
 export async function fetchIdentifyPlant(plantImages: File[]) {
     const formData = new FormData();
     for (let i = 0 ; i < plantImages.length ; i++) {
