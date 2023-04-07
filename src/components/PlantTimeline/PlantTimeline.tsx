@@ -111,8 +111,8 @@ export default function PlantTimeline() {
                     <div className="plant-options">
                         <div id="plant-intro">
                             <img className="plant-logo" 
-                                 src={currentPlant?.imageBufferArray ? 
-                                 bufferToImage(currentPlant?.imageBufferArray)
+                                 src={currentPlant?.profileImageString ? 
+                                 bufferToImage(currentPlant?.profileImageString)
                                  :
                                  logo
                                 }/>
@@ -216,7 +216,7 @@ export default function PlantTimeline() {
                                             addOrEdit="edit" 
                                             setResponseMessage={setResponseMessage} 
                                             plantName={currentPlant?.name} 
-                                            plantImageString={bufferToImage(currentPlant?.imageBufferArray)} />} 
+                                            plantImageString={bufferToImage(currentPlant?.profileImageString)} />} 
                                             />}
         {editPlantUpdateModal && <Modal open={editPlantUpdateModal} 
                                         onClose={() => setEditPlantUpdateModal(false)} 

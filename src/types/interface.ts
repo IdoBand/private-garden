@@ -1,4 +1,7 @@
 export interface ImgBuffer {
-        data: Buffer,
-        contentType: String,  
+  data: {
+    type: string
+    data: number[]
+  };
+  contentType: string
 }

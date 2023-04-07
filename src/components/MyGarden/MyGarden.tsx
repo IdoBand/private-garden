@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
 import Spinner from "../Spinner/Spinner"
-import { bufferToImage, capitalize } from "../../hooks/helpfulFunctions"
+import { capitalize } from "../../hooks/helpfulFunctions"
 import { fetchEntireGarden, fetchRemovePlantsPermanently } from '../../hooks/fetchers'
 
 let originalPlantsHolder: Plant[] = []
@@ -136,7 +136,7 @@ export default function MyGarden() {
                                                         onClick={(e) => e.stopPropagation()}
                                                         onChange={() => checkBoxPlant(plant.id)}/>
                                     }
-                                    <img width="100" src={plant.imageBufferArray ? bufferToImage(plant.imageBufferArray) : logo} alt={plant.name}/>
+                                    <img width="100" src={plant.profileImageString ? plant.profileImageString : logo} alt={plant.name}/>
                                     <div className="plant-name"> {capitalize(plant.name)} </div>
                                 </div>
                             </Link>

@@ -14,7 +14,7 @@ export default function IdentifyPlant() {
     const [isFetching, setIsFetching] = useState(false)
     const [identifiedPlant, setIdentifiedPlant] = useState<null | string>(null)
     const [imageFiles, setImageFiles] = useState<File[]>([])
-    const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null)
+    const [selectedImageIdx, setSelectedImageIdx] = useState<number>(0)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const [responseMessage, setResponseMessage] = useState<string>('')
     const { register, handleSubmit, reset, formState: { errors }, control, setError, clearErrors } = useForm();
@@ -57,10 +57,10 @@ export default function IdentifyPlant() {
                                 defaultValue=""
                                 render={({ field }) => (
                                     <>
-                                        <input type="file" multiple onChange={(e) => {
+                                        <input type="file" accept="image/jpeg, image/jpg" multiple onChange={(e) => {
                                         if (e.target.files && e.target.files.length > 0 && e.target.files.length < 6) {
                                             setIdentifiedPlant(null)
-                                            setSelectedImageIdx(null)
+                                            setSelectedImageIdx(0)
                                             const selectedFiles = Array.from(e.target.files)
                                             field.onChange(selectedFiles)
                                             clearErrors('plantImages')
@@ -73,7 +73,6 @@ export default function IdentifyPlant() {
                                             });
                                         }
                                         }} />
-                                        
                                     </>
                                     )}
                                 />
@@ -117,9 +116,13 @@ export default function IdentifyPlant() {
                                         content={<AddOrEditPlantForm setModal={setAddPlantModal} 
                                                                         addOrEdit="add" setResponseMessage={setResponseMessage} 
                                                                         plantName={identifiedPlant} 
-                                                                        plantImageString={URL.createObjectURL(imageFiles[selectedImageIdx as number] as File)} 
-                                                                        />}></Modal>}
-            {responseMessage && <Modal open={true} onClose={() => setResponseMessage('')} content={responseMessage}></Modal>}
+                                                                        plantImageString={URL.createObjectURL(imageFiles[selectedImageIdx])} 
+                                                                        />}
+                                        />}
+            {responseMessage && <Modal open={true} 
+                                        onClose={() => setResponseMessage('')} 
+                                        content={responseMessage}
+                                        />}
         </>
     ) 
 }

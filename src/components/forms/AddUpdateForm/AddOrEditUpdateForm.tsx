@@ -76,7 +76,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
               defaultValue=""
               render={({ field }) => (
                 <>
-                    <input type="file" onChange={(e) => {
+                    <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
                         // imageFileNameRef makes sure that the cropped image will receive the image's original name

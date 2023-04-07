@@ -76,7 +76,7 @@ export default function AddOrEditPlantForm({setModal, refetch, setResponseMessag
               defaultValue=""
               render={({ field }) => (
                   <>
-                    <input type="file" onChange={(e) => {
+                    <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
                       console.log(e.target.files);
                       
                       if (e.target.files && e.target.files.length > 0) {

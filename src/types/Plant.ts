@@ -1,26 +1,28 @@
 import { PlantUpdate } from "./PlantUpdate";
-export class AbstractPlant {
+import { ImgBuffer } from "./interface";
+import { bufferToImage } from "../hooks/helpfulFunctions";
+export abstract class AbstractPlant {
     id: string
-    name: string;
-    family: string | null;
-    #dateAdded: string;
-    updates: PlantUpdate[];
-    imageBufferArray: any;
+    name: string
+    family: string
+    dateAdded: string
+    updates: PlantUpdate[]
+    profileImageString: string
     checked: boolean
-    constructor (id: string, name: string, dateAdded: string, imageBufferArray: any) {
+    constructor (id: string, name: string, dateAdded: string, profileImageString: any) {
         this.id = id
         this.name = name
-        this.family = null
-        this.#dateAdded = dateAdded
+        this.family = ''
+        this.dateAdded = dateAdded
         this.updates = []
         this.checked = false
-        this.imageBufferArray = this.decideImg(imageBufferArray)
+        this.profileImageString = this.decideImg(profileImageString)
     }
-    validateName(name: string): string {
+    nameValidator(name: string): string {
         const sanitizedName = name.replace(/\s{2,}/g, ' ').trim()
         if (sanitizedName.includes(' ')) {
             const subNames = sanitizedName.split(' ')
-            return  subNames.map(sanitizedName => sanitizedName.toLowerCase()).join('')
+            return subNames.map(sanitizedName => sanitizedName.toLowerCase()).join('')
         }
         return sanitizedName
     }
@@ -31,26 +33,19 @@ export class AbstractPlant {
         const dateString = newDate.toLocaleDateString('en-US', options);
         return dateString;
     }
-    decideImg(img: any) {
+    decideImg(img: ImgBuffer) {
         if (img.data.data.length) {
-            return img.data.data
+            return bufferToImage(img.data.data)
         }
-        return 0
+        return ''
     }
 }
 
 export class Plant extends AbstractPlant {
-    family: string | null;
-    dateAdded: string;
-    updates: PlantUpdate[];
-    imageBufferArray: any;
-    checked: boolean
-    constructor (id: string, name: string, dateAdded: string, imageBufferArray: any) {
-        super(id, name, dateAdded, imageBufferArray)
-        this.family = null
-        this.dateAdded = dateAdded
-        this.updates = []
-        this.checked = false
-        this.imageBufferArray = this.decideImg(imageBufferArray)
+    // in the future there will be different types of plants
+    #dateAdded: string
+    constructor (id: string, name: string, dateAdded: string, profileImageString: any) {
+        super(id, name, dateAdded, profileImageString)
+        this.#dateAdded = dateAdded
     }
 }

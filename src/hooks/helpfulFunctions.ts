@@ -1,6 +1,6 @@
-export function bufferToImage(arrayBuffer: any): string {
+export function bufferToImage(bufferArray: any): string {
     let binary: string = ''
-    const bytes = new Uint8Array(arrayBuffer)
+    const bytes = new Uint8Array(bufferArray)
     const len = bytes.byteLength
     for (let i = 0; i < len; i++) {
         binary += String.fromCharCode( bytes[ i ] );
