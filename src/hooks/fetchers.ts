@@ -22,8 +22,7 @@ export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
 
 export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
     console.log('adding plant')
-    const formData = new FormData();
-    console.log(plantImage);
+    const formData = new FormData()
     
     formData.append('plantName', plantName)
     if (plantImage) {
@@ -33,8 +32,8 @@ export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg'
         method: 'POST',
         body: formData
   });
-  const message = await response.json()
-  return message.message
+  const result = await response.json()
+  return result
 }
 export async function fetchEditPlant(plantId: string, plantName: string, plantImage?: File | 'image/jpeg' | 'image/jpg' | null) {
     console.log('editing plant')
@@ -50,7 +49,7 @@ export async function fetchEditPlant(plantId: string, plantName: string, plantIm
         body: formData
   });
     const message = await response.json()
-    return message.message
+    return message
 }
 ///////////////////       U  P  D  A  T  E  S        ///////////////////
 

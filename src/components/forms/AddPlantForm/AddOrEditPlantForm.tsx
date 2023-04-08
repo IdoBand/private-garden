@@ -6,23 +6,23 @@ import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
 import { fetchAddPlant, fetchEditPlant } from "../../../hooks/fetchers";
 import { current } from "@reduxjs/toolkit";
 import getCroppedImg from "../../ImageCrop/canvasToFile";
+import { Plant } from "../../../types/Plant";
+import { todaysDateString, dateInRightFormat } from "../../../hooks/helpfulFunctions";
 interface addPlantDataObject {
   plantName: string;
   plantImage: 'image/jpeg' | 'image/jpg';
 }
 interface AddPlantFormProps {
-  // plants: Plant[]
-  // setPlants: React.Dispatch<React.SetStateAction<Plant[]>>
   setModal: React.Dispatch<React.SetStateAction<boolean>>
-  refetch?: any
   setResponseMessage: React.Dispatch<React.SetStateAction<string>>
   addOrEdit: string
   plantName?: string | null
   plantImageString?: string | null
+  setPlants?: React.Dispatch<React.SetStateAction<Plant[]>>
 }
 
 
-export default function AddOrEditPlantForm({setModal, refetch, setResponseMessage, plantName='', plantImageString, addOrEdit}: AddPlantFormProps) {
+export default function AddOrEditPlantForm({setModal, setResponseMessage, plantName='', plantImageString, addOrEdit, setPlants}: AddPlantFormProps) {
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -32,29 +32,36 @@ export default function AddOrEditPlantForm({setModal, refetch, setResponseMessag
   
   function assignCroppedImageToRef(file: any) {
     imageFileRef.current = file
-    
   }
-  const formHeader: string = addOrEdit === 'add' ? 'Add a New Plant': 'Edit a Plant' ;
+  const formHeader: string = addOrEdit === 'add' ? 'Add a New Plant' : 'Edit a Plant' ;
 
   useEffect(() => {
-    // coming from edit --> image already uploaded, string
+    // coming from edit --> image already uploaded
     if (plantImageString) {
       setImagePreviewUrl(plantImageString)
     }
   }, [])
+
+  function concatNewPlant(plantId: string, data: addPlantDataObject) {
+    const imageString = imageFileRef.current ? URL.createObjectURL(imageFileRef.current) : data.plantImage
+    const newPlant = new Plant(plantId, data.plantName, dateInRightFormat(todaysDateString()), imageString)
+    setPlants!(prevPlants => {return prevPlants.concat(newPlant)
+    })
+  }
   
   async function extractDataFromForm(data: addPlantDataObject) {
     let response;
     if (addOrEdit === 'add') {
       response = await fetchAddPlant(data.plantName, imageFileRef.current)
+      if (response.plantId) {
+        concatNewPlant(response.plantId, data)
+      }
     } else if (addOrEdit === 'edit') {
       response = await fetchEditPlant(currentPlant?.id as string, data.plantName, imageFileRef.current)
     }
-    
-    console.log(response);
     reset()
     setModal(false)
-    setResponseMessage(response)
+    setResponseMessage(response.message)
   }
   
   return (
@@ -77,12 +84,9 @@ export default function AddOrEditPlantForm({setModal, refetch, setResponseMessag
               render={({ field }) => (
                   <>
                     <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
-                      console.log(e.target.files);
-                      
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
                         // imageFileRef makes sure that the cropped image will receive the image's original name
-                        
                         field.onChange(selectedFile);
                         imageFileRef.current = selectedFile
                         setImagePreviewUrl(URL.createObjectURL(selectedFile));
@@ -105,7 +109,7 @@ export default function AddOrEditPlantForm({setModal, refetch, setResponseMessag
                                 <img className="preview-image" src={imagePreviewUrl} alt="Preview" />
                               </>}
           </div>
-          <GreenButton onClick={handleSubmit} text="Submit"/>
+          <GreenButton type="submit" onClick={handleSubmit} text="Submit"/>
         </form>
     </>
   )

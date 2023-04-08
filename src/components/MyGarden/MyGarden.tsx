@@ -150,7 +150,9 @@ export default function MyGarden() {
                                      content={<AddOrEditPlantForm 
                                      setModal={setAddPlantModal} 
                                      addOrEdit="add" 
-                                     setResponseMessage={setResponseMessage}/>} 
+                                     setResponseMessage={setResponseMessage}
+                                     setPlants={setPlants}
+                                     />} 
                                      />}
             {responseMessage && <Modal open={true} 
                                        onClose={() => setResponseMessage('')} 

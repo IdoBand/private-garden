@@ -2,8 +2,9 @@ import styled from "styled-components";
 import React from 'react'
 
 interface Props {
-  text: string;
-  onClick: any;
+  text: string
+  onClick: any
+  type?: 'button' | 'submit'
 }
 
 const NewButton = styled.button`
@@ -25,9 +26,10 @@ const NewButton = styled.button`
 const GreenButton: React.FC<Props> = ({
   text, 
   onClick,
+  type = 'button'
   }) => {
   return (
-    <NewButton onClick={onClick}> {text} </NewButton>
+    <NewButton type={type} onClick={onClick}> {text} </NewButton>
   )
 }
 

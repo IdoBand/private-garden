@@ -102,7 +102,7 @@ export default function IdentifyPlant() {
                                 }
                             
                             {imageFiles.length > 0 &&  <>
-                                <GreenButton onClick={handleSubmit} text="Identify"/>
+                                <GreenButton type="submit" onClick={handleSubmit} text="Identify"/>
                                 {(identifiedPlant && (selectedImageIdx !== null)) && 
                                     <GreenButton onClick={() => setAddPlantModal(true)} text="Add to My Garden"/>}
                                                 </>

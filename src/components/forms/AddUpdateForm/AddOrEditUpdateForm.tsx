@@ -131,7 +131,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                 <textarea id="notes-form-input" {...register("notes")} defaultValue={currentUpdate ? currentUpdate.notes : ''}/>
             </div>
           </>
-          <GreenButton onClick={handleSubmit} text="Submit"/>
+          <GreenButton type="submit" onClick={handleSubmit} text="Submit"/>
         </form>
     </>
   )

@@ -33,7 +33,10 @@ export abstract class AbstractPlant {
         const dateString = newDate.toLocaleDateString('en-US', options);
         return dateString;
     }
-    decideImg(img: ImgBuffer) {
+    decideImg(img: ImgBuffer | string) {
+        if (typeof img === 'string') {
+            return img
+        }
         if (img.data.data.length) {
             return bufferToImage(img.data.data)
         }
