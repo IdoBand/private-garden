@@ -1,21 +1,19 @@
 import { useForm, Controller } from "react-hook-form";
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import GreenButton from '../../Button/GreenButton';
 import { useAppDispatch, useAppSelector } from "../../../redux/counterHooks"
 import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
 import { fetchAddPlant, fetchEditPlant } from "../../../hooks/fetchers";
-import { current } from "@reduxjs/toolkit";
-import getCroppedImg from "../../ImageCrop/canvasToFile";
 import { Plant } from "../../../types/Plant";
 import { todaysDateString, dateInRightFormat } from "../../../hooks/helpfulFunctions";
 interface addPlantDataObject {
   plantName: string;
-  plantImage: 'image/jpeg' | 'image/jpg';
+  plantImage: 'image/jpeg' | 'image/jpg' | File;
 }
 interface AddPlantFormProps {
   setModal: React.Dispatch<React.SetStateAction<boolean>>
   setResponseMessage: React.Dispatch<React.SetStateAction<string>>
-  addOrEdit: string
+  addOrEdit: 'add' | 'edit'
   plantName?: string | null
   plantImageString?: string | null
   setPlants?: React.Dispatch<React.SetStateAction<Plant[]>>
@@ -25,14 +23,14 @@ interface AddPlantFormProps {
 export default function AddOrEditPlantForm({setModal, setResponseMessage, plantName='', plantImageString, addOrEdit, setPlants}: AddPlantFormProps) {
   
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(plantImageString? plantImageString : null);
   const imageFileRef = useRef<File | null>(null);
-  const dispatch = useAppDispatch()
   const currentPlant = useAppSelector(state => state.plants.currentPlant)
   
-  function assignCroppedImageToRef(file: any) {
+  const assignCroppedImageToRef = useCallback((file: any) => {
     imageFileRef.current = file
-  }
+  }, [])
+
   const formHeader: string = addOrEdit === 'add' ? 'Add a New Plant' : 'Edit a Plant' ;
 
   useEffect(() => {
@@ -50,6 +48,11 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
   }
   
   async function extractDataFromForm(data: addPlantDataObject) {
+    if (!data.plantImage && plantImageString) {
+      console.log('suppose to set existing image');
+      
+      data.plantImage = imageFileRef.current as File
+    }
     let response;
     if (addOrEdit === 'add') {
       response = await fetchAddPlant(data.plantName, imageFileRef.current)
@@ -57,10 +60,10 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
         concatNewPlant(response.plantId, data)
       }
     } else if (addOrEdit === 'edit') {
-      response = await fetchEditPlant(currentPlant?.id as string, data.plantName, imageFileRef.current)
+      response = await fetchEditPlant(currentPlant!.id as string, data.plantName, imageFileRef.current)
     }
-    reset()
     setModal(false)
+    reset()
     setResponseMessage(response.message)
   }
   
@@ -104,9 +107,9 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
                                   zoomInit={null} 
                                   aspectInit={null}
                                   assignCroppedImageToRef={assignCroppedImageToRef}
-                                  imageName={currentPlant?.name as string}
+                                  imageName={imageFileRef.current?.name as string}
                                 />
-                                <img className="preview-image" src={imagePreviewUrl} alt="Preview" />
+                                <img className="preview-image" src={imagePreviewUrl} alt="Preview"/>
                               </>}
           </div>
           <GreenButton type="submit" onClick={handleSubmit} text="Submit"/>

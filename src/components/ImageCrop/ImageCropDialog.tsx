@@ -1,5 +1,5 @@
 import Cropper from 'react-easy-crop'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import getCroppedImg from './canvasToFile'
 interface ImageCropProps {
     imageUrl: string
@@ -22,8 +22,6 @@ export interface CroppedArea {
 }
 
 export default function ImageCropDialog({imageUrl, cropInit, zoomInit, aspectInit, assignCroppedImageToRef, imageName}: ImageCropProps) {
-  console.log(imageName);
-  
     if (zoomInit == null) {
         zoomInit = 1
     }
@@ -37,12 +35,14 @@ export default function ImageCropDialog({imageUrl, cropInit, zoomInit, aspectIni
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedArea | null>(null)
   const onCropComplete = useCallback(async (croppedArea: CroppedArea, croppedAreaPixels: CroppedArea) => {
-    // console.log(croppedArea, croppedAreaPixels)
+    // console.log(croppedArea)
+    // console.log(croppedAreaPixels);
+    
     setCroppedAreaPixels(croppedAreaPixels)
     const croppedImageFile = await getCroppedImg(imageUrl, croppedAreaPixels as CroppedArea, imageName)
     assignCroppedImageToRef(croppedImageFile)
-        
-  }, [])
+    // imageName dependency was added in case of editing in oppose of adding
+  }, [imageName]) 
 
   return (
     <>

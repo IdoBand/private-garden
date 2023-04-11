@@ -118,3 +118,11 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
     const result = await response.json()
     return result.message   
 }
+
+///////////////////       R  A  N  D  O  M         ///////////////////
+export async function fetchRandom(plantName: string) {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${plantName}?redirect=false`;
+    const response = await fetch(url)
+    const data = await response.json()
+    return data
+}

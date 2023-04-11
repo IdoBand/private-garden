@@ -20,7 +20,7 @@ interface AddPlantUpdateFormProps {
   currentPlant: Plant
   refetch: any
   setModal: React.Dispatch<React.SetStateAction<boolean>>
-  addOrEdit: string
+  addOrEdit: 'add' | 'edit'
   setResponseMessage: React.Dispatch<React.SetStateAction<string>>
   currentUpdate?: PlantUpdate
 }
@@ -30,8 +30,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
   const [irrigationFormSection, setIrrigationFormSection] = useState<boolean>(currentUpdate ? currentUpdate.irrigation.IrrigationBoolean : false)
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
-  const imageFileRef = useRef(null);
-  const imageFileNameRef = useRef<string>('noname')
+  const imageFileRef = useRef<File | null>(null);
   const formHeader: string = addOrEdit === 'add' ? 'Add a New Update': 'Edit an Update' ;
   function assignCroppedImageToRef(file: any) {
     imageFileRef.current = file
@@ -39,7 +38,6 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
   
   async function extractAndOrganize(data: addPlantUpdateDataObject) {
     data.date = dateInRightFormat(data.date)
-    console.log(data);
     if (data.updateImage) {
       data.updateImage = imageFileRef.current
     }
@@ -79,10 +77,9 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                     <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
-                        // imageFileNameRef makes sure that the cropped image will receive the image's original name
-                        imageFileNameRef.current = selectedFile.name
-                        console.log(imageFileNameRef.current)
+                        // imageFileRef makes sure that the cropped image will receive the image's original name
                         field.onChange(e.target.files[0]);
+                        imageFileRef.current = selectedFile
                         setImagePreviewUrl(URL.createObjectURL(selectedFile));
                       }
                     }} />
@@ -98,7 +95,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                                   zoomInit={null} 
                                   aspectInit={null}
                                   assignCroppedImageToRef={assignCroppedImageToRef}
-                                  imageName={currentPlant?.name as string}
+                                  imageName={imageFileRef.current?.name as string}
                                 />
                                 <img src={imagePreviewUrl} width="350" alt="Preview" />
                               </>}
@@ -113,11 +110,11 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                 <label className="form-label">Water Quantity (ml):</label>
                 <input {...register("waterQuantity")} type="number" min="0" defaultValue={currentUpdate! ? +currentUpdate!.irrigation.waterQuantity : 0}/>
             </div>
-                <div className="form-section">
+            <div className="form-section">
                 <label className="form-label">Fertilizer:</label>
                 <input {...register("fertilizer")} defaultValue={currentUpdate ? currentUpdate!.irrigation.fertilizer : ''}/>
             </div>
-                <div className="form-section">
+            <div className="form-section">
                 <label className="form-label">Fertilizer Quantity (ml):</label>
                 <input {...register("fertilizerQuantity")} type="number" min="0" defaultValue={currentUpdate ? +currentUpdate!.irrigation.fertilizerQuantity : 0}/>
             </div>

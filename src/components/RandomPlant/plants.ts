@@ -12,7 +12,6 @@ export const plantNames = [
     "Clematis",
     "Crocus",
     "Daffodil",
-    "Daisy",
     "Dandelion",
     "Eucalyptus",
     "Fern",
@@ -29,9 +28,7 @@ export const plantNames = [
     "Lilac",
     "Lily",
     "Magnolia",
-    "Marigold",
     "Mimosa",
-    "Mint",
     "Morning_glory",
     "Orchid",
     "Pansy",
@@ -39,7 +36,6 @@ export const plantNames = [
     "Petunia",
     "Poinsettia",
     "Poppy",
-    "Primrose",
     "Rose",
     "Sage",
     "Snapdragon",
@@ -87,7 +83,7 @@ export const plantNames = [
     "ZZ_plant"
   ];
 
-  async function determine() {
+  export async function determine() {
     const arr = []
     for (let plantString of plantNames) {
         const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${plantString}?redirect=false`;
@@ -97,5 +93,6 @@ export const plantNames = [
             arr.push(plantString)
         }
     }
+    console.log(arr.length);
     return arr.length
   }

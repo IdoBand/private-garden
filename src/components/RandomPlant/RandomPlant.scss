@@ -13,3 +13,12 @@
     min-height: 70px;
     white-space: normal;
   }
+
+  .random-plant-header-summary{
+    @include mixin.flexCenter();
+    flex-direction: column;
+  }
+  .random-plant-image{
+    max-height: 300px;
+    margin-left: 10px;
+  }

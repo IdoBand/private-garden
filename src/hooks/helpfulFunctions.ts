@@ -8,8 +8,13 @@ export function bufferToImage(bufferArray: any): string {
     const bin = btoa(binary)
     return `data:image/png;base64,${bin}`
 }
-export function capitalize(str: string): string {
-    const words = str.split(' ')
+export function capitalize(str: string, boolean?: boolean): string {
+    let words;
+    if (boolean) { // coming from Random Plant 'name_is_like_this'
+        words = str.split('_')
+    } else {   // coming from My Garden 'name is like this'
+        words = str.split(' ')
+    }
     const capitalizedWords = words.map(word => {
         const firstLetter = word.charAt(0).toUpperCase();
         const restOfWord = word.slice(1);
