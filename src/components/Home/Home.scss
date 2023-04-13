@@ -1,15 +1,86 @@
 @use '../../mixin.scss';
 
+#home-container {
+  display: grid;
+  grid-template-columns: .55fr .45fr;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 600px;
+  min-height: 500px;
+}
+.home-text {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 100px;
+  font-size: 30px;
+  line-height: 1.6;
+  .here-you-can{
+    font-size: 20px;
+  }
+}
 
-  #welcome-message {
-    border: solid lightgray 2px;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    min-width: 600px;
-    min-height: 200px;
+.rotary {
+  position: relative;
+}
+
+span {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.sun{
+  width: 60px;
+  height: 60px;
+  background-color: #ffa54b;
+  box-shadow: 0 0 10px #ffa54b,
+  0 0 20px #ffa54b,
+  0 0 40px #ffa54b,
+  0 0 60px #ffa54b;
+  z-index: 999;
+}
+.rotating-trajectory {
+  background: transparent;
+  width: 250px;
+  height: 250px;
+  animation: animate 10s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
   }
-  h1 :has(h3){
-    color: #fff;
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
+}
+
+.rotating-img {
+  position: absolute;
+}
+#img1 {
+  top: -25px;
+  left: 100px;
+}
+#img2 {
+  right: -5px;
+  top: 40px;
   
+}
+#img3 {
+  right: 20px;
+  bottom: 10px;
+}
+#img4 {
+  left: 35px;
+  bottom: 25px;
+}
+#img5 {
+  left: -10px;
+  top: 40px;
+}

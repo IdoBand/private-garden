@@ -4,8 +4,6 @@ import { PropagateLoader } from "react-spinners";
 
 const SpinnerContainer = styled.div`
     width: 100%;
-    display: grid;
-    place-items: center;
     padding: 50px 0 50px 0;
 `
 
