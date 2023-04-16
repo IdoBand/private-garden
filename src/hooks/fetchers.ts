@@ -19,7 +19,12 @@ export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
     const resultString = await response.json()
     return resultString.message
 }
-
+export async function fetchPlantById(plantId: string) {
+    console.log(`fetching: ${plantId}`);
+    const response = await fetch(`${BASIC_URL}/plant/${plantId}`)
+    const plantObject = await response.json()
+    return plantObject
+}
 export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
     console.log('adding plant')
     const formData = new FormData()

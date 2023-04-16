@@ -1,6 +1,7 @@
 @use '../../mixin';
 .images-and-result {
     @include mixin.flexCenter();
+    flex-wrap: wrap;
 }
 .image-to-identify {
     margin: 0 10px 10px 0;

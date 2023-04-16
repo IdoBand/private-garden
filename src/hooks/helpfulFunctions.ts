@@ -40,9 +40,8 @@ export function dateInInputFormat(date: string): string{
 export function handleImageLoad(event: React.SyntheticEvent<HTMLImageElement>) {
     const img = event.currentTarget;
     if (img.width > img.height) {
-      img.width = 500;
+      img.width = 300;
     } else {
       img.width = 200;
-
     }
   }

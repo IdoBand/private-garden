@@ -2,7 +2,8 @@ import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef} from "react"
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PlantUpdate } from "../../types/PlantUpdate"
 import { bufferToImage, capitalize } from "../../hooks/helpfulFunctions"
 import checkedSVG from '../../assets/checked.png'
@@ -10,8 +11,8 @@ import redXsvg from '../../assets/redX.png'
 import logo from '../../assets/logo.jpg'
 import Modal from "../Modal/Modal"
 import AddOrEditUpdateForm from "../forms/AddUpdateForm/AddOrEditUpdateForm"
-import { setCurrentPlant, setCurrentUpdate } from "../../redux/plantsSlice"
-import {fetchUpdatesByPlantId, fetchRemovePlantUpdatesPermanently }from '../../hooks/fetchers'
+import { addPlants, setCurrentPlant, setCurrentUpdate } from "../../redux/plantsSlice"
+import {fetchUpdatesByPlantId, fetchRemovePlantUpdatesPermanently, fetchPlantById, fetchEntireGarden }from '../../hooks/fetchers'
 import Spinner from "../Spinner/Spinner"
 import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 export default function PlantTimeline() {
@@ -21,13 +22,34 @@ export default function PlantTimeline() {
     const [editPlantUpdateModal, setEditPlantUpdateModal] = useState<boolean>(false)
     const [removeButtons, setRemoveButtons] = useState(false)
     const [responseMessage, setResponseMessage] = useState<string>('')
+    const currentUpdateRef = useRef<PlantUpdate>()
+    const firstSelectAllClick = useRef<boolean>(false)
     const dispatch = useAppDispatch()
     const currentPlant = useAppSelector(state => state.plants.currentPlant)
-    const currentUpdateRef = useRef<PlantUpdate>()
-    const plants = useAppSelector(state => state.plants.plants)
+    const reduxPlants = useAppSelector(state => state.plants.plants)
     const selectInput = useRef<HTMLSelectElement>(null)
     const [plantUpdates, setPlantUpdates] = useState<PlantUpdate[]>([])
-    const firstSelectAllClick = useRef<boolean>(false)
+    const navigate = useNavigate()
+    const location = useLocation();
+    async function ifUserRefreshPage() {
+        try {
+            const plantId = location.pathname.split('/')[2];
+            const plantFromDb = await fetchPlantById(plantId)
+            if (plantFromDb.message) {
+                setResponseMessage(plantFromDb.message)
+            }
+            const plantInstance = new Plant(plantFromDb._id, plantFromDb.plantName, plantFromDb.dateAdded, plantFromDb.img)
+            const plantsDB = await fetchEntireGarden()
+            const newPlants = plantsDB.map((p: any) => {
+                return new Plant(p._id, p.plantName, p.dateAdded, p.img)
+            })
+            dispatch(addPlants(newPlants))
+            dispatch(setCurrentPlant(plantInstance))
+        } catch (err) {
+            console.log(`error while running ifUserRefreshPage function` + err);
+        }
+        
+    }
     async function onPlantTimelineMount() {
         setIsFetching(true)
         const updates = await fetchUpdatesByPlantId(currentPlant!.id)
@@ -42,20 +64,24 @@ export default function PlantTimeline() {
         setIsFetching(false)
     }
     useEffect(() => {
+        if (!currentPlant) {
+            ifUserRefreshPage()
+        }
         onPlantTimelineMount()
     },[currentPlant])
 
     function switchCurrentPlant(): void {
         const selectedOptionId = selectInput.current?.options[selectInput.current.selectedIndex].dataset.key;
-        for (let plant of plants) {
+        for (let plant of reduxPlants) {
             if (plant.id === selectedOptionId) {
                 dispatch(setCurrentPlant(plant))
+                navigate(`/PlantTimeline/${selectedOptionId}`)
                 return
             }
         }
     }
     function handleUpdateModal(plantUpdate: PlantUpdate): void {
-        // dispatch(setCurrentUpdate(plantUpdate))
+        dispatch(setCurrentUpdate(plantUpdate))
         currentUpdateRef.current = plantUpdate
         setEditPlantUpdateModal(true)
     }
@@ -107,16 +133,16 @@ export default function PlantTimeline() {
             <div className="page-content">
             {isFetching ? <Spinner />
                                 : 
+                currentPlant && 
                 <>
                     <div className="plant-options">
                         <div id="plant-intro">
                             <img className="plant-logo" 
                                  src={currentPlant?.profileImageString ? currentPlant.profileImageString : logo}/>
                             <div id="current-plant-details">
-                                {capitalize(currentPlant?.name as string)}<br />
+                                <div className="form-header">{capitalize(currentPlant?.name as string)}</div><br />
                                 Added on: {currentPlant?.dateAdded}<br />
                                 Total Updates: {plantUpdates.length}<br />
-                                Plant ID: {currentPlant?.id}
                             </div> 
                         </div>
                         <div className="plant-timeline-buttons">
@@ -132,7 +158,7 @@ export default function PlantTimeline() {
                         <div className="select-current-plant">
                             Select Current Plant<br />
                             <select value={currentPlant?.name} ref={selectInput} onChange={switchCurrentPlant}>
-                                {plants.map(plant => {
+                                {reduxPlants.map(plant => {
                                     return(
                                         <option key={plant.id} data-key={plant.id}>{plant.name}</option>
                                     )
@@ -191,7 +217,8 @@ export default function PlantTimeline() {
                         )
                     })}
                     </div>
-                </>}
+                </>
+                }
             </div>
         </div>
         {addPlantUpdateModal && <Modal 

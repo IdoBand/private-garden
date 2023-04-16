@@ -6,6 +6,7 @@ import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
 import { fetchAddPlant, fetchEditPlant } from "../../../hooks/fetchers";
 import { Plant } from "../../../types/Plant";
 import { todaysDateString, dateInRightFormat } from "../../../hooks/helpfulFunctions";
+import { addPlants } from "../../../redux/plantsSlice";
 interface addPlantDataObject {
   plantName: string;
   plantImage: 'image/jpeg' | 'image/jpg' | File;
@@ -26,7 +27,8 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(plantImageString? plantImageString : null);
   const imageFileRef = useRef<File | null>(null);
   const currentPlant = useAppSelector(state => state.plants.currentPlant)
-  
+  const reduxPlants = useAppSelector(state => state.plants.plants)
+  const dispatch = useAppDispatch()
   const assignCroppedImageToRef = useCallback((file: any) => {
     imageFileRef.current = file
   }, [])
@@ -43,8 +45,9 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
   function concatNewPlant(plantId: string, data: addPlantDataObject) {
     const imageString = imageFileRef.current ? URL.createObjectURL(imageFileRef.current) : data.plantImage
     const newPlant = new Plant(plantId, data.plantName, dateInRightFormat(todaysDateString()), imageString)
-    setPlants!(prevPlants => {return prevPlants.concat(newPlant)
-    })
+    const newPlants = reduxPlants.concat(newPlant)
+    dispatch(addPlants(newPlants))
+    setPlants!(newPlants)
   }
   
   async function extractDataFromForm(data: addPlantDataObject) {
