@@ -1,17 +1,17 @@
 import { Plant } from "../types/Plant"
-const BASIC_SERVER_URL = process.env.BASIC_SERVER_URL
+const BASIC_URL: string = import.meta.env.VITE_BASIC_SERVER_URL
 
 ///////////////////       P  L  A  N  T  S        ///////////////////
 
 export async function fetchEntireGarden() {
     console.log('fetching garden')
-    const response = await fetch(`${BASIC_SERVER_URL}/getEntireGarden`)
+    const response = await fetch(`${BASIC_URL}/getEntireGarden`)
     const entireGardenArray = await response.json()
     return entireGardenArray
 }
 export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
     console.log('removing plants')
-    const response = await fetch(`${BASIC_SERVER_URL}/removePlants`, {method: 'POST',
+    const response = await fetch(`${BASIC_URL}/removePlants`, {method: 'POST',
                                                                     headers: {'Content-Type': 'application/json'},
                                                                     body: JSON.stringify({IdsToRemove: IdsToRemove})
                                                                     })
@@ -20,7 +20,7 @@ export async function fetchRemovePlantsPermanently(IdsToRemove: string[]) {
 }
 export async function fetchPlantById(plantId: string) {
     console.log(`fetching: ${plantId}`);
-    const response = await fetch(`${BASIC_SERVER_URL}/plant/${plantId}`)
+    const response = await fetch(`${BASIC_URL}/plant/${plantId}`)
     const plantObject = await response.json()
     return plantObject
 }
@@ -32,7 +32,7 @@ export async function fetchAddPlant(plantName: string, plantImage?: 'image/jpeg'
     if (plantImage) {
         formData.append('plantImage', plantImage);
     };
-    const response = await fetch(`${BASIC_SERVER_URL}/addPlant`, {
+    const response = await fetch(`${BASIC_URL}/addPlant`, {
         method: 'POST',
         body: formData
   });
@@ -48,7 +48,7 @@ export async function fetchEditPlant(plantId: string, plantName: string, plantIm
     if (plantImage) {
         formData.append('plantImage', plantImage);
     };
-    const response = await fetch(`${BASIC_SERVER_URL}/editPlantById`, {
+    const response = await fetch(`${BASIC_URL}/editPlantById`, {
         method: 'POST',
         body: formData
   });
@@ -58,7 +58,7 @@ export async function fetchEditPlant(plantId: string, plantName: string, plantIm
 ///////////////////       U  P  D  A  T  E  S        ///////////////////
 
 export async function fetchUpdatesByPlantId(plantId: string) {
-    const response = await fetch(`${BASIC_SERVER_URL}/getAllUpdatesByPlantId?id=${plantId}`)
+    const response = await fetch(`${BASIC_URL}/getAllUpdatesByPlantId?id=${plantId}`)
     const updates = await response.json()
     return updates
 }
@@ -72,7 +72,7 @@ export async function fetchAddPlantUpdate(updateObject: any, currentPlant: Plant
       formData.append(key, value)
     }
     
-    const response = await fetch(`${BASIC_SERVER_URL}/addPlantUpdate`, {
+    const response = await fetch(`${BASIC_URL}/addPlantUpdate`, {
       method: 'POST',
       body: formData
     });
@@ -88,7 +88,7 @@ export async function fetchEditPlantUpdate(updateObject: any, currentPlant: Plan
       formData.append(key, value)
     }
     
-    const response = await fetch(`${BASIC_SERVER_URL}/editPlantUpdate`, {
+    const response = await fetch(`${BASIC_URL}/editPlantUpdate`, {
       method: 'POST',
       body: formData
     });
@@ -98,7 +98,7 @@ export async function fetchEditPlantUpdate(updateObject: any, currentPlant: Plan
 
 export async function fetchRemovePlantUpdatesPermanently(IdsToRemove: string[]) {
         console.log('removing updates')
-        const response = await fetch(`${BASIC_SERVER_URL}/removeUpdates`, {method: 'POST',
+        const response = await fetch(`${BASIC_URL}/removeUpdates`, {method: 'POST',
                                                                         headers: {'Content-Type': 'application/json'},
                                                                         body: JSON.stringify({IdsToRemove: IdsToRemove})
                                                                         })
@@ -114,7 +114,7 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
         formData.append('plantImages', plantImages[i])
     } 
     
-    const response = await fetch(`${BASIC_SERVER_URL}/IdentifyPlant`, 
+    const response = await fetch(`${BASIC_URL}/IdentifyPlant`, 
     {
         method: 'POST',
         body: formData
