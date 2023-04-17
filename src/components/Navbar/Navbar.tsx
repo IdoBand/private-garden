@@ -29,7 +29,7 @@ export default function Navbar() {
                     <li><Link to={'MyGarden'}className="nav-links">My Garden</Link></li>
                     <li><Link to={'IdentifyPlant'} className="nav-links">Identify Plant</Link></li>
                     <li><Link to={'RandomPlant'} className="nav-links">Random Plant</Link></li>
-                    <li><Link className="nav-links" onClick={() => setAbout(true)}>About</Link></li>
+                    <li><div className="nav-links" onClick={() => setAbout(true)}>About</div></li>
                 </ul>
             </header>
             {about && <Modal open={about} onClose={() => setAbout(false)} content={<About />}/>}
