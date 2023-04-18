@@ -1,8 +1,8 @@
 export function generatePath(logoName: string): string {
     if (logoName !== 'vite') {
-        return `/src/assets/logos/${logoName}.png`
+        return `/assets/logos/${logoName}.png`
     }
-    return `/src/assets/logos/${logoName}.svg`
+    return `assets/logos/${logoName}.svg`
 }
  
  export default function About(){

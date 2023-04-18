@@ -1,7 +1,7 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useState } from 'react'
 import Modal from '../Modal/Modal';
-import logo from '../../assets/logo.jpg'
+import logo from '/assets/logo.jpg'
 import About, { generatePath } from '../About/About';
 
 export default function Navbar() {

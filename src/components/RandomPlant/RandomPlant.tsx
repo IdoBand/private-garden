@@ -4,7 +4,7 @@ import GreenButton from "../Button/GreenButton"
 import Spinner from "../Spinner/Spinner"
 import { fetchRandom } from '../../hooks/fetchers'
 import { capitalize } from '../../hooks/helpfulFunctions'
-import logo from '../../assets/logo.jpg'
+import logo from '/assets/logo.jpg'
 
 export default function RandomPlant() {
     const plantName = useRef<string>('')

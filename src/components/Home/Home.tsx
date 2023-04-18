@@ -1,9 +1,9 @@
 
-import cactus from '../../assets/home-page/cactus.png'
-import alocasia from '../../assets/home-page/alocasia.png'
-import alocasia2 from '../../assets/home-page/alocasia2.png'
-import alocasiazebrina from '../../assets/home-page/alocasiazebrina.png'
-import monsteraleaf from '../../assets/home-page/monsteraleaf.png'
+import cactus from '/assets/home-page/cactus.png'
+import alocasia from '/assets/home-page/alocasia.png'
+import alocasia2 from '/assets/home-page/alocasia2.png'
+import alocasiazebrina from '/assets/home-page/alocasiazebrina.png'
+import monsteraleaf from '/assets/home-page/monsteraleaf.png'
 export default function Home () {
     return (
         <>

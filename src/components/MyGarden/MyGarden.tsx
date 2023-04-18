@@ -5,8 +5,8 @@ import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
 import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 import { useQuery } from "@tanstack/react-query"
-import searchLogo from '../../assets/search_icon-white2.png'
-import logo from '../../assets/logo.jpg'
+import searchLogo from '/assets/search_icon-white2.png'
+import logo from '/assets/logo.jpg'
 import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"

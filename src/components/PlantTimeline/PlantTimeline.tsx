@@ -6,9 +6,9 @@ import { useEffect, useState, useRef} from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PlantUpdate } from "../../types/PlantUpdate"
 import { bufferToImage, capitalize } from "../../hooks/helpfulFunctions"
-import checkedSVG from '../../assets/checked.png'
-import redXsvg from '../../assets/redX.png'
-import logo from '../../assets/logo.jpg'
+import checkedSVG from '/assets/checked.png'
+import redXsvg from '/assets/redX.png'
+import logo from '/assets/logo.jpg'
 import Modal from "../Modal/Modal"
 import AddOrEditUpdateForm from "../forms/AddUpdateForm/AddOrEditUpdateForm"
 import { addPlants, setCurrentPlant, setCurrentUpdate } from "../../redux/plantsSlice"
