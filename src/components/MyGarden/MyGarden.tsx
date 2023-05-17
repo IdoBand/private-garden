@@ -101,25 +101,27 @@ export default function MyGarden() {
     
     return (
         <>
-            <div className="page-container">
-                <div className="page-content">
-                {isFetching ? <Spinner />
+            <div className="my-garden-container">
+            {isFetching ? <Spinner />
                                 :
                     <>
                         <div id="my-garden-options">
-                            <div id="buttons">
+                            <div id="my-garden-buttons">
                             <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)}/>
                             <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
                             {removeButtons && <>
+                                <br />
                                 <RedButton text="Select All" onClick={selectAll}/>
                                 <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
                                             </>
                             }
                             </div>
                             <div id="search-bar-and-count">
-                                <div id="search-bar-left"><img src={searchLogo}/></div>
-                                <input id="search-bar" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
-                                <div id="plants-counter">{searchBarInputRef.current?.value ? `${plants.length} Plants Matching`: `You Have ${plants.length} Plants`}</div>
+                                <div className="search-bar-container">
+                                    <div id="search-bar-left"><img src={searchLogo}/></div>
+                                    <input id="search-input" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
+                                </div>
+                                <div id="plants-counter">{searchBarInputRef.current?.value ? `${plants.length} Plants Matching Search`: `You Have ${plants.length} Plants`}</div>
                             </div>    
                         </div>
                         
@@ -141,8 +143,6 @@ export default function MyGarden() {
                             )}
                         </div>
                     </>}
-                </div>
-            </div>
             {addPlantModal && <Modal open={addPlantModal} 
                                      onClose={() => setAddPlantModal(false)} 
                                      content={<AddOrEditPlantForm 
@@ -155,6 +155,8 @@ export default function MyGarden() {
             {responseMessage && <Modal open={true} 
                                        onClose={() => setResponseMessage('')} 
                                        content={responseMessage} />}
+            </div>
+                
         </>
     )
 }

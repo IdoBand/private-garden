@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './counterSlice'
 import plantsReducer from './plantsSlice'
+import windowReducer from './windowSlice'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    plants: plantsReducer
+    plants: plantsReducer,
+    window: windowReducer
   }
 })
 

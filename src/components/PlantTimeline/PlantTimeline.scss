@@ -1,12 +1,21 @@
 @use '../../mixin.scss';
 
-.plant-options{
+
+.plant-timeline-container{
+    width: 100%;
+    @include mixin.flexCenter();
+    background: mixin.$container-background-color;
+    flex-direction: column;
+    padding: 10px 0 10px 0;
+    color: white;
+}
+.plant-timeline-options{
     display: flex;
     justify-content: space-between;
+    width: 90%;
 }
-
 #plant-intro{
-    max-width: 450px;
+    width: 450px;
     display: flex;
     margin: 0 0 10px 0;
     .plant-logo{
@@ -109,7 +118,7 @@
 }
 .update-card-subheader {
     @include mixin.flexCenter();
-    font-size: 20px;
+    font-size: mixin.$desktop-md-font-size;
 }
 
 .checked-logo{
@@ -174,7 +183,7 @@ select {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -46%);
-    font-size: 10px;
+    font-size: mixin.$desktop-sm-font-size;
     color: white;
     text-align: center;
     line-height: 18px;
@@ -182,10 +191,36 @@ select {
   }
 
 //////////////////      R E S P O N S I V E      //////////////////
-@media screen and (max-width: 1150px) {
-  
+@media screen and (max-width: 1000px) {
+    .plant-timeline-options{
+        @include mixin.flexCenter();
+        flex-direction: column;
+        width: 100%;
+    }
+    #plant-intro{
+        display: flex;
+        align-items: flex-start;
+        width: 95%;
+        .plant-logo{
+           margin: 2px;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+        #current-plant-details{
+            margin: 5px;
+            color: white;
+            font-size: mixin.$desktop-sm-font-size;
+        }
+    }
+    .plant-timeline-buttons {
+        width: 95%;
+    }
+    .select-current-plant {
+        width: 95%;
+    }
     #plant-updates {
-        width: 80vw;
+        width: 95%;
     }
     #plant-updates .update-card {
         width: 100%;
@@ -206,5 +241,18 @@ select {
         left: 50%;
         transform: translateX(-50%);
     }
-   
+    .update-card-images-container{
+        @include mixin.flexCenter();
+        flex-direction: column;
+        .update-image{
+            width: 80px;
+            border-radius: 5px;
+        }
+    }
+    .info{
+        margin: 3px 0 0 0;
+        display: grid;
+        grid-template-columns: 0.8fr 1fr 0.6fr;
+        align-items: baseline;
+    }
 }

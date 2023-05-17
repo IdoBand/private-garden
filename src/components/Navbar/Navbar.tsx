@@ -1,12 +1,45 @@
 import { Outlet, Link } from 'react-router-dom';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Modal from '../Modal/Modal';
 import logo from '/assets/logo.jpg'
 import About, { generatePath } from '../About/About';
+import { useAppDispatch } from "../../redux/counterHooks"
+import { setMobile } from '../../redux/windowSlice';
 
 export default function Navbar() {
-    const [about, setAbout] = useState(false)
-   
+    const mediaQuery = window.matchMedia('(max-width: 800px)')
+    const [about, setAbout] = useState<boolean>(false)
+    const [isMobile, setIsMobile] = useState<boolean>(mediaQuery.matches)
+    const [mobileMenu, setMobileMenu] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        const handleScreenChange = (event: MediaQueryListEvent) => {
+            console.log(mediaQuery);
+            setIsMobile(event.matches);
+            dispatch(setMobile(event.matches))
+          }
+          mediaQuery.addEventListener('change',handleScreenChange);
+          return () => {
+            mediaQuery.removeEventListener('change',handleScreenChange);
+          };
+    }, [])
+
+    function handleMobileMenuClick () {
+        setMobileMenu(prev => !prev)
+    }
+    
+    const navbarLinks = (containerClassName: string, linksClassName: string) => {
+        return (
+            <nav className={containerClassName}>
+                <Link to={'/'} className={linksClassName} onClick={() => setMobileMenu(false)}>Home</Link>
+                <Link to={'MyGarden'}className={linksClassName} onClick={() => setMobileMenu(false)}>My Garden</Link>
+                <Link to={'IdentifyPlant'} className={linksClassName} onClick={() => setMobileMenu(false)}>Identify Plant</Link>
+                <Link to={'RandomPlant'} className={linksClassName} onClick={() => setMobileMenu(false)}>Random Plant</Link>
+                <div className={linksClassName} onClick={() => {setAbout(true); () => setMobileMenu(false)}}>About</div>
+            </nav>
+        )
+    }
+        
     return (
         <>
             <div id="contact-container">
@@ -24,15 +57,14 @@ export default function Navbar() {
                         <h1> | Private Garden </h1>
                     </Link>
                 </div>
-                <ul className="nav-container">
-                    <li><Link to={'/'} className="nav-links">Home</Link></li>
-                    <li><Link to={'MyGarden'}className="nav-links">My Garden</Link></li>
-                    <li><Link to={'IdentifyPlant'} className="nav-links">Identify Plant</Link></li>
-                    <li><Link to={'RandomPlant'} className="nav-links">Random Plant</Link></li>
-                    <li><div className="nav-links" onClick={() => setAbout(true)}>About</div></li>
-                </ul>
+                {isMobile ? 
+                    <button className='mobile-menu-button' onClick={() => setMobileMenu(prev => !prev)} >{'\u2630'}</button> 
+                : 
+                    navbarLinks('nav-container', 'nav-link')
+                }
             </header>
             {about && <Modal open={about} onClose={() => setAbout(false)} content={<About />}/>}
+            {mobileMenu && <Modal open={mobileMenu} onClose={() => setMobileMenu(false)} content={navbarLinks('mobile-nav-container', 'mobile-nav-link')} />}
             <Outlet/>
         </>
     )

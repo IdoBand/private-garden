@@ -1,4 +1,30 @@
 @use '../../mixin';
+.identify-plant-container {
+    min-height: 100%;
+    background: mixin.$container-background-color;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.identify-plant-options{
+    width: 85%;
+    color: white;
+}
+.identify-constraints, .page-subheader{
+    line-height: 1.6;
+}
+.identify-plant-text {
+    padding: 20px 0 20px 0;
+    width: max-content;
+}
+.form-container{
+    color: white;
+    width: 100%;
+}
+.image-select-container {
+    @include mixin.flexCenter();
+}
 .images-and-result {
     @include mixin.flexCenter();
     flex-wrap: wrap;
@@ -9,8 +35,41 @@
 }
 .identified-plant {
     margin: 0 0 0 10px;
-    font-size: 24px;
+    font-size: mixin.$desktop-sm-font-size;
 }
 #selected-profile-image {
     border: 5px solid  rgb(0, 150, 0);
+}
+.footer-message{
+    text-align: left;
+    color: white;
+    width: 85%;
+    padding: 10px 0 10px 10px;
+    font-size: mixin.$desktop-sm-font-size;
+}
+.identify-plant-input {
+    width: 185px;
+}
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+
+    .identify-plant-options {
+        @include mixin.flexCenter();
+        flex-direction: column;
+        text-align: center;
+    }
+    .identified-plant {
+        margin: 0 0 0 0px;
+        font-size: mixin.$desktop-md-font-size;
+    }
+
+    .identify-constraints, .page-subheader{
+        text-align: left;
+    }
+    .images-and-result {
+        @include mixin.flexCenter();
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
 }

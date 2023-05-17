@@ -29,87 +29,89 @@ export default function IdentifyPlant() {
 
 
     return (
-        <>
-        <div className="page-container">
-                <div className="page-content">
-                    <div id="my-garden-options">
-                            <div className="text">
-                                <div className="form-header">Upload up to 5 images to identify a plant!</div>
-                                <div className="">Make sure that all images are showing the same plant.</div>
-                            </div>
-                        <div className="footer-message">
-                            This feature is made possible thanks to <a className='a' href='https://my.plantnet.org/' target={'_blank'}>Pl@ntNet API</a>.
-                            <br />
-                            Results maybe inaccurate sometimes.
-                        </div>
+        <div className='identify-plant-container'>
+            <div className="identify-plant-options">
+                <div className="identify-plant-text">
+                    <div className="page-header">Upload up to 5 images to identify a plant!</div>
+                    <div className="page-subheader">Please make sure that:
+                        <div className="identify-constraints">
+                            <div>&#x2022; All images are showing the same plant.</div>
+                            <div>&#x2022; Plant is the main object of the image.</div>
+                            <div>&#x2022; images are clear, not blurry.</div>
+                        </div> 
                     </div>
-                    {isFetching ? <Spinner />
-                                :
-                    <div id="Identify-Plant-container">
-                        <form className="form" onSubmit={handleSubmit(data => {
-                            extractImageFromForm(data as IdentifyPlantDataObject);
-                            })} id="add-plant-form">
-                            <div className="image-select-container">
-                                <label>Plant Image:</label>
-                                <Controller
-                                name="plantImages"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => (
-                                    <>
-                                        <input type="file" accept="image/jpeg, image/jpg" multiple onChange={(e) => {
-                                        if (e.target.files && e.target.files.length > 0 && e.target.files.length < 6) {
-                                            setIdentifiedPlant(null)
-                                            setSelectedImageIdx(0)
-                                            const selectedFiles = Array.from(e.target.files)
-                                            field.onChange(selectedFiles)
-                                            clearErrors('plantImages')
-                                            setImageFiles(selectedFiles)
-                                        } else {
-                                            setImageFiles([])
-                                            setError("plantImages", {
-                                                type: "manual",
-                                                message: "Upload 1 to 5 images please."
-                                            });
-                                        }
-                                        }} />
-                                    </>
-                                    )}
-                                />
-                                {errors.plantImages && <span className="error-span">{errors.plantImages.message as string}</span>}
-                            </div>
-                            <div className="images-and-result">
-                                {imageFiles && <> {
-                                    imageFiles.map((imageFile, idx) => {
-                                    return <img key={idx} 
-                                                className='image-to-identify'
-                                                id={selectedImageIdx === idx ? 'selected-profile-image' : ''}
-                                                src={URL.createObjectURL(imageFile)} 
-                                                onLoad={handleImageLoad} 
-                                                onClick={() => setSelectedImageIdx(idx)}/>
-                                    })
-                                }
-                                </>
-                                            
-                                }
-                            </div>
-                                {identifiedPlant && 
-                                    <div className="identified-plant">
-                                    Result: <br/>
-                                    {identifiedPlant}<br/>
-                                    Click on an image to select it as a profile image and add it to your garden.
-                                    </div>
-                                }
-                            
-                            {imageFiles.length > 0 &&  <>
-                                <GreenButton type="submit" onClick={handleSubmit} text="Identify"/>
-                                {(identifiedPlant && (selectedImageIdx !== null)) && 
-                                    <GreenButton onClick={() => setAddPlantModal(true)} text="Add to My Garden"/>}
-                                                </>
-                            }
-                        </form>
-                    </div>} 
                 </div>
+            </div>
+            {isFetching ? <Spinner />
+                        :
+            <div className="form-container">
+                <form className="form" onSubmit={handleSubmit(data => {
+                    extractImageFromForm(data as IdentifyPlantDataObject);
+                    })} id="add-plant-form">
+                    <label>Upload Images:</label>
+                    <div className="image-select-container">
+                        <Controller
+                        name="plantImages"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => (
+                            <>
+                                <input type="file" className='identify-plant-input' accept="image/jpeg, image/jpg" multiple onChange={(e) => {
+                                if (e.target.files && e.target.files.length > 0 && e.target.files.length < 6) {
+                                    setIdentifiedPlant(null)
+                                    setSelectedImageIdx(0)
+                                    const selectedFiles = Array.from(e.target.files)
+                                    field.onChange(selectedFiles)
+                                    clearErrors('plantImages')
+                                    setImageFiles(selectedFiles)
+                                } else {
+                                    setImageFiles([])
+                                    setError("plantImages", {
+                                        type: "manual",
+                                        message: "Upload 1 to 5 images please."
+                                    });
+                                }
+                                }} />
+                            </>
+                            )}
+                        />
+                        
+                    </div>
+                    {errors.plantImages && <div className="error-div">{errors.plantImages.message as string}</div>}
+                    <div className="images-and-result">
+                        {imageFiles && <> {
+                            imageFiles.map((imageFile, idx) => {
+                            return <img key={idx} 
+                                        className='image-to-identify'
+                                        id={selectedImageIdx === idx ? 'selected-profile-image' : ''}
+                                        src={URL.createObjectURL(imageFile)} 
+                                        onLoad={handleImageLoad} 
+                                        onClick={() => setSelectedImageIdx(idx)}/>
+                            })
+                        }
+                        </>
+                        }
+                    </div>
+                        {identifiedPlant && 
+                            <div className="identified-plant">
+                            Result: <br/>
+                            {identifiedPlant}<br/>
+                            Click on an image to select it as a profile image and add it to your garden.
+                            </div>
+                        }
+                    
+                    {imageFiles.length > 0 &&  <>
+                        <GreenButton type="submit" onClick={handleSubmit} text="Identify"/>
+                        {(identifiedPlant && (selectedImageIdx !== null)) && 
+                            <GreenButton onClick={() => setAddPlantModal(true)} text="Add to My Garden"/>}
+                                        </>
+                    }
+                </form>
+            </div>} 
+            <div className="footer-message">
+                This feature is made possible thanks to <a className='a' href='https://my.plantnet.org/' target={'_blank'}>Pl@ntNet API</a>.
+                <br />
+                Results maybe inaccurate sometimes.
             </div>
             {addPlantModal && <Modal    open={addPlantModal} 
                                         onClose={() => setAddPlantModal(false)} 
@@ -123,6 +125,6 @@ export default function IdentifyPlant() {
                                         onClose={() => setResponseMessage('')} 
                                         content={responseMessage}
                                         />}
-        </>
+        </div>
     ) 
 }

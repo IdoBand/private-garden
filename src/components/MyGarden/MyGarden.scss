@@ -1,15 +1,26 @@
 @use '../../mixin.scss';
-
+.my-garden-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    background: mixin.$container-background-color;
+    padding: 10px 0 10px 0;
+}
 #my-garden-options{
-    @include mixin.flexCenter();
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 80%;
 }
 
 #plants-container{
+    width: 80%;
     display: grid;
     grid-template-columns: repeat(auto-fill, 170px);
-    justify-content: center;
-    margin: 10px;
+    
 }
 .plant-card {
     display: flex;
@@ -28,7 +39,7 @@
         text-align: center;
         padding: 2px;
         width: 100%;
-        font-size: 14px;
+        font-size: mixin.$desktop-md-font-size;
         color: black;
         margin: 2px;
         white-space: nowrap;
@@ -71,7 +82,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -46%);
-    font-size: 10px;
+    font-size: mixin.$desktop-sm-font-size;
     color: white;
     text-align: center;
     line-height: 18px;
@@ -87,7 +98,11 @@
         color: white;
     }
 }  
-#search-bar {
+.search-bar-container {
+    display: flex;
+}
+
+#search-input {
     border: 0;
     border-radius: 0 5px 5px 0;
     margin: 0 10px 0 0;
@@ -107,6 +122,37 @@
         height: 15px;
     }
   }
-  
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
 
+#my-garden-options {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 95%;
+}
+
+#my-garden-buttons {
+    @include mixin.flexCenter();
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 95%;
+}
+#search-bar-and-count{
+    @include mixin.flexCenter();
+    justify-content: flex-start;
+    width: 95%;
+    padding: 5px 0 5px 0;
+    #plants-counter{
+        color: white;
+        text-align: center;
+        padding: 5px 0 5px 0;
+    }
+}
+#plants-container {
+    width: 95%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 170px);
+    justify-content: center;
+}
+}
   

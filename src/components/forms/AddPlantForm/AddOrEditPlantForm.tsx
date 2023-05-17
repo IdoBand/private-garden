@@ -78,8 +78,12 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
           <div className="form-header">{formHeader}</div>
           <div className="form-section">
             <label>Plant Name:</label>
-            <input {...register("plantName", {required: true})} type="text" defaultValue={plantName as string}/>
-            {errors.plantName && <span className="error-span">Plant name is required.</span>}
+            <input {...register("plantName", {required: true})}
+              className="one-line-text-input"
+              type="text"
+              defaultValue={errors.plantName? 'Plant name is required.' : plantName as string}
+              style={{color: errors.plantName? 'red' : 'black'}}
+            />
           </div>
           <div className="form-section">
             <label>Plant Image:</label>
@@ -89,7 +93,7 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
               defaultValue=""
               render={({ field }) => (
                   <>
-                    <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
+                    <input type="file" className="form-file-input" accept="image/jpeg, image/jpg" onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
                         // imageFileRef makes sure that the cropped image will receive the image's original name
@@ -102,7 +106,7 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
                 )}
             />
           </div>
-          <div className="form-section">
+          <div className="form-section" id="image-crop-container">
           {imagePreviewUrl && <>
                                 <ImageCropDialog 
                                   imageUrl={imagePreviewUrl} 

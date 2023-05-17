@@ -8,10 +8,9 @@
     padding: 30px 20px 10px 20px;
     z-index: 500;
     max-height: 85%;
-    min-width: 300px;
+    max-width: 80%;
     overflow-y: auto;
     border-radius: 10px;
-    border: solid 1px lightgray;
     color: black;
     .x-button {
         background-color: rgb(193, 62, 62);
@@ -26,8 +25,11 @@
             cursor: pointer;
         }
 }
+.modal-content{
+    @include mixin.flexCenter();
+    padding: 5px 0 5px 0;
 }
-
+}
 .overlay {
     position: fixed;
     top: 0;
@@ -36,4 +38,10 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
+}
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+    .modal {
+        width: 90%;
+    }
 }

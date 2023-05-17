@@ -129,13 +129,11 @@ export default function PlantTimeline() {
 
     return(
         <>
-        <div className="page-container">
-            <div className="page-content">
             {isFetching ? <Spinner />
                                 : 
                 currentPlant && 
-                <>
-                    <div className="plant-options">
+                <div className="plant-timeline-container">
+                    <div className="plant-timeline-options">
                         <div id="plant-intro">
                             <img className="plant-logo" 
                                  src={currentPlant?.profileImageString ? currentPlant.profileImageString : logo}/>
@@ -148,7 +146,7 @@ export default function PlantTimeline() {
                         <div className="plant-timeline-buttons">
                             <GreenButton text="Add an Update" onClick={() => setAddPlantUpdateModal(true)}/>
                             <GreenButton text="Edit Plant" onClick={() => setEditPlantModal(true)}/>
-                            <RedButton text="Remove Updates" onClick={() => setRemoveButtons(true)} />
+                            <RedButton text="Remove Updates" onClick={() => setRemoveButtons(prev => !prev)} />
                             {removeButtons && <>
                             <RedButton text="Select All" onClick={selectAll}/>
                             <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
@@ -217,10 +215,8 @@ export default function PlantTimeline() {
                         )
                     })}
                     </div>
-                </>
+                </div>
                 }
-            </div>
-        </div>
         {addPlantUpdateModal && <Modal 
                                     open={addPlantUpdateModal} 
                                     onClose={() => setAddPlantUpdateModal(false)} 

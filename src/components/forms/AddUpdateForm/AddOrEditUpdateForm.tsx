@@ -74,7 +74,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
               defaultValue=""
               render={({ field }) => (
                 <>
-                    <input type="file" accept="image/jpeg, image/jpg" onChange={(e) => {
+                    <input type="file" className="form-file-input" accept="image/jpeg, image/jpg" onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
                         // imageFileRef makes sure that the cropped image will receive the image's original name
@@ -108,15 +108,15 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
           <>
             <div className="form-section">
                 <label className="form-label">Water Quantity (ml):</label>
-                <input {...register("waterQuantity")} type="number" min="0" defaultValue={currentUpdate! ? +currentUpdate!.irrigation.waterQuantity : 0}/>
+                <input {...register("waterQuantity")} className="one-line-text-input" type="number" min="0" defaultValue={currentUpdate! ? +currentUpdate!.irrigation.waterQuantity : 0}/>
             </div>
             <div className="form-section">
                 <label className="form-label">Fertilizer:</label>
-                <input {...register("fertilizer")} defaultValue={currentUpdate ? currentUpdate!.irrigation.fertilizer : ''}/>
+                <input {...register("fertilizer")} className="one-line-text-input" defaultValue={currentUpdate ? currentUpdate!.irrigation.fertilizer : ''}/>
             </div>
             <div className="form-section">
                 <label className="form-label">Fertilizer Quantity (ml):</label>
-                <input {...register("fertilizerQuantity")} type="number" min="0" defaultValue={currentUpdate ? +currentUpdate!.irrigation.fertilizerQuantity : 0}/>
+                <input {...register("fertilizerQuantity")} className="one-line-text-input" type="number" min="0" defaultValue={currentUpdate ? +currentUpdate!.irrigation.fertilizerQuantity : 0}/>
             </div>
           </>
           }

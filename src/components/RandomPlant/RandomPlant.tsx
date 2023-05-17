@@ -1,15 +1,17 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { plantNames } from "./plants"
 import GreenButton from "../Button/GreenButton"
 import Spinner from "../Spinner/Spinner"
 import { fetchRandom } from '../../hooks/fetchers'
 import { capitalize } from '../../hooks/helpfulFunctions'
 import logo from '/assets/logo.jpg'
+import { useAppSelector } from "../../redux/counterHooks"
 
 export default function RandomPlant() {
     const plantName = useRef<string>('')
     const [plantSummary, setPlantSummary] = useState('Click on the green button for content')
     const [plantImage, setPlantImage] = useState<any>(null)
+    const isMobile = useAppSelector(state => state.window.isMobile)
     
     async function handleRandomness() {
         setPlantSummary('')
@@ -25,30 +27,27 @@ export default function RandomPlant() {
       }
 
     return (
-        <>
-            <div className="page-container">
-                <div className="page-content">
-                    <div id="random-plant-options">
-                        <GreenButton 
-                        text="Click for Randomness"
-                        onClick={handleRandomness}
-                        />
-                    </div>
-                    <div id="random-plant-content">
-                        {plantSummary? 
-                            <>  <div className="random-plant-header-summary">
-                                    <div className="form-header">{plantName.current}</div>
-                                    <p>
-                                        {plantSummary}
-                                    </p>
-                                </div>
-                                <img className="random-plant-image" src={plantImage} />
-                            </>
-                            : 
-                            <Spinner />}
-                    </div>
-                </div>
+        <div className="random-plant-container">
+            <div id="random-plant-options">
+                <GreenButton 
+                    text="Click for Randomness"
+                    onClick={handleRandomness}
+                />
             </div>
-        </>
+            <div id="random-plant-content">
+                {plantSummary? 
+                    <>  <div className="random-plant-header-summary">
+                            <div className="form-header">{plantName.current}</div>
+                            {isMobile && <img className="random-plant-image" src={plantImage} />}
+                            <p>
+                                {plantSummary}
+                            </p>
+                        </div>
+                        {!isMobile && <img className="random-plant-image" src={plantImage} />}
+                    </>
+                    : 
+                    <Spinner />}
+            </div>
+        </div >
     )
 }

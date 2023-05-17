@@ -1,5 +1,7 @@
 @use '../../mixin.scss';
-
+.form-container {
+    @include mixin.flexCenter();
+}
 .form{
     text-align: center;
     max-height: 80%;
@@ -12,11 +14,11 @@
     margin: 15px 0 15px 0;
     min-width: 400px;
 }
-.error-span{
-    position: absolute;
+.error-div{
+    text-align: center;
+    width: 100%;
     color: red;
-    font-size: 15px;
-    right: 2%;
+    font-size: mixin.$desktop-md-font-size;
 }
 #notes-form-input {
     width: 100%;
@@ -24,26 +26,53 @@
     resize: none;
 }
 .form-header {
-    font-size: 24px;
+    font-size: mixin.$desktop-lg-font-size;
 }
 .form-subheader {
-    font-size: 16px;
+    font-size: mixin.$desktop-md-font-size;
 }
 .form-label {
-    font-size: small;
+    font-size: mixin.$desktop-md-font-size;
 }
 .image-select-container{
     margin: 15px 0 15px 0;
     display: flex;
     justify-content: flex-start;
 }
+#image-crop-container {
+    @include mixin.flexCenter();
+}
+
 .preview-image {
     max-width: 400px;
   }
-input[type="file"] {
-    max-width: 182px;
-    margin: 0 0 0 20px;
+  .form-file-input {
+    width: min(250px, 45%);
 }
-input[type="text"] {
-    width: 250px;
+.one-line-text-input {
+    width: min(250px, 45%);
+}
+
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+    .form {
+        width: 90%;
+    }
+    .form-section {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 15px 0 15px 0;
+        min-width: 240px;
+    }
+    .preview-image {
+        max-width: 250px;
+      }
+    .form-file-input {
+        width: min(150px, 35%);
+    }
+    .one-line-text-input {
+        width: min(250px, 35%);
+    }
 }

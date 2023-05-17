@@ -1,28 +1,34 @@
-@use '../../mixin.scss';
+@use '../../mixin.scss' as mixin;
 
+
+@mixin home-container {
+  background: mixin.$container-background-color;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 #home-container {
-  display: grid;
-  grid-template-columns: .55fr .45fr;
-  border-radius: 5px;
-  padding: 10px;
-  min-width: 600px;
-  min-height: 500px;
+  @include home-container();
+  align-items: center;
+  justify-content: center;
 }
 .home-text {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  padding-left: 100px;
-  font-size: 30px;
+  width: 50%;
+  padding-left: 10%;
+  font-size: mixin.$desktop-2xl-font-size;
   line-height: 1.6;
+  color: white;
   .here-you-can{
-    font-size: 20px;
+    font-size: mixin.$desktop-lg-font-size;
   }
 }
 
 .rotary {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
 span {
@@ -42,7 +48,7 @@ span {
   0 0 20px #ffa54b,
   0 0 40px #ffa54b,
   0 0 60px #ffa54b;
-  z-index: 999;
+  z-index: 400;
 }
 .rotating-trajectory {
   background: transparent;
@@ -66,21 +72,107 @@ span {
 #img1 {
   top: -25px;
   left: 100px;
+  height: 50px;
 }
 #img2 {
   right: -5px;
   top: 40px;
-  
+  height: 50px;
 }
 #img3 {
   right: 20px;
   bottom: 10px;
+  height: 60px;
 }
 #img4 {
   left: 35px;
   bottom: 25px;
+  height: 40px;
 }
 #img5 {
   left: -10px;
   top: 40px;
+  height: 55px;
+}
+
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+  #home-container {
+    @include home-container();
+    justify-content: start;
+    flex-direction: column-reverse;
+  }
+  .home-text {
+    padding-top: 40px;
+    padding-left: 0;
+    width: max-content;
+    min-height: 50%;
+    font-size: mixin.$desktop-md-font-size;
+    line-height: 1.6;
+    text-justify: end;
+    color: white;
+    .here-you-can{
+      font-size: mixin.$desktop-sm-font-size;
+    }
+  }
+  .rotary {
+    position: relative;
+    padding-top: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+
+  .sun{
+    width: 40px;
+    height: 40px;
+    background-color: #ffa54b;
+    box-shadow: 0 0 10px #ffa54b,
+    0 0 20px #ffa54b,
+    0 0 40px #ffa54b,
+    0 0 60px #ffa54b;
+    z-index: 2;
+  }
+  .rotating-trajectory {
+    background: transparent;
+    width: 200px;
+    height: 200px;
+    animation: animate 10s linear infinite;
+  }
+
+  .rotating-img {
+    position: absolute;
+  }
+  #img1 {
+    top: -25px;
+    left: 100px;
+    height: 40px;
+  }
+  #img2 {
+    right: -5px;
+    top: 40px;
+    height: 40px;
+  }
+  #img3 {
+    right: 20px;
+    bottom: 10px;
+    height: 50px;
+  }
+  #img4 {
+    left: 35px;
+    bottom: 25px;
+    height: 30px;
+  }
+  #img5 {
+    left: -10px;
+    top: 40px;
+    height: 45px;
+  }
+
+
+
+
+
+
 }

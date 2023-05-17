@@ -47,7 +47,7 @@
 
   h1 {
     margin: 0 0 0 0;
-    font-size: larger;
+    font-size: mixin.$desktop-lg-font-size;
     letter-spacing: 1px;
     color: rgb(255, 255, 255);
   }
@@ -55,7 +55,7 @@
   header {
     @include mixin.flexCenter();
     justify-content: space-around;
-    white-space: nowrap;
+    padding: 5px 0 5px 0;
   }
   #logo-container{
     @include mixin.flexCenter();
@@ -71,7 +71,7 @@
     display: flex;
     padding: 0;
   }
-  .nav-links {
+  .nav-link {
     display: flex;
     margin: 0 5px 0 5px;
     color: white;
@@ -91,12 +91,7 @@
     }
   }
 ///////////////   appearance in multiple pages   ///////////////
-.page-container{
-  @include mixin.page-container();
-}
-.page-content {
-  @include mixin.page-content();
-}
+
 .a{
   color: white;
   text-decoration: underline;
@@ -104,9 +99,7 @@
     color: rgba(0,255,0,0.8);
   }
 }
-.footer-message{
-  font-size: 10px;
-}
+
 ///////////////   A B O U T   ///////////////
   
 .logo{
@@ -130,4 +123,59 @@
 .tool-li {
   @include mixin.flexCenter();
   margin: 3px 0;
+}
+.page-header {
+  font-size: mixin.$desktop-lg-font-size;
+  width: max-content;
+}
+.page-subheader {
+  font-size: mixin.$desktop-md-font-size
+}
+.desktop-menu-button {
+  color: white;
+  background: transparent;
+  border: 0;
+  font-size: mixin.$desktop-lg-font-size;
+}
+.mobile-menu-button {
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: mixin.$desktop-lg-font-size;
+}
+//////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+
+  .mobile-nav-container {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    padding: 0 0 0 10px;
+  }
+  .mobile-nav-link {
+    display: flex;
+    font-size: mixin.$desktop-lg-font-size;
+    color: black;
+    width: max-content;
+    &:hover{
+      cursor: pointer;
+      color: rgb(0,150,0);
+      &::before {
+        background: rgb(200,200,200);
+      }
+    }
+    &::before {
+      content: '';
+      background: rgb(0,150,0);
+      width: 1.5px;
+      height: 20px;
+      margin: 0 10px 0 0;
+    }
+  }
+  .page-header {
+    font-size: mixin.$desktop-md-font-size;
+  }
+  .page-subheader {
+    font-size: mixin.$desktop-sm-font-size
+  }
 }

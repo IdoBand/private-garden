@@ -1,40 +1,27 @@
 html, body {
-  height: 95%;}
+  height: 100%;}
 #root {
-  height: 95%;
+  height: 100%;
 }
+
+$container-background-color: rgba(0, 0, 0, 0.3);
+$desktop-2xl-font-size: 30px;
+$desktop-xl-font-size: 28px;
+$desktop-lg-font-size: 24px;
+$desktop-md-font-size: 16px;
+$desktop-sm-font-size: 12px;
+
+
+
 @mixin flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+@mixin container-background-color {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
-@mixin page-container {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    min-height: 100%;
-    flex-direction: column;
-    padding: 0 0 10px 0;
-    margin: 0 0 0 0;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      background: rgba(0, 0, 0, 0.3);
-      top: 0;
-      left: 0;
-      width: 100%;
-      min-height: 100%;
-      z-index: -1;
-    }
-}
-@mixin page-content {
-  padding: 10px 60px 10px 60px;
-  margin: 0;
-  color: white;
-  position: relative;
-}
 @mixin main-scrollbar {
   &::-webkit-scrollbar {
     width: 14px;               /* width of the entire scrollbar */

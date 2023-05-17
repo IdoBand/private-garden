@@ -1,17 +1,22 @@
 @use '../../mixin.scss';
-
+.random-plant-container {
+  @include mixin.flexCenter();
+  flex-direction: column;
+  width: 100%;
+}
 #random-plant-options{
     display: flex;
 }
 #random-plant-content {
    @include mixin.flexCenter();
-    padding: 20px;
     color: black;
     background-color: white;
     border: solid black;
     border-radius: 10px;
     min-height: 70px;
+    width: 90%;
     white-space: normal;
+    padding: 10px
   }
 
   .random-plant-header-summary{
@@ -20,5 +25,27 @@
   }
   .random-plant-image{
     max-height: 300px;
-    margin-left: 10px;
+    border-radius: 20px;
+    padding: 10px;
   }
+
+  //////////////////      R E S P O N S I V E      //////////////////
+@media screen and (max-width: 800px) {
+  .random-plant-image{
+    max-height: 100px;
+    border-radius: 10px;
+    
+  }
+
+  #random-plant-content {
+    @include mixin.flexCenter();
+     padding: 10px;
+     color: black;
+     background-color: white;
+     border: solid black;
+     border-radius: 10px;
+     min-height: 70px;
+     max-width: 90%;
+     white-space: normal;
+   }
+}
