@@ -1,178 +1,110 @@
 @use '../../mixin.scss' as mixin;
 
-
-@mixin home-container {
-  background: mixin.$container-background-color;
-  display: flex;
+#home-container {
   width: 100%;
   height: 100%;
-}
-#home-container {
-  @include home-container();
-  align-items: center;
+  display: flex;
   justify-content: center;
 }
+.secondary-home-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
 .home-text {
-  width: 50%;
-  padding-left: 10%;
-  font-size: mixin.$desktop-2xl-font-size;
+  padding-top: 150px;
+  z-index: 100;
+  width: max-content;
   line-height: 1.6;
-  color: white;
+  color: mixin.$dark-color;
   .here-you-can{
+    position: relative;
     font-size: mixin.$desktop-lg-font-size;
+    margin-bottom: 20px;
+    padding-left:20px;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      width: 30px;
+      height: 4px;
+      background-color: mixin.$gray-color;
+    }
+  }
+}
+.sentence-container {
+  font-size: mixin.$desktop-xl-font-size;
+  width: max-content;
+  display: flex;
+  gap: 0.5rem;
+  .sentence-svg {
+    width: 1.2rem;
+  }
+  &:hover > .sentence-svg {
+    animation: rotateAnimation 1s infinite;
+    fill: mixin.$dark-green-color;
+  }
+  .sentence-text {
+    color: mixin.$dark-color;
   }
 }
 
-.rotary {
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.discover-button-container {
+  width: 100%;
+  padding: 40px 0 0 0;
+  @include mixin.flexCenter();
+}
+.discover-button {
+  padding: 10px 25px;
+  background: transparent;
+  border: 1px solid mixin.$gray-color;
+  font-size: mixin.$desktop-md-font-size;
+  border-radius: 5px;
+  &:hover {
+    color: mixin.$dark-green-color;
+    border-color: mixin.$dark-green-color;
+    cursor: pointer;
+  }
+}
+.home-img-main-container{
+  background-color: antiquewhite;
   position: relative;
+  width: max-content;
+  height: 100%;
+}
+
+.green-img-bg{
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  bottom: -30.5rem;
+  left: -27rem;
+  width: 450px;
+  height: 500px;
+  background: rgb(195, 237, 224);
+  border-radius: 0 0px 200px 225px;
+
 }
 
-span {
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
-
-.sun{
-  width: 60px;
-  height: 60px;
-  background-color: #ffa54b;
-  box-shadow: 0 0 10px #ffa54b,
-  0 0 20px #ffa54b,
-  0 0 40px #ffa54b,
-  0 0 60px #ffa54b;
-  z-index: 400;
-}
-.rotating-trajectory {
-  background: transparent;
-  width: 250px;
-  height: 250px;
-  animation: animate 10s linear infinite;
-}
-
-@keyframes animate {
-  0% {
-    transform: translate(-50%, -50%) rotate(0);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.rotating-img {
-  position: absolute;
-}
-#img1 {
-  top: -25px;
-  left: 100px;
-  height: 50px;
-}
-#img2 {
-  right: -5px;
-  top: 40px;
-  height: 50px;
-}
 #img3 {
-  right: 20px;
-  bottom: 10px;
-  height: 60px;
+  position: absolute;
+  top: 83px;
+  right: -10px;
+  width: 500px;
+
 }
-#img4 {
-  left: 35px;
-  bottom: 25px;
-  height: 40px;
-}
-#img5 {
-  left: -10px;
-  top: 40px;
-  height: 55px;
-}
+
 
 //////////////////      R E S P O N S I V E      //////////////////
 @media screen and (max-width: 800px) {
-  #home-container {
-    @include home-container();
-    justify-content: start;
-    flex-direction: column-reverse;
-  }
-  .home-text {
-    padding-top: 40px;
-    padding-left: 0;
-    width: max-content;
-    min-height: 50%;
-    font-size: mixin.$desktop-md-font-size;
-    line-height: 1.6;
-    text-justify: end;
-    color: white;
-    .here-you-can{
-      font-size: mixin.$desktop-sm-font-size;
-    }
-  }
-  .rotary {
-    position: relative;
-    padding-top: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-  }
-
-  .sun{
-    width: 40px;
-    height: 40px;
-    background-color: #ffa54b;
-    box-shadow: 0 0 10px #ffa54b,
-    0 0 20px #ffa54b,
-    0 0 40px #ffa54b,
-    0 0 60px #ffa54b;
-    z-index: 2;
-  }
-  .rotating-trajectory {
-    background: transparent;
-    width: 200px;
-    height: 200px;
-    animation: animate 10s linear infinite;
-  }
-
-  .rotating-img {
-    position: absolute;
-  }
-  #img1 {
-    top: -25px;
-    left: 100px;
-    height: 40px;
-  }
-  #img2 {
-    right: -5px;
-    top: 40px;
-    height: 40px;
-  }
-  #img3 {
-    right: 20px;
-    bottom: 10px;
-    height: 50px;
-  }
-  #img4 {
-    left: 35px;
-    bottom: 25px;
-    height: 30px;
-  }
-  #img5 {
-    left: -10px;
-    top: 40px;
-    height: 45px;
-  }
-
-
-
-
-
-
+  
 }

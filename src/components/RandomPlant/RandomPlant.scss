@@ -9,9 +9,8 @@
 }
 #random-plant-content {
    @include mixin.flexCenter();
-    color: black;
-    background-color: white;
-    border: solid black;
+   @include mixin.shadow();
+
     border-radius: 10px;
     min-height: 70px;
     width: 90%;
@@ -40,9 +39,6 @@
   #random-plant-content {
     @include mixin.flexCenter();
      padding: 10px;
-     color: black;
-     background-color: white;
-     border: solid black;
      border-radius: 10px;
      min-height: 70px;
      max-width: 90%;

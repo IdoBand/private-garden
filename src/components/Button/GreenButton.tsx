@@ -11,8 +11,8 @@ const NewButton = styled.button`
   font-weight: 200;
   color: white;
   border: none;
-  background: linear-gradient(25deg, rgb(0, 150, 0), rgb(0,255,0));
-  border-radius: 10px;
+  background: #007449;
+  border-radius: 5px;
   height: 25px;
   min-width: 100px;
   margin: 5px;

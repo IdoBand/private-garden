@@ -4,16 +4,12 @@ import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
 import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
-import { useQuery } from "@tanstack/react-query"
 import searchLogo from '/assets/search_icon-white2.png'
-import logo from '/assets/logo.jpg'
-import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
 import Spinner from "../Spinner/Spinner"
-import { capitalize } from "../../hooks/helpfulFunctions"
 import { fetchEntireGarden, fetchRemovePlantsPermanently } from '../../hooks/fetchers'
-
+import PlantCard from "../PlantCard/PlantCard"
 export default function MyGarden() {
     const [isFetching, setIsFetching] = useState(false)
     const [addPlantModal, setAddPlantModal] = useState(false)
@@ -124,22 +120,15 @@ export default function MyGarden() {
                                 <div id="plants-counter">{searchBarInputRef.current?.value ? `${plants.length} Plants Matching Search`: `You Have ${plants.length} Plants`}</div>
                             </div>    
                         </div>
-                        
                         <div id="plants-container">
                             {plants.map(plant =>
-                            <Link to={`/PlantTimeline/${plant.id}`} key={plant.id}>
-                                <div className="plant-card" onClick={() => updateCurrentPlant(plant)}>
-                                    {removeButtons && <input
-                                                        checked={plant.checked}
-                                                        className="plant-card-toggle"
-                                                        type="checkbox"
-                                                        onClick={(e) => e.stopPropagation()}
-                                                        onChange={() => checkBoxPlant(plant.id)}/>
-                                    }
-                                    <img width="100" src={plant.profileImageString ? plant.profileImageString : logo} alt={plant.name}/>
-                                    <div className="plant-name"> {capitalize(plant.name)} </div>
+                                <div key={plant.id}>
+                                    <PlantCard 
+                                        plant={plant}
+                                        removeButtons={removeButtons}
+                                        checkBoxPlant={checkBoxPlant}
+                                        />
                                 </div>
-                            </Link>
                             )}
                         </div>
                     </>}

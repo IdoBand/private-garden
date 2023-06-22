@@ -9,12 +9,7 @@
     @include mixin.main-scrollbar();
     margin: 0;
     padding: 0;
-    background: url('/assets/palm.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    position: relative;
+    background: mixin.$container-background-color;
   }
 
 #contact-container {
@@ -52,44 +47,58 @@
     color: rgb(255, 255, 255);
   }
 
-  header {
-    @include mixin.flexCenter();
-    justify-content: space-around;
-    padding: 5px 0 5px 0;
-  }
-  #logo-container{
-    @include mixin.flexCenter();
-    #page-logo{
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      margin-right: 10px;
-      
-    }
-  }
-  .nav-container {
-    display: flex;
-    padding: 0;
-  }
-  .nav-link {
-    display: flex;
-    margin: 0 5px 0 5px;
-    color: white;
-    &:hover{
-      cursor: pointer;
-      color: rgb(200 , 200, 200);
-      &::before {
-        background: rgb(0,150,0);
-      }
-    }
+header {
+  @include mixin.flexCenter();
+  width: 100%;
+  // box-shadow: 0px 5px 10px rgb(0,0,0, 0.2);
+}
+.header-content {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  place-items: center;
+  padding: 5px 0;
+}
+
+#page-logo{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  
+}
+.app-name {
+  @include mixin.flexCenter();
+  z-index: 100;
+  color: mixin.$dark-color;
+  font-size: x-large;
+  font-weight: 600;
+}
+.nav-container {
+  position: relative;
+  display: flex;
+  padding: 0;
+}
+.nav-link {
+  display: flex;
+  z-index: 100;
+  margin: 0 5px 0 5px;
+  color: mixin.$dark-color;
+  font-size: mixin.$desktop-md-font-size;
+  &:hover{
+    cursor: pointer;
     &::before {
-      content: '';
-      background: lightgray;
-      width: 1.5px;
-      height: 15px;
-      margin: 0 10px 0 0;
+      background: rgb(0,150,0);
     }
   }
+  &::before {
+    content: '';
+    background: lightgray;
+    width: 1.5px;
+    height: 18px;
+    margin: 0 10px 0 0;
+  }
+}
 ///////////////   appearance in multiple pages   ///////////////
 
 .a{
@@ -138,14 +147,35 @@
   font-size: mixin.$desktop-lg-font-size;
 }
 .mobile-menu-button {
-  color: white;
+  color: mixin.$dark-color;
   background: transparent;
+  padding: 2px;
+  border: 1px solid transparent;
   border: none;
   font-size: mixin.$desktop-lg-font-size;
+  &:hover {
+    scale: 110%;
+    cursor: pointer;
+  }
 }
-//////////////////      R E S P O N S I V E      //////////////////
-@media screen and (max-width: 800px) {
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
 
+
+///////////////////////////      1000 PX      ///////////////////////////
+@media screen and (max-width: 1000px) {
+  .app-name {
+    font-size: mixin.$desktop-md-font-size;
+  }
+}
+///////////////////////////      800 PX      ///////////////////////////
+@media screen and (max-width: 800px) {
+  .header-content {
+    width: 90%;
+  }
   .mobile-nav-container {
     width: 100%;
     display: grid;
@@ -154,19 +184,18 @@
   }
   .mobile-nav-link {
     display: flex;
-    font-size: mixin.$desktop-lg-font-size;
+    font-size: mixin.$desktop-md-font-size;
     color: black;
     width: max-content;
     &:hover{
       cursor: pointer;
-      color: rgb(0,150,0);
       &::before {
-        background: rgb(200,200,200);
+        background: rgb(0,150,0);
       }
     }
     &::before {
       content: '';
-      background: rgb(0,150,0);
+      background: rgb(200,200,200);
       width: 1.5px;
       height: 20px;
       margin: 0 10px 0 0;
@@ -178,4 +207,11 @@
   .page-subheader {
     font-size: mixin.$desktop-sm-font-size
   }
+}
+///////////////////////////      400 PX      ///////////////////////////
+@media screen and (max-width: 400px) {
+  .header-content {
+    width: 95%;
+  }
+
 }
