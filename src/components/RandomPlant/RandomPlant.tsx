@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { plantNames } from "./plants"
 import GreenButton from "../Button/GreenButton"
 import Spinner from "../Spinner/Spinner"

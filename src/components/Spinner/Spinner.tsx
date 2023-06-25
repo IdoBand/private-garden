@@ -5,11 +5,13 @@ import { PropagateLoader } from "react-spinners";
 const SpinnerContainer = styled.div`
     width: 100%;
     padding: 50px 0 50px 0;
+    display: flex;
+    justify-content: center;
 `
 
 const Spinner: React.FC = () => {
     return (<SpinnerContainer>
-        <PropagateLoader color="linear-gradient(25deg, rgb(0, 150, 0), rgb(0,255,0)" />
+        <PropagateLoader color="#007449" />
     </SpinnerContainer>)
 }
 

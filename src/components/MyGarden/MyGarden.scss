@@ -5,89 +5,26 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    min-height: 100%;
+    height: calc(100% - 60px);
+
     background: mixin.$container-background-color;
-    padding: 10px 0 10px 0;
 }
 #my-garden-options{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 90%;
+    margin-bottom: 10px;
 }
 
 #plants-container{
-    width: 80%;
+    width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 170px);
-    
+    grid-template-columns: repeat(auto-fill, 180px);
+    grid-template-rows: repeat(auto-fill, 160px);
+    min-height: 80vh;
+    border-radius: 10px;
 }
-.plant-card {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-direction: column;
-    position: relative;
-    margin: 25px 0 0 0;
-    width: 160px;
-    height: 110px;
-    background: linear-gradient(45deg, white, rgb(181, 228, 181));
-    border: none;
-    border-radius: 5px;
-
-    .plant-name{
-        text-align: center;
-        padding: 2px;
-        width: 100%;
-        font-size: mixin.$desktop-md-font-size;
-        color: black;
-        margin: 2px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    img {
-        position: absolute;
-        left: 50%;
-        top: -15px;
-        transform: translateX(-50%);
-        border-radius: 10px;
-        margin: 0 0 0 0;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    }
- 
-}
-
-//////////     C H E C K   B O X     //////////
-
-.plant-card-toggle {
-    appearance: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #000000;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    &:checked{
-        background-color: rgb(190, 60, 60);
-    }
-    &:checked::before{
-    font-family:Arial, Helvetica, sans-serif;
-    content: "X";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -46%);
-    font-size: mixin.$desktop-sm-font-size;
-    color: white;
-    text-align: center;
-    line-height: 18px;
-    }
-  }
   
 //////////     S E A R C H   B A R     //////////
 #search-bar-and-count{
@@ -95,7 +32,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     #plants-counter{
-        color: white;
+        color: mixin.$dark-color;
     }
 }  
 .search-bar-container {
@@ -112,7 +49,7 @@
   }
   #search-bar-left{
     border: none;
-    background: linear-gradient(25deg, rgb(0, 150, 0), rgb(0,255,0));
+    background: mixin.$dark-green-color;
     border-radius: 5px 0 0 5px;
     width: 20px;
     @include mixin.flexCenter();
@@ -122,7 +59,14 @@
         height: 15px;
     }
   }
-//////////////////      R E S P O N S I V E      //////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  /// 
+
+
+///////////////////////////      800 PX      ///////////////////////////
 @media screen and (max-width: 800px) {
 
 #my-garden-options {
@@ -143,7 +87,7 @@
     width: 95%;
     padding: 5px 0 5px 0;
     #plants-counter{
-        color: white;
+        color: mixin.$dark-color;
         text-align: center;
         padding: 5px 0 5px 0;
     }
@@ -151,8 +95,24 @@
 #plants-container {
     width: 95%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 170px);
+    grid-template-columns: repeat(auto-fill, 180px);
+    grid-template-rows: repeat(auto-fill, 160px);
     justify-content: center;
+
+
+}
+
+#search-bar-and-count{ 
+    justify-content: space-between;
 }
 }
+
+///////////////////////////      400 PX      ///////////////////////////
   
+@media screen and (max-width: 400px) {
+
+    #search-bar-and-count{ 
+        gap: 10px;
+        flex-direction: column-reverse;
+    }
+}

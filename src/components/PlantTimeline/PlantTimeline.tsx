@@ -173,7 +173,7 @@ export default function PlantTimeline() {
                                         <div className="card-date">{update.dateAdded}</div>
                                         {removeButtons && <input
                                                     checked={update.checked}
-                                                    className="plant-update-toggle"
+                                                    className="update-card-toggle"
                                                     type="checkbox"
                                                     onClick={(e) => e.stopPropagation()}
                                                     onChange={() => checkBoxUpdate(update.updateId)}/>
@@ -183,14 +183,22 @@ export default function PlantTimeline() {
                                     <div className="info">
                                         <div className="update-card-irrigation-container">
                                             <div className="update-card-subheader">
-                                                <div className="irrigation-property">Irrigation {update.irrigation.IrrigationBoolean as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>} </div>
+                                                <div className="update-card-subheader">Irrigation {update.irrigation.IrrigationBoolean as boolean ? <img className="checked-logo" src={checkedSVG}/> : <img className="checked-logo" src={redXsvg}/>} </div>
                                             </div>
                                             {update.irrigation.IrrigationBoolean as boolean && 
                                             <>
-                                            <div className="irrigation-property">Water Quantity: <br />{update.irrigation.waterQuantity?.toString()} ml</div>
-                                            <div className="irrigation-property">Fertilizer: <br />
-                                                    {update.irrigation.fertilizer}</div>
-                                            <div className="irrigation-property">Fertilizer Quantity:<br /> {update.irrigation.fertilizerQuantity?.toString()}</div>
+                                                <section className="irrigation-section">
+                                                    <div className="irrigation-subheader">Water Quantity:</div>
+                                                    <div>{update.irrigation.waterQuantity?.toString()}ml</div>
+                                                </section>
+                                                <section className="irrigation-section">
+                                                    <div className="irrigation-subheader">Fertilizer:</div>
+                                                    <div>{update.irrigation.fertilizer}ml</div>
+                                                </section>
+                                                <section className="irrigation-section">
+                                                    <div className="irrigation-subheader">Fertilizer Quantity:</div>
+                                                    <div>{update.irrigation.fertilizerQuantity?.toString()}ml</div>
+                                                </section>
                                             </>
                                             }
                                         </div>

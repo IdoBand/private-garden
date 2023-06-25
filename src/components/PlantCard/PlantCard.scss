@@ -1,0 +1,102 @@
+@use '../../mixin.scss';
+.card-key-container {
+  margin: 10px
+}
+.plant-card-link {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 170px;
+    height: 120px;
+    padding: 0;
+    position: relative;
+    margin: 25px 0 0 0;
+    border-radius: 5px;
+    @include mixin.shadow();
+    &:hover {
+        &::before {
+            opacity: 1;
+            width: 5px
+        }
+        &::after {
+          opacity: 0;
+          height: 0;
+        }
+    }
+    &:hover > .arrow-right {
+        opacity: 1;
+        rotate: 0deg;
+    }
+    &::before {
+      content: '';
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: mixin.$dark-green-color;
+      height: 75%;
+      width: 0px;
+      border-radius: 5px 0 0 0;
+      transition: opacity 0.4s, width 0.4s;
+    }
+    &:hover > .plant-card-img-container > .plant-card-img {
+        transform: scale(1.1);
+        max-width: 100px;
+        max-height: 100px;
+      }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: mixin.$dark-green-color;
+      width: 100%;
+      height: 5px;
+      border-radius: 0 0 10px 10px;
+      transition: opacity 0.4s, height 0.4s;
+    }
+
+  }
+.plant-name{
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  font-size: mixin.$desktop-md-font-size;
+  color: mixin.$dark-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  
+.plant-card-img-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+}
+  
+.plant-card-img {
+  position: absolute;
+  top: -15px;
+  width: 100px;
+  transition: transform 0.4s;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+.arrow-right {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+  fill: mixin.$dark-green-color;
+  width: 25px;
+  rotate: 90deg;
+  transition: opacity 0.4s, rotate 0.4s ;
+}
+
+//////////     C H E C K   B O X     //////////
+
+.plant-card-toggle {
+  @include mixin.checkboxRemoveToggle();
+  top: 22px;
+  right: 1px;
+}
