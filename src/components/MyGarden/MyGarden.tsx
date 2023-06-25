@@ -91,10 +91,7 @@ export default function MyGarden() {
             setPlants(reduxPlants)
         }
     }
-    function updateCurrentPlant(plant: Plant) {
-        dispatch(setCurrentPlant(plant))
-    }
-    
+
     return (
         <>
             <div className="my-garden-container">
@@ -122,7 +119,7 @@ export default function MyGarden() {
                         </div>
                         <div id="plants-container">
                             {plants.map(plant =>
-                                <div key={plant.id}>
+                                <div key={plant.id} className="card-key-container">
                                     <PlantCard 
                                         plant={plant}
                                         removeButtons={removeButtons}

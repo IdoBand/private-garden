@@ -2,15 +2,15 @@
 .random-plant-container {
   @include mixin.flexCenter();
   flex-direction: column;
+  gap: 10px;
   width: 100%;
 }
 #random-plant-options{
     display: flex;
 }
 #random-plant-content {
-   @include mixin.flexCenter();
-   @include mixin.shadow();
-
+    @include mixin.flexCenter();
+    @include mixin.shadow();
     border-radius: 10px;
     min-height: 70px;
     width: 90%;

@@ -5,22 +5,25 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    min-height: 100%;
+    height: calc(100% - 60px);
+
     background: mixin.$container-background-color;
-    padding: 10px 0 10px 0;
 }
 #my-garden-options{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 90%;
+    margin-bottom: 10px;
 }
 
 #plants-container{
-    width: 80%;
+    width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 170px);
-    
+    grid-template-columns: repeat(auto-fill, 180px);
+    grid-template-rows: repeat(auto-fill, 160px);
+    min-height: 80vh;
+    border-radius: 10px;
 }
   
 //////////     S E A R C H   B A R     //////////
@@ -56,7 +59,14 @@
         height: 15px;
     }
   }
-//////////////////      R E S P O N S I V E      //////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  /// 
+
+
+///////////////////////////      800 PX      ///////////////////////////
 @media screen and (max-width: 800px) {
 
 #my-garden-options {
@@ -85,8 +95,24 @@
 #plants-container {
     width: 95%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 170px);
+    grid-template-columns: repeat(auto-fill, 180px);
+    grid-template-rows: repeat(auto-fill, 160px);
     justify-content: center;
+
+
+}
+
+#search-bar-and-count{ 
+    justify-content: space-between;
 }
 }
+
+///////////////////////////      400 PX      ///////////////////////////
   
+@media screen and (max-width: 400px) {
+
+    #search-bar-and-count{ 
+        gap: 10px;
+        flex-direction: column-reverse;
+    }
+}

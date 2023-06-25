@@ -1,10 +1,13 @@
 @use '../../mixin.scss';
-
+.card-key-container {
+  margin: 10px
+}
 .plant-card-link {
     @include mixin.flexCenter();
     flex-direction: column;
-    width: 160px;
+    width: 170px;
     height: 120px;
+    padding: 0;
     position: relative;
     margin: 25px 0 0 0;
     border-radius: 5px;
@@ -14,32 +17,47 @@
             opacity: 1;
             width: 5px
         }
+        &::after {
+          opacity: 0;
+          height: 0;
+        }
     }
     &:hover > .arrow-right {
         opacity: 1;
         rotate: 0deg;
     }
     &::before {
-    content: '';
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: mixin.$dark-green-color;
-    height: 80%;
-    width: 0px;
-    border-radius: 5px 0 0 0;
-    transition: opacity 0.4s, width 0.4s;
+      content: '';
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: mixin.$dark-green-color;
+      height: 75%;
+      width: 0px;
+      border-radius: 5px 0 0 0;
+      transition: opacity 0.4s, width 0.4s;
     }
     &:hover > .plant-card-img-container > .plant-card-img {
         transform: scale(1.1);
         max-width: 100px;
         max-height: 100px;
       }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: mixin.$dark-green-color;
+      width: 100%;
+      height: 5px;
+      border-radius: 0 0 10px 10px;
+      transition: opacity 0.4s, height 0.4s;
+    }
+
   }
 .plant-name{
   text-align: center;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
   font-size: mixin.$desktop-md-font-size;
   color: mixin.$dark-color;
@@ -78,30 +96,7 @@
 //////////     C H E C K   B O X     //////////
 
 .plant-card-toggle {
-  appearance: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #000000;
-  outline: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-  position: absolute;
+  @include mixin.checkboxRemoveToggle();
   top: 22px;
   right: 1px;
-  &:checked{
-      background-color: rgb(190, 60, 60);
-  }
-  &:checked::before{
-  font-family:Arial, Helvetica, sans-serif;
-  content: "X";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -46%);
-  font-size: mixin.$desktop-sm-font-size;
-  color: white;
-  text-align: center;
-  line-height: 18px;
-  }
 }

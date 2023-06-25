@@ -1,6 +1,5 @@
 @use '../../mixin';
 .identify-plant-container {
-    min-height: 100%;
     background: mixin.$container-background-color;
     width: 100%;
     display: flex;
@@ -8,22 +7,34 @@
     flex-direction: column;
 }
 .identify-plant-options{
-    width: 85%;
-    color: white;
+    width: 90%;
+    color: mixin.$dark-color;
+    padding: 10px 0;
+    border-radius: 10px; 
+    @include mixin.shadow();
 }
 .identify-constraints, .page-subheader{
     line-height: 1.6;
 }
 .identify-plant-text {
-    padding: 20px 0 20px 0;
+    padding: 20px 0 20px 30px;
     width: max-content;
 }
 .form-container{
-    color: white;
-    width: 100%;
+    color: mixin.$dark-color;
+    width: 90%;
+    border-radius: 10px;
+    padding: 0 0 20px 0;
+    @include mixin.shadow();
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 .image-select-container {
-    @include mixin.flexCenter();
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 .images-and-result {
     @include mixin.flexCenter();
@@ -42,14 +53,19 @@
 }
 .footer-message{
     text-align: left;
-    color: white;
+    color: mixin.$dark-color;
     width: 85%;
     padding: 10px 0 10px 10px;
     font-size: mixin.$desktop-sm-font-size;
 }
-.identify-plant-input {
-    width: 185px;
-}
+
+.a{
+    color: mixin.$dark-color;
+    text-decoration: underline;
+    &:hover{
+      color: mixin.$dark-green-color;
+    }
+  }
 //////////////////      R E S P O N S I V E      //////////////////
 @media screen and (max-width: 800px) {
 

@@ -3,7 +3,7 @@ import React from 'react'
 
 interface Props {
   text: string
-  onClick: any
+  onClick?: any
   type?: 'button' | 'submit'
 }
 
@@ -29,7 +29,7 @@ const GreenButton: React.FC<Props> = ({
   type = 'button'
   }) => {
   return (
-    <NewButton type={type} onClick={onClick}> {text} </NewButton>
+    <NewButton type={type} onClick={onClick? onClick : undefined}> {text} </NewButton>
   )
 }
 

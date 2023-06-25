@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react'
+import { useState } from 'react'
 import { useForm, Controller } from "react-hook-form";
 import GreenButton from '../Button/GreenButton'
 import Spinner from '../Spinner/Spinner'
@@ -6,6 +6,7 @@ import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 import { fetchIdentifyPlant } from '../../hooks/fetchers'
 import Modal from '../Modal/Modal'
 import { handleImageLoad } from '../../hooks/helpfulFunctions';
+import UploadButton from '../Button/UploadButton';
 interface IdentifyPlantDataObject {
     plantImages: File[];
   }
@@ -48,7 +49,6 @@ export default function IdentifyPlant() {
                 <form className="form" onSubmit={handleSubmit(data => {
                     extractImageFromForm(data as IdentifyPlantDataObject);
                     })} id="add-plant-form">
-                    <label>Upload Images:</label>
                     <div className="image-select-container">
                         <Controller
                         name="plantImages"
@@ -56,7 +56,7 @@ export default function IdentifyPlant() {
                         defaultValue=""
                         render={({ field }) => (
                             <>
-                                <input type="file" className='identify-plant-input' accept="image/jpeg, image/jpg" multiple onChange={(e) => {
+                                <input type="file" id="identify-upload" className='file-upload-button' accept="image/jpeg, image/jpg" multiple onChange={(e) => {
                                 if (e.target.files && e.target.files.length > 0 && e.target.files.length < 6) {
                                     setIdentifiedPlant(null)
                                     setSelectedImageIdx(0)
@@ -72,10 +72,10 @@ export default function IdentifyPlant() {
                                     });
                                 }
                                 }} />
+                                <UploadButton htmlFor="identify-upload" text='Upload Images' />
                             </>
                             )}
                         />
-                        
                     </div>
                     {errors.plantImages && <div className="error-div">{errors.plantImages.message as string}</div>}
                     <div className="images-and-result">

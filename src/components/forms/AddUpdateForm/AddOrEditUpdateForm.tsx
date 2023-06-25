@@ -6,6 +6,7 @@ import { Plant } from "../../../types/Plant";
 import { capitalize, todaysDateString, dateInRightFormat, dateInInputFormat } from "../../../hooks/helpfulFunctions";
 import { fetchAddPlantUpdate, fetchEditPlantUpdate } from "../../../hooks/fetchers";
 import ImageCropDialog from '../../ImageCrop/ImageCropDialog'
+import UploadButton from "../../Button/UploadButton";
 interface addPlantUpdateDataObject {
   date: string
   updateImage?: File |'image/jpeg' | 'image/jpg' | null
@@ -74,7 +75,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
               defaultValue=""
               render={({ field }) => (
                 <>
-                    <input type="file" className="form-file-input" accept="image/jpeg, image/jpg" onChange={(e) => {
+                    <input id="add-update-upload" type="file" className="form-file-input" accept="image/jpeg, image/jpg" onChange={(e) => {
                       if (e.target.files && e.target.files.length > 0) {
                         const selectedFile = e.target.files[0];
                         // imageFileRef makes sure that the cropped image will receive the image's original name
@@ -83,6 +84,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                         setImagePreviewUrl(URL.createObjectURL(selectedFile));
                       }
                     }} />
+                    <UploadButton htmlFor="add-update-upload" text="Upload Image" />
                   </>
                 )}
             />

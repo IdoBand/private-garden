@@ -39,32 +39,23 @@
   height: 10px;
 }
 
-
-  h1 {
-    margin: 0 0 0 0;
-    font-size: mixin.$desktop-lg-font-size;
-    letter-spacing: 1px;
-    color: rgb(255, 255, 255);
-  }
-
 header {
   @include mixin.flexCenter();
   width: 100%;
   // box-shadow: 0px 5px 10px rgb(0,0,0, 0.2);
 }
 .header-content {
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
-  place-items: center;
+  align-items: center;
   padding: 5px 0;
 }
 
 #page-logo{
   width: 35px;
   height: 35px;
-  border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 3px;
   
 }
 .app-name {
@@ -73,6 +64,7 @@ header {
   color: mixin.$dark-color;
   font-size: x-large;
   font-weight: 600;
+  letter-spacing: 1px;
 }
 .nav-container {
   position: relative;
@@ -85,30 +77,24 @@ header {
   margin: 0 5px 0 5px;
   color: mixin.$dark-color;
   font-size: mixin.$desktop-md-font-size;
-  &:hover{
+  &:hover::before{
     cursor: pointer;
-    &::before {
-      background: rgb(0,150,0);
-    }
+    background-color: rgb(0,150,0);
   }
   &::before {
     content: '';
-    background: lightgray;
-    width: 1.5px;
+    background-color: lightgray;
+    width: 2px;
     height: 18px;
     margin: 0 10px 0 0;
+    transition: background-color 0.4s;
   }
 }
-///////////////   appearance in multiple pages   ///////////////
-
-.a{
-  color: white;
-  text-decoration: underline;
-  &:hover{
-    color: rgba(0,255,0,0.8);
-  }
+#sticky-logo {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
 }
-
 ///////////////   A B O U T   ///////////////
   
 .logo{
@@ -140,23 +126,33 @@ header {
 .page-subheader {
   font-size: mixin.$desktop-md-font-size
 }
-.desktop-menu-button {
-  color: white;
-  background: transparent;
-  border: 0;
-  font-size: mixin.$desktop-lg-font-size;
-}
-.mobile-menu-button {
+
+@mixin basicMobileMenuButton {
   color: mixin.$dark-color;
   background: transparent;
   padding: 2px;
   border: 1px solid transparent;
   border: none;
   font-size: mixin.$desktop-lg-font-size;
+  position: absolute;
+  z-index: 100;
   &:hover {
     scale: 110%;
     cursor: pointer;
   }
+}
+.mobile-menu-button-home {
+  @include basicMobileMenuButton();
+  top: 8px;
+}
+.not-home-page-menu-button-container {
+  display: flex;
+  justify-content: center;
+  
+}
+.mobile-menu-button-not-home{
+  @include basicMobileMenuButton();
+  top: 28px;
 }
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
@@ -171,10 +167,10 @@ header {
     font-size: mixin.$desktop-md-font-size;
   }
 }
-///////////////////////////      800 PX      ///////////////////////////
-@media screen and (max-width: 800px) {
+///////////////////////////      1100 PX      ///////////////////////////
+@media screen and (max-width: 1100px) {
   .header-content {
-    width: 90%;
+    width: 95%;
   }
   .mobile-nav-container {
     width: 100%;
@@ -207,11 +203,8 @@ header {
   .page-subheader {
     font-size: mixin.$desktop-sm-font-size
   }
-}
-///////////////////////////      400 PX      ///////////////////////////
-@media screen and (max-width: 400px) {
-  .header-content {
-    width: 95%;
+  .app-name {
+    @include mixin.flexCenter();
+    letter-spacing: 0.5px;
   }
-
 }

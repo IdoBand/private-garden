@@ -7,17 +7,21 @@
     background: mixin.$container-background-color;
     flex-direction: column;
     padding: 10px 0 10px 0;
-    color: white;
+    color: mixin.$dark-color;
 }
 .plant-timeline-options{
     display: flex;
     justify-content: space-between;
     width: 90%;
+    border-radius: 5px;
+    @include mixin.shadow();
+    padding: 10px 20px;
 }
 #plant-intro{
     width: 450px;
     display: flex;
     margin: 0 0 10px 0;
+
     .plant-logo{
        margin: 2px;
         width: 120px;
@@ -26,7 +30,7 @@
     }
     #current-plant-details{
         margin: 5px;
-        color: white;
+        color: mixin.$dark-color;
     }
 }
 #plant-updates{
@@ -38,7 +42,15 @@
     padding: 1em 0 1em 0;
     position: relative;
   }
-  
+.update-card-subheader {
+    @include mixin.flexCenter();
+    width: 100%;
+    font-size: mixin.$desktop-md-font-size;
+    font-weight: mixin.$font-weight-md;
+    margin-bottom: 5px;
+    gap: 5px;
+}
+
   .update-card:nth-child(odd) {
     border-left: 3px solid #888;
     padding-left: 3em;
@@ -59,7 +71,7 @@
   .update-card:nth-child(odd) .update-card-content::before {
     content: '';
     background: #fff;
-    box-shadow: 0 0 0.5em #0d71fc;
+    box-shadow: 0 0 0.5em mixin.$dark-green-color;
     width: 0.8em;
     height: 0.8em;
     position: absolute;
@@ -89,7 +101,7 @@
   .update-card:nth-child(even) .update-card-content::before {
     content: '';
     background: #fff;
-    box-shadow: 0 0 0.5em #0d71fc;
+    box-shadow: 0 0 0.5em mixin.$dark-green-color;
     width: 0.8em;
     height: 0.8em;
     position: absolute;
@@ -116,10 +128,7 @@
     display: grid;
     grid-template-columns: 0.8fr 1fr 0.6fr;
 }
-.update-card-subheader {
-    @include mixin.flexCenter();
-    font-size: mixin.$desktop-md-font-size;
-}
+
 
 .checked-logo{
     width: 13px;
@@ -130,9 +139,18 @@
     flex-direction: column;
 }
 .update-card-irrigation-container{
-    @include flex-center-start-column();
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
 }
-
+.irrigation-section {
+    display: flex;
+    flex-direction: column;
+    .irrigation-subheader {
+        font-weight: mixin.$font-weight-md;
+    }
+}
 .update-card-notes-container{
     @include flex-center-start-column();
     align-items: center;
@@ -145,7 +163,9 @@
 }
 
 .update-card-images-container{
-    @include mixin.flexCenter();
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
     .update-image{
         width: 100px;
@@ -160,42 +180,36 @@ select {
         outline: none;
     }
 }
-
-.plant-update-toggle {
-    appearance: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #fff;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    position: absolute;
+.update-card-toggle {
+    @include mixin.checkboxRemoveToggle();
     top: 5px;
     right: 110px;
-    &:checked{
-        background-color: rgb(190, 60, 60);
-    }
-    &:checked::before{
-    font-family:Arial, Helvetica, sans-serif;
-    content: "X";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -46%);
-    font-size: mixin.$desktop-sm-font-size;
-    color: white;
-    text-align: center;
-    line-height: 18px;
-    }
-  }
+}
 
-//////////////////      R E S P O N S I V E      //////////////////
-@media screen and (max-width: 1000px) {
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+///////////////////////////      1000 PX      ///////////////////////////
+@media screen and (max-width: 1100px) {
+    .plant-timeline-container{
+        width: 100%;
+        @include mixin.flexCenter();
+        background: mixin.$container-background-color;
+        flex-direction: column;
+        padding: 0;
+        color: mixin.$dark-color;
+    }
     .plant-timeline-options{
         @include mixin.flexCenter();
         flex-direction: column;
-        width: 100%;
+        width: 95%;
+        border-radius: 5px;
+    @include mixin.shadow();
+    padding: 10px 0px;
+    margin-bottom: 16px;
     }
     #plant-intro{
         display: flex;
@@ -209,7 +223,7 @@ select {
         }
         #current-plant-details{
             margin: 5px;
-            color: white;
+            color: mixin.$dark-color;
             font-size: mixin.$desktop-sm-font-size;
         }
     }
@@ -221,6 +235,15 @@ select {
     }
     #plant-updates {
         width: 95%;
+    }
+    .update-card-subheader {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        font-size: mixin.$desktop-md-font-size;
+        font-weight: mixin.$font-weight-md;
+        margin-bottom: 5px;
+        gap: 5px;
     }
     #plant-updates .update-card {
         width: 100%;
@@ -241,9 +264,22 @@ select {
         left: 50%;
         transform: translateX(-50%);
     }
+    .update-card-notes-container {
+        @include flex-center-start-column();
+    align-items: center;
+    max-height: 120px;
+    width: 100%;
+    .actual-notes {
+        @include mixin.secondary-scrollbar();
+        overflow-y: auto;
+    }
+    }
     .update-card-images-container{
-        @include mixin.flexCenter();
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         flex-direction: column;
+        width: 100%;
         .update-image{
             width: 80px;
             border-radius: 5px;
@@ -254,5 +290,17 @@ select {
         display: grid;
         grid-template-columns: 0.8fr 1fr 0.6fr;
         align-items: baseline;
+    }
+}
+
+///////////////////////////      500 PX      ///////////////////////////
+
+@media screen and (max-width: 500px) {
+    .info{
+        margin: 3px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 20px;
     }
 }

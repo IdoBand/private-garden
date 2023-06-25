@@ -2,38 +2,60 @@
 
 #home-container {
   width: 100%;
-  height: 100%;
+  min-height: calc(100% - 60px);
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 .secondary-home-container {
-  width: 80%;
+  position: relative;
+  width: 90%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 .home-text {
-  padding-top: 150px;
+  position: relative;
+  margin-top: 30px;
+  padding: 20px 120px;
   z-index: 100;
   width: max-content;
-  line-height: 1.6;
   color: mixin.$dark-color;
-  .here-you-can{
-    position: relative;
-    font-size: mixin.$desktop-lg-font-size;
-    margin-bottom: 20px;
-    padding-left:20px;
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      width: 30px;
-      height: 4px;
-      background-color: mixin.$gray-color;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 140px;
+    left: -120px;
+    width: 330px;
+    height: 3px;
+    background: mixin.$green-background-color;
+    border-radius: 2px;
+  }
+  
+}
+.main-purpose {
+  font-size: mixin.$desktop-3xl-font-size;
+}
+
+.here-you-can{
+  position: relative;
+  font-size: mixin.$desktop-md-font-size;
+  margin: 20px 0;
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 20px;
+    height: 4px;
+    background-color: mixin.$gray-color;
   }
 }
+.sentences-container {
+  padding-left: 100px;
+  line-height: 1.6;
+}
 .sentence-container {
-  font-size: mixin.$desktop-xl-font-size;
+  font-size: mixin.$desktop-lg-font-size;
   width: max-content;
   display: flex;
   gap: 0.5rem;
@@ -41,7 +63,7 @@
     width: 1.2rem;
   }
   &:hover > .sentence-svg {
-    animation: rotateAnimation 1s infinite;
+    animation: rotateAnimation 1s linear infinite;
     fill: mixin.$dark-green-color;
   }
   .sentence-text {
@@ -60,22 +82,41 @@
 .discover-button-container {
   width: 100%;
   padding: 40px 0 0 0;
-  @include mixin.flexCenter();
+  display: flex;
+  justify-content: flex-end;
 }
+$duration: 0.6s;
 .discover-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 10px 25px;
   background: transparent;
-  border: 1px solid mixin.$gray-color;
+  border-top: 2px solid mixin.$gray-color;
+  border-right: 2px solid mixin.$gray-color;
+  border-bottom: 2px solid mixin.$gray-color;
+  border-left: 2px solid mixin.$gray-color;
   font-size: mixin.$desktop-md-font-size;
   border-radius: 5px;
+  transition: color 0.5s,
+    border-top-color $duration,
+    border-right-color calc(2 * $duration),
+    border-bottom-color calc(3 * $duration),
+    border-left-color calc(4 * $duration),
+    ;
   &:hover {
     color: mixin.$dark-green-color;
-    border-color: mixin.$dark-green-color;
+    border-top-color: mixin.$dark-green-color;
+    border-right-color: mixin.$dark-green-color;
+    border-bottom-color: mixin.$dark-green-color;
+    border-left-color: mixin.$dark-green-color;
     cursor: pointer;
   }
+  .chevron-right {
+    width: 18px;
+  }
 }
-.home-img-main-container{
-  background-color: antiquewhite;
+.desktop-home-main-img-container{
   position: relative;
   width: max-content;
   height: 100%;
@@ -86,25 +127,384 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: -30.5rem;
-  left: -27rem;
+  bottom: -36.7rem;
+  right: -0.7rem;
   width: 450px;
-  height: 500px;
-  background: rgb(195, 237, 224);
+  height: 600px;
+  background: mixin.$green-background-color;
   border-radius: 0 0px 200px 225px;
-
 }
 
-#img3 {
+#home-main-img {
   position: absolute;
-  top: 83px;
+  top: 182px;
   right: -10px;
   width: 500px;
 
 }
 
+#decorative-container-1 {
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  right: -300px;
+  width: 850px;
+  height: 450px;
+  border-left: 3px solid mixin.$green-background-color;
+  border-top: 3px solid mixin.$green-background-color;
+  border-radius: 9000px;
 
-//////////////////      R E S P O N S I V E      //////////////////
-@media screen and (max-width: 800px) {
+}
+#decorative-container-2 {
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  right: -300px;
+  width: 800px;
+  height: 400px;
+  border-left: 3px solid mixin.$green-background-color;
+  border-top: 3px solid mixin.$green-background-color;
+  border-radius: 9000px;
+}
+#decorative-container-3 {
+  position: absolute;
+  z-index: -1;
+  bottom: 100px;
+  left: -100px;
+  width: 400px;
+  height: 100px;
+  border-radius: 10px 225px 225px 10px ;
+  background-color: mixin.$green-background-color;
+  img {
+    position: absolute;
+    right: -20px;
+    top: -150px;
+    width: 160px;
+  }
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+
+//////////////////////////////////////////      1400 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1400px) {
+  #home-container {
+    width: 100%;
+    min-height: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+  .secondary-home-container {
+    position: relative;
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////// .home-text
+  .home-text {
+    position: relative;
+    margin-top: 30px;
+    padding: 20px 30px;
+    z-index: 100;
+    width: max-content;
+    color: mixin.$dark-color;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 140px;
+      left: -80px;
+      width: 200px;
+      height: 3px;
+      background: mixin.$green-background-color;
+      border-radius: 2px;
+    }
+    .main-purpose {
+      font-size: mixin.$desktop-3xl-font-size;
+    }
+    
+    .here-you-can{
+      position: relative;
+      font-size: mixin.$desktop-md-font-size;
+      margin: 20px 0;
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        width: 20px;
+        height: 4px;
+        background-color: mixin.$gray-color;
+      }
+    }
+  }
+  .sentences-container {
+    padding-left: 100px;
+    line-height: 1.6;
+  }
+  .sentence-container {
+    font-size: mixin.$desktop-lg-font-size;
+    width: max-content;
+    display: flex;
+    gap: 0.5rem;
+    .sentence-svg {
+      width: 1.2rem;
+    }
+    &:hover > .sentence-svg {
+      animation: rotateAnimation 1s linear infinite;
+      fill: mixin.$dark-green-color;
+    }
+    .sentence-text {
+      color: mixin.$dark-color;
+    }
+  }
+  ////////////////////////////////////////////////////////////////////////////////// .discover-button-container
+  .discover-button-container {
+    width: 100%;
+    padding: 30px 0 0 0;
+    display: flex;
+    justify-content: end;
+  }
   
+  .desktop-home-main-img-container{
+    position: relative;
+    width: max-content;
+    height: 100%;
+  }
+  
+  .green-img-bg{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -36.7rem;
+    right: -0.7rem;
+    width: 450px;
+    height: 600px;
+    background: mixin.$green-background-color;
+    border-radius: 0 0px 200px 225px;
+  }
+  
+  #home-main-img {
+    position: absolute;
+    top: 182px;
+    right: -10px;
+    width: 500px;
+  
+  }
+  
+  #decorative-container-1 {
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
+    right: -300px;
+    width: 850px;
+    height: 450px;
+    border-left: 3px solid mixin.$green-background-color;
+    border-top: 3px solid mixin.$green-background-color;
+    border-radius: 9000px;
+  
+  }
+  #decorative-container-2 {
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
+    right: -300px;
+    width: 800px;
+    height: 400px;
+    border-left: 3px solid mixin.$green-background-color;
+    border-top: 3px solid mixin.$green-background-color;
+    border-radius: 9000px;
+  }
+
+  ////////////////////////////////////////////////////////////////// decorative-container-3
+  #decorative-container-3 {
+    position: absolute;
+    z-index: -1;
+    bottom: 30px;
+    left: -100px;
+    width: 400px;
+    height: 100px;
+    border-radius: 10px 225px 225px 10px ;
+    background-color: mixin.$green-background-color;
+    img {
+      position: absolute;
+      right: -20px;
+      top: -130px;
+      width: 140px;
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////////
+}
+
+//////////////////////////////////////////      1300 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1300px) {
+  .home-text {
+    position: relative;
+    margin-top: 10px;
+    padding: 20px 0px;
+    z-index: 100;
+    width: max-content;
+    color: mixin.$dark-color;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 140px;
+      left: -60px;
+      width: 150px;
+      height: 3px;
+      background: mixin.$green-background-color;
+      border-radius: 2px;
+    }
+  }
+  .sentences-container {
+    padding-left: 100px;
+    line-height: 1.6;
+  }
+  .main-purpose {
+    font-size: mixin.$desktop-3xl-font-size;
+  }
+ 
+  .here-you-can{
+    position: relative;
+    font-size: mixin.$desktop-md-font-size;
+    margin: 20px 0;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      width: 20px;
+      height: 4px;
+      background-color: mixin.$gray-color;
+    }
+  }
+  .discover-button-container {
+    width: 100%;
+    padding: 30px 0 0 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+}
+
+//////////////////////////////////////////      1100 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1100px) { 
+  .home-text {
+    position: relative;
+    margin-top: 10px;
+    padding: 20px 0px;
+    z-index: 100;
+    width: max-content;
+    color: mixin.$dark-color;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 140px;
+      left: -75px;
+      width: 70px;
+      height: 3px;
+      background: mixin.$green-background-color;
+      border-radius: 2px;
+    }
+  }
+  .sentences-container {
+    padding-left: 0px;
+  }
+
+  .home-main-img-container{
+    position: relative;
+
+  }
+  
+  .green-img-bg{
+    position: absolute;
+    width: 150px;
+    height: 300px;
+    top: -21px;
+    background: mixin.$green-background-color;
+    border-radius: 0 0px 255px 255px;
+  }
+  
+  #home-main-img {
+    position: absolute;
+    top: 132px;
+    right: -5px;
+    width: 200px;
+  
+  }
+}
+
+//////////////////////////////////////////      650 PX      ///////////////////////////////////////////
+@media screen and (max-width: 650px) { 
+  .home-text {
+    position: relative;
+    margin-top: 10px;
+    padding: 160px 0px;
+    z-index: 100;
+    width: 100%;
+    @include mixin.flexCenter();
+    flex-direction: column;
+    color: mixin.$dark-color;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 100px;
+      left: -75px;
+      width: 80%;
+      height: 3px;
+      background: mixin.$green-background-color;
+      border-radius: 2px;
+    }
+  }
+  .main-purpose {
+    font-size: mixin.$desktop-xl-font-size !important;
+  }
+  .sentence-container {
+    font-size: mixin.$desktop-sm-font-size;
+  }
+  #decorative-container-1 {
+    display: none;
+  }
+  #decorative-container-2 {
+    display: none;
+    
+  }
+  .green-img-bg{
+    position: absolute;
+    width: 100px;
+    height: 200px;
+    top: -21px;
+    right: 2px;
+    background: mixin.$green-background-color;
+    border-radius: 0 0px 255px 255px;
+  }
+  
+  #home-main-img {
+    position: absolute;
+    top: 85px;
+    right: -5px;
+    width: 137px;
+  
+  }
+  #decorative-container-3 {
+    position: absolute;
+    z-index: -1;
+    bottom: 30px;
+    left: -200px;
+    width: 400px;
+    height: 50px;
+    border-radius: 10px 225px 225px 10px ;
+    background-color: mixin.$green-background-color;
+    img {
+      position: absolute;
+      right: -20px;
+      top: -100px;
+      width: 100px;
+    }
+  }
 }

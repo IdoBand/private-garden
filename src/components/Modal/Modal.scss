@@ -1,9 +1,8 @@
 @use '../../mixin.scss';
 .modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include mixin.transformTranslate50();
+    @include mixin.secondary-scrollbar();
     background-color: #FFF;
     padding: 30px 20px 10px 20px;
     z-index: 500;
@@ -18,7 +17,7 @@
         border: none;
         border-radius: 5px;
         position: absolute;
-        left: 5px;
+        right: 5px;
         top: 5px;
         &:hover {
             background-color: rgb(180, 0, 0);

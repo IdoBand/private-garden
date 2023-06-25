@@ -16,7 +16,7 @@ const NewButton = styled.button`
   margin: 5px;
   white-space: nowrap;
   &:hover {
-    background-color: rgb(180, 0, 0);
+    background: rgb(180, 0, 0);
     cursor: pointer;
   }
 `
