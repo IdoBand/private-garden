@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState, useRef, useEffect, useCallback } from 'react'
 import GreenButton from '../../Button/GreenButton';
-import { useAppDispatch, useAppSelector } from "../../../redux/counterHooks"
+import { useAppDispatch, useAppSelector } from "../../../redux/reduxHooks"
 import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
 import { fetchAddPlant, fetchEditPlant } from "../../../hooks/fetchers";
 import { Plant } from "../../../types/Plant";
@@ -49,6 +49,7 @@ export default function AddOrEditPlantForm({setModal, setResponseMessage, plantN
     const newPlant = new Plant(plantId, data.plantName, dateInRightFormat(todaysDateString()), imageString)
     const newPlants = reduxPlants.concat(newPlant)
     dispatch(addPlants(newPlants))
+    setModal(false)
     setPlants!(newPlants)
   }
   

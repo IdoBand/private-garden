@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Modal from '../Modal/Modal';
 import logo from '/assets/logo-png.png'
 import About, { generatePath } from '../About/About';
-import { useAppDispatch } from "../../redux/counterHooks"
+import { useAppDispatch } from "../../redux/reduxHooks"
 import { setMobile } from '../../redux/windowSlice';
 import a from '/assets/home-page/111.png'
 

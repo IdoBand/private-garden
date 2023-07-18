@@ -1,3 +1,4 @@
+import { AWSIcon } from "../../util/svgs"
 export function generatePath(logoName: string): string {
     if (logoName !== 'vite') {
         return `/assets/logos/${logoName}.png`
@@ -18,6 +19,7 @@ export function generatePath(logoName: string): string {
                 </ul>
                 <b className='sub-header'>BackEnd</b>
                 <ul className='tools'>
+                        <li className="tool-li"><AWSIcon className="logo" /> Amazon Web Services, EC2 Ubuntu</li>
                         <li className="tool-li"><img className='logo' src={generatePath('nodejs')} />Node.JS</li>
                         <li className="tool-li"><img className='logo' src={generatePath('express')} />Express</li>
                         <li className="tool-li"><img className='logo' src={generatePath('typescript')} />TypeScript</li>
