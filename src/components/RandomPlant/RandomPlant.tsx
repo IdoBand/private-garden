@@ -5,7 +5,7 @@ import Spinner from "../Spinner/Spinner"
 import { fetchRandom } from '../../hooks/fetchers'
 import { capitalize } from '../../hooks/helpfulFunctions'
 import logo from '/assets/logo.jpg'
-import { useAppSelector } from "../../redux/counterHooks"
+import { useAppSelector } from "../../redux/reduxHooks"
 
 export default function RandomPlant() {
     const plantName = useRef<string>('')

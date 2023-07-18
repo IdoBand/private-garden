@@ -1,7 +1,7 @@
 import { Plant } from "../../types/Plant"
 import GreenButton from "../Button/GreenButton"
 import RedButton from "../Button/RedButton"
-import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
+import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { useEffect, useState, useRef} from "react"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PlantUpdate } from "../../types/PlantUpdate"

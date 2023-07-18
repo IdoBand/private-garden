@@ -22,12 +22,17 @@ export default function IdentifyPlant() {
     
     
     async function extractImageFromForm(data: IdentifyPlantDataObject) {
-        setIsFetching(true)
-        const result = await fetchIdentifyPlant(data.plantImages)
-        setIdentifiedPlant(result)
-        setIsFetching(false)
+        try {
+            setIsFetching(true)
+            const result = await fetchIdentifyPlant(data.plantImages)
+            setIdentifiedPlant(result)
+        } catch (err) {
+            console.log(err);
+            alert('Sorry, server error :(')
+        } finally {
+            setIsFetching(false)
+        }
     }
-
 
     return (
         <div className='identify-plant-container'>

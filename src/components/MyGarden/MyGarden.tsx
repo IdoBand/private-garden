@@ -5,7 +5,7 @@ import RedButton from "../Button/RedButton"
 import Modal from "../Modal/Modal"
 import AddOrEditPlantForm from "../forms/AddPlantForm/AddOrEditPlantForm"
 import searchLogo from '/assets/search_icon-white2.png'
-import { useAppDispatch, useAppSelector } from "../../redux/counterHooks"
+import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
 import Spinner from "../Spinner/Spinner"
 import { fetchEntireGarden, fetchRemovePlantsPermanently } from '../../hooks/fetchers'
