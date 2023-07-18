@@ -36,3 +36,4 @@ export const LogoSVG = ({width, height, ...props}: SVGProps) => (
       </g>
     </svg>
   )
+
