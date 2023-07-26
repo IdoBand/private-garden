@@ -5,7 +5,7 @@ interface SVGProps {
     className?: string
 }
 
-export const LogoSVG = ({width, height, ...props}: SVGProps) => (
+export const LogoSVG = ({ ...props}: SVGProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={632}
@@ -37,3 +37,45 @@ export const LogoSVG = ({width, height, ...props}: SVGProps) => (
     </svg>
   )
 
+export const XCircleIcon = ({className, ...rest }: SVGProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      width={24}
+      height={24}
+      className={className}
+      viewBox="0 0 24 24"
+      {...rest}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+      />
+    </svg>
+  )
+  
+
+export const PrivateGardenLogo = ({className, ...rest }: SVGProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={28}
+    height={28}
+    className={className}
+      viewBox="0 0 20 20"
+      {...rest}
+  >
+    <title>{"97"}</title>
+    <g fill="#007449" fillRule="evenodd">
+      <path
+        d="M12.295 14.201a5.16 5.16 0 0 0 .381-.354c-1.989-.903-3.498-1.999-4.858-3.108-1.624-.004-3.298-.418-4.155-1.477 1.277.643 2.621.646 3.074.585-3.839-3.466-4.902-6.855-4.902-6.855 1.314 2.06 2.701 3.652 4.059 4.916-.569-1.088-.236-3.1-.236-3.1 1.107 3.898 1.237 3.96 1.164 3.994.9.729 1.875 1.414 2.687 1.937-.292-.68-.499-1.671-.472-3.369 0 0 .722 3.562 1.856 4.439.903.521 1.698.925 2.314 1.232.976-1.456.981-5.338-1.411-6.897C9.218 4.462 4.871 4.398.474.096c-1.315-1.287 1.129 10.036 4.67 13.193 2.176 1.945 5.008 2.701 7.151.912Z"
+        className="si-glyph-fill"
+      />
+      <path
+        d="M11.266 14.064s1.18.613 2.534 1.211c1.354.598 2.003.477 2.079.625.078.15.039-1.642.039-1.642s-1.828.433-3.863-.696l-.789.502Z"
+        className="si-glyph-fill"
+      />
+    </g>
+  </svg>
+)

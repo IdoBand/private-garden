@@ -1,8 +1,8 @@
 import { ArrowRightIcon} from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
-import { Plant } from '../../types/Plant'
-import { capitalize } from '../../hooks/helpfulFunctions'
-import logo from '/assets/logo.jpg'
+import { Plant } from '../../types/interface'
+import { plantManager } from '../../types/PlantManager'
+import logo from '/assets/leaf-svgrepo-com.svg'
 interface PlantCardProps {
   plant: Plant
   removeButtons: boolean
@@ -10,20 +10,19 @@ interface PlantCardProps {
 }
 const PlantCard = ({plant, removeButtons, checkBoxPlant}: PlantCardProps) => {
   return (
-    <Link to={`/PlantTimeline/${plant.id}`} className='plant-card-link'>
+    <Link to={`/PlantTimeline/${plant._id!}`} className='plant-card-link'>
       {removeButtons && <input
                         checked={plant.checked}
                         className="plant-card-toggle"
                         type="checkbox"
                         onClick={(e) => e.stopPropagation()}
-                        onChange={() => checkBoxPlant(plant.id)}/>
+                        onChange={() => checkBoxPlant(plant._id!)}/>
                                     }
         <ArrowRightIcon className='arrow-right'/>
         <div className='plant-card-img-container'>
-        <img className='plant-card-img' src={plant.profileImageString ? plant.profileImageString : logo} alt={plant.name}/>
-            
+          <img className='plant-card-img' src={plant.img ? plant.img as string : logo} alt={plant.plantName}/>  
         </div>
-        <div className="plant-name"> {capitalize(plant.name)} </div>
+        <div className="plant-name"> {plantManager.capitalize(plant.plantName)} </div>
     </Link>
   )
 }

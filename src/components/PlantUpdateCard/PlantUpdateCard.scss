@@ -1,0 +1,33 @@
+.update-images-date {
+    margin: 0px 5px 5px 18px;
+}
+.all-update-images-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px 20px 20px;
+}
+.update-image-container {
+    max-width: 800px;
+}
+.update-image {
+    width: 100%;
+    height: auto;
+}
+.update-images-modal-container {
+    display: flex;
+    flex-direction: column;
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+@media screen and (max-width: 500px) {
+.all-update-images-container {
+    padding: 0px 2px 2px 2px;
+    gap: 2px;
+}
+}

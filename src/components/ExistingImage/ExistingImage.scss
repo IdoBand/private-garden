@@ -1,0 +1,41 @@
+@use '../../mixin.scss';
+.existing-image-container {
+    position: relative;
+    max-width: 300px;
+    @include mixin.flexCenter();
+}
+.existing-image-x-span {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    &:active {
+        opacity: 0;
+    }
+    .x-icon {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        stroke: mixin.$light-color;
+        fill: mixin.$danger-color;
+        border-radius: 50%;
+    }
+}
+.fade-out {
+    position: relative;
+    width: max-content;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+}
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+@media screen and (max-width: 800px) {
+.existing-image-container {
+    position: relative;
+    max-width: 200px;
+    @include mixin.flexCenter();
+    }
+}

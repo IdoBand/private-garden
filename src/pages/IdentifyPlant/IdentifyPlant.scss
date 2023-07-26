@@ -15,10 +15,10 @@
 }
 .identify-constraints, .page-subheader{
     line-height: 1.6;
+    white-space: normal;
 }
 .identify-plant-text {
     padding: 20px 0 20px 30px;
-    width: max-content;
 }
 .form-container{
     color: mixin.$dark-color;
@@ -31,6 +31,12 @@
     justify-content: center;
     align-items: flex-start;
 }
+.identify-images-input-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
 .image-select-container {
     display: flex;
     justify-content: center;
@@ -40,16 +46,35 @@
     @include mixin.flexCenter();
     flex-wrap: wrap;
 }
+
+.identify-images-container {
+    @include mixin.flexCenter();
+    width: 100%;
+    gap: 15px;
+    padding: 10px 0;
+    flex-wrap: wrap;
+}
 .image-to-identify {
-    margin: 0 10px 10px 0;
+    @include mixin.existing-image();
     cursor: pointer;
 }
 .identified-plant {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
     margin: 0 0 0 10px;
     font-size: mixin.$desktop-sm-font-size;
 }
-#selected-profile-image {
-    border: 5px solid  rgb(0, 150, 0);
+.identified-plant-name {
+    font-size: mixin.$desktop-md-font-size;
+}
+.selected-profile-image {
+    @include mixin.existing-image();
+    border: 5px solid  mixin.$dark-green-color;
+    border-radius: 15px;
+}
+.identify-buttons-container {
+    @include mixin.flexCenter()
 }
 .footer-message{
     text-align: left;
@@ -65,7 +90,7 @@
     &:hover{
       color: mixin.$dark-green-color;
     }
-  }
+}
 //////////////////      R E S P O N S I V E      //////////////////
 @media screen and (max-width: 800px) {
 

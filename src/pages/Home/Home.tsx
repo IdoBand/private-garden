@@ -1,7 +1,7 @@
 
 import { GlobeAmericasIcon, GlobeAsiaAustraliaIcon, GlobeEuropeAfricaIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import a from '/assets/home-page/22.png'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 interface SentenceProps {
     text: string
@@ -16,6 +16,11 @@ const Sentence = ({text, svg}: SentenceProps) => {
 }
 
 export default function Home () {
+    const [className, setClassNames] = useState({decorativeContainer3: ''})
+    useEffect(() => {
+        setClassNames({decorativeContainer3: 'final'})
+    }, [])
+
     return (
         <>
             <div id="home-container">
@@ -40,7 +45,7 @@ export default function Home () {
                     </div>
                     <div id="decorative-container-2">
                     </div>
-                    <div id="decorative-container-3">
+                    <div id={'decorative-container-3'} className={className.decorativeContainer3}>
                         <img src={a} alt="monstera"/>
                     </div>
                 </div>

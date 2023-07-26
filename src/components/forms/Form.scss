@@ -71,19 +71,34 @@ input[type="file"]{
     display: none;
 }
 
+.plant-updates-images-container {
+    @include mixin.flexCenter();
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
 
-//////////////////      R E S P O N S I V E      //////////////////
+.plant-update-edit-form-image {
+    @include mixin.existing-image();
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 @media screen and (max-width: 800px) {
     .form {
         width: 90%;
     }
     .form-section {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
+        gap:8px;
         margin: 15px 0 15px 0;
         min-width: 240px;
+    }
+    .form-label {
+        margin-right: auto;
     }
     .preview-image {
         max-width: 250px;
@@ -92,6 +107,8 @@ input[type="file"]{
         width: min(150px, 35%);
     }
     .one-line-text-input {
-        width: min(250px, 35%);
+        width: 100%;
     }
+    
+
 }

@@ -3,31 +3,34 @@
     position: fixed;
     @include mixin.transformTranslate50();
     @include mixin.secondary-scrollbar();
+    display: flex;
+    flex-direction: column;
     background-color: #FFF;
-    padding: 30px 20px 10px 20px;
+    padding: 15px 10px 10px 10px;
     z-index: 500;
     max-height: 85%;
     max-width: 80%;
     overflow-y: auto;
     border-radius: 10px;
-    color: black;
-    .x-button {
-        background-color: rgb(193, 62, 62);
-        color: rgb(245, 241, 241);
-        border: none;
-        border-radius: 5px;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        &:hover {
-            background-color: rgb(180, 0, 0);
-            cursor: pointer;
-        }
 }
-.modal-content{
+
+.x-button {
+    right: 10px;
+    top: 5px;
+    background-color: mixin.$danger-color;
+    color: rgb(245, 241, 241);
+    border: none;
+    border-radius: 5px;
+    position: absolute;
+    &:hover {
+        background-color: rgb(180, 0, 0);
+        cursor: pointer;
+    }
+}
+.modal-content {
+    width: 100%;
+    min-width: 220px;
     @include mixin.flexCenter();
-    padding: 5px 0 5px 0;
-}
 }
 .overlay {
     position: fixed;

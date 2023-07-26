@@ -6,7 +6,7 @@
     @include mixin.flexCenter();
     background: mixin.$container-background-color;
     flex-direction: column;
-    padding: 10px 0 10px 0;
+    padding: 10px 0 ;
     color: mixin.$dark-color;
 }
 .plant-timeline-options{
@@ -52,16 +52,16 @@
 }
 
   .update-card:nth-child(odd) {
-    border-left: 3px solid #888;
-    padding-left: 3em;
+    border-left: 2px solid #888;
+    padding-left: 2em;
     transform: translate(17em);
   }
   
   .update-card:nth-child(odd)::before {
     content: '';
     background: #888;
-    width: 3em;
-    height: 3px;
+    width: 2em;
+    height: 2px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -82,16 +82,16 @@
   }
   
   .update-card:nth-child(even) {
-    border-right: 3px solid #888;
+    border-right: 2px solid #888;
     padding-right: 3em;
-    transform: translate(-17em);
+    transform: translate(-17.05em);
   }
   
   .update-card:nth-child(even)::before {
     content: '';
     background: #888;
-    width: 3em;
-    height: 3px;
+    width: 1.6em;
+    height: 2px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -115,6 +115,7 @@
     border: 2px solid #888;
     border-radius: 10px;
     padding: 0.2em 0.5em 0.5em 0.5em;
+    min-width: 500px;
 }
 
 .date-and-edit{
@@ -167,9 +168,14 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    .update-image{
+    .no-update-images {
         width: 100px;
         border-radius: 5px;
+    }
+    .update-image-preview {
+        width: 100px;
+        border-radius: 5px;
+        cursor: pointer;
     }
 }
 
@@ -252,6 +258,10 @@ select {
         padding-right: 0;
         border: none;
     }
+    .update-card-content {
+
+        min-width: auto
+    }
     #plant-updates .update-card::before {
         width: 3px;
         height: 2em;
@@ -270,6 +280,7 @@ select {
     max-height: 120px;
     width: 100%;
     .actual-notes {
+        width: 100%;
         @include mixin.secondary-scrollbar();
         overflow-y: auto;
     }

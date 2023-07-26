@@ -10,6 +10,7 @@
     margin: 0;
     padding: 0;
     background: mixin.$container-background-color;
+    min-width: 250px
   }
 
 #contact-container {
@@ -42,7 +43,6 @@
 header {
   @include mixin.flexCenter();
   width: 100%;
-  // box-shadow: 0px 5px 10px rgb(0,0,0, 0.2);
 }
 .header-content {
   width: 90%;
@@ -51,12 +51,8 @@ header {
   align-items: center;
   padding: 5px 0;
 }
-
-#page-logo{
-  width: 35px;
-  height: 35px;
-  margin-right: 3px;
-  
+.navbar-logo {
+  margin-right: 10px
 }
 .app-name {
   @include mixin.flexCenter();
@@ -77,6 +73,9 @@ header {
   margin: 0 5px 0 5px;
   color: mixin.$dark-color;
   font-size: mixin.$desktop-md-font-size;
+  &:hover {
+    cursor: pointer;
+  }
   &:hover::before{
     cursor: pointer;
     background-color: rgb(0,150,0);
@@ -90,38 +89,14 @@ header {
     transition: background-color 0.4s;
   }
 }
-#sticky-logo {
+.sticky-logo {
   position: fixed;
   right: 5px;
   bottom: 5px;
 }
-///////////////   A B O U T   ///////////////
-  
-.logo{
-  margin: 0 10px 0 0;
-  width: 20px;
-  height: 20px;
-}
 
-#details-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tools {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-}
-.tool-li {
-  @include mixin.flexCenter();
-  margin: 3px 0;
-}
 .page-header {
   font-size: mixin.$desktop-lg-font-size;
-  width: max-content;
 }
 .page-subheader {
   font-size: mixin.$desktop-md-font-size
@@ -136,8 +111,9 @@ header {
   font-size: mixin.$desktop-lg-font-size;
   position: absolute;
   z-index: 100;
+  transition: color 0.4s;
   &:hover {
-    scale: 110%;
+    color: mixin.$dark-green-color;
     cursor: pointer;
   }
 }
@@ -152,7 +128,8 @@ header {
 }
 .mobile-menu-button-not-home{
   @include basicMobileMenuButton();
-  top: 28px;
+  bottom: 5px;
+  right: 0px;
 }
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
@@ -170,7 +147,8 @@ header {
 ///////////////////////////      1100 PX      ///////////////////////////
 @media screen and (max-width: 1100px) {
   .header-content {
-    width: 95%;
+    width: 90%;
+    position: relative;
   }
   .mobile-nav-container {
     width: 100%;

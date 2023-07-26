@@ -1,11 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-interface mobileState {
+import { User } from '../types/interface'
+interface WindowState {
     isMobile: boolean
+    isFetching: boolean
+    user: User
 }
 
-const initialState: mobileState = {
-    isMobile: false
+const initialState: WindowState = {
+    isMobile: false,
+    isFetching: false,
+    user: {
+        userId: '1',
+        followers: [],
+        following: [],
+    }
 }
 
 const windowSlice = createSlice({
@@ -19,9 +27,12 @@ const windowSlice = createSlice({
             prepare: (newMobileState) => {
                 return { payload: newMobileState }
             }
+        },
+        setIsFetching(state) {
+            state.isFetching = !state.isFetching
         }
     }
 })
 
-export const { setMobile } = windowSlice.actions
+export const { setMobile, setIsFetching } = windowSlice.actions
 export default windowSlice.reducer

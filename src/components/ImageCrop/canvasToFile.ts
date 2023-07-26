@@ -18,7 +18,7 @@ function getRadianAngle(degreeValue: number) {
  * @param {Object} pixelCrop - pixelCrop Object provided by react-easy-crop
  * @param {number} rotation - optional rotation parameter
  */
-export default async function getCroppedImg(imageSrc: string, pixelCrop: CroppedArea, imageFileName: string = `defaultname-${Date.now()}.jpg`, rotation = 0) {
+export default async function getCroppedImg(imageSrc: string, pixelCrop: CroppedArea, imageFileName: string = `defaultname-${Date.now()}.jpg`, rotation = 0): Promise<File> {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -45,8 +45,8 @@ export default async function getCroppedImg(imageSrc: string, pixelCrop: Cropped
   const data = ctx!.getImageData(0, 0, safeArea, safeArea);
 
   // set canvas width to final desired crop size - this will clear existing context
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+  canvas.width = pixelCrop.width || image.width;
+  canvas.height = pixelCrop.height || image.height;
 
   // paste generated rotate image with correct offsets for x,y crop values.
   ctx!.putImageData(
@@ -63,7 +63,7 @@ export default async function getCroppedImg(imageSrc: string, pixelCrop: Cropped
     canvas.toBlob((file) => {
       resolve(new File([file as File], imageFileName, { type: 'image/jpeg', lastModified: Date.now() }));
     //   resolve(URL.createObjectURL(file as File));
-    }, "image/jpeg");
+    }, "image/jpeg")
   });
 }
 

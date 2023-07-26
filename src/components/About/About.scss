@@ -1,0 +1,58 @@
+@use '../../mixin.scss';
+
+  
+.logo{
+  margin: 0 10px 0 0;
+  width: 20px;
+  height: 20px;
+}
+
+#details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+.tools {
+  padding: 0 0 0 ;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  
+
+}
+.tool-li {
+  @include mixin.flexCenter();
+  margin: 3px 0;
+}
+.about-header {
+    font-size: mixin.$desktop-lg-font-size;
+}
+.about-sub-header {
+    width: 100%;
+    text-align: center;
+}
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+@media screen and (max-width: 600px) {
+    #details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    }
+    .tools {
+        padding: 0;
+        width: 100%;
+    }
+    .about-header {
+        font-size: mixin.$desktop-md-font-size;
+    }
+}

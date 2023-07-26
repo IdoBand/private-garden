@@ -45,7 +45,6 @@ export const plantNames = [
     "Sunflower",
     "Sweet_pea",
     "Tulip",
-    "Violet",
     "Wisteria",
     "Yarrow",
     "Yucca",
@@ -85,7 +84,7 @@ export const plantNames = [
 
   export async function determine() {
     const arr = []
-    for (let plantString of plantNames) {
+    for (const plantString of plantNames) {
         const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${plantString}?redirect=false`;
         const response = await fetch(url)
         const data = await response.json()

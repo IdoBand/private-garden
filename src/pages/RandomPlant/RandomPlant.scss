@@ -15,27 +15,34 @@
     min-height: 70px;
     width: 90%;
     white-space: normal;
-    padding: 10px
+    padding: 10px;
   }
 
   .random-plant-header-summary{
     @include mixin.flexCenter();
     flex-direction: column;
   }
-  .random-plant-image{
-    max-height: 300px;
-    border-radius: 20px;
-    padding: 10px;
+  .random-plant-summary {
+    padding-left: 20px;
+    max-width: 80%;
   }
-
+  .random-plant-image-container{
+    max-width: 250px;
+    min-width: 150px;
+    padding-left: 5px;
+    margin-top: 5px;
+  }
+  .random-plant-image{
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    border-radius: 10px;
+  }
+.random-plant-summary-and-image {
+  @include mixin.flexCenter();
+}
   //////////////////      R E S P O N S I V E      //////////////////
 @media screen and (max-width: 800px) {
-  .random-plant-image{
-    max-height: 100px;
-    border-radius: 10px;
-    
-  }
-
   #random-plant-content {
     @include mixin.flexCenter();
      padding: 10px;
@@ -43,5 +50,12 @@
      min-height: 70px;
      max-width: 90%;
      white-space: normal;
+   }
+   .random-plant-summary {
+
+    max-width: 100%;
+  }
+   .random-plant-summary-and-image {
+    flex-direction: column-reverse;
    }
 }
