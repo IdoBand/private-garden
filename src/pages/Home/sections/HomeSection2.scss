@@ -1,0 +1,55 @@
+@use '../../../mixin.scss' as mixin;
+#home-section-2 {
+   min-height: 100dvh; 
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+#home-section-2.active {
+   min-height: 100dvh; 
+}
+.sentences-ul{
+   @include mixin.flexCenter();
+   flex-wrap: wrap;
+   width: 100%;
+}
+
+.home-section-2-bubble-skeleton {
+   margin: 2%;
+   width: 280px;
+   height: 280px;
+   border-radius: 50%;
+   @include mixin.flexCenter();
+}
+
+.home-section-2-bubble-content-container {
+   border-radius: 50%;
+   background-color: mixin.$dark-green-color;
+   @include mixin.flexCenter();
+   flex-direction: column;
+   color: mixin.$light-color;
+}
+.home-section-2-bubble-content {
+   width: 80%;
+   text-align: center;
+   border-radius: 50%;
+   @include mixin.flexCenter();
+   flex-direction: column;
+   gap: 20px;
+   font-size: mixin.$font-size-lg;
+}
+
+.home-section-2-bubble-button {
+   cursor: pointer;
+   padding: 4px 10px;
+   font-size: mixin.$font-size-sm;
+   font-weight: 600;
+   border-radius: 10px;
+   letter-spacing: 2px;
+   background: mixin.$light-color;
+   border: 0;
+   transition: all 0.2s;
+   &:hover {
+      background: mixin.$green-background-color;
+   } 
+}

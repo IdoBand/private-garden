@@ -63,10 +63,10 @@
     display: flex;
     flex-direction: column;
     margin: 0 0 0 10px;
-    font-size: mixin.$desktop-sm-font-size;
+    font-size: mixin.$font-size-sm;
 }
 .identified-plant-name {
-    font-size: mixin.$desktop-md-font-size;
+    font-size: mixin.$font-size-md;
 }
 .selected-profile-image {
     @include mixin.existing-image();
@@ -81,7 +81,7 @@
     color: mixin.$dark-color;
     width: 85%;
     padding: 10px 0 10px 10px;
-    font-size: mixin.$desktop-sm-font-size;
+    font-size: mixin.$font-size-sm;
 }
 
 .a{
@@ -101,7 +101,7 @@
     }
     .identified-plant {
         margin: 0 0 0 0px;
-        font-size: mixin.$desktop-md-font-size;
+        font-size: mixin.$font-size-md;
     }
 
     .identify-constraints, .page-subheader{

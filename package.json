@@ -17,6 +17,7 @@
     "@mui/material": "^5.14.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@tanstack/react-query": "^4.24.10",
+    "framer-motion": "^10.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.7.4",

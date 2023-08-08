@@ -45,7 +45,7 @@
 .update-card-subheader {
     @include mixin.flexCenter();
     width: 100%;
-    font-size: mixin.$desktop-md-font-size;
+    font-size: mixin.$font-size-md;
     font-weight: mixin.$font-weight-md;
     margin-bottom: 5px;
     gap: 5px;
@@ -230,7 +230,7 @@ select {
         #current-plant-details{
             margin: 5px;
             color: mixin.$dark-color;
-            font-size: mixin.$desktop-sm-font-size;
+            font-size: mixin.$font-size-sm;
         }
     }
     .plant-timeline-buttons {
@@ -246,7 +246,7 @@ select {
         display: flex;
         justify-content: flex-start;
         width: 100%;
-        font-size: mixin.$desktop-md-font-size;
+        font-size: mixin.$font-size-md;
         font-weight: mixin.$font-weight-md;
         margin-bottom: 5px;
         gap: 5px;
