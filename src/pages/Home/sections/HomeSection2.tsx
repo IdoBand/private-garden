@@ -3,17 +3,20 @@ import { motion } from "framer-motion"
 import { PrivateGardenLogo } from "../../../util/svgs"
 import { animateY } from "../../../util/framerVariants"
 import { Link } from "react-router-dom"
+import adanit from '/home-page/adanit.png'
 const HomeSection2 = () => {
 
     const { htmlElementRef, firstIntersection } = useIntersectionObserver('2')
-    const framerVariant = animateY(50, 0, firstIntersection)
+    const ulFramerVariant = animateY(50, 0, firstIntersection)
+    const imgFramerVariant = animateY(-100, 0, firstIntersection, 0.8)
   return (
     <section ref={htmlElementRef} id='home-section-2' className={firstIntersection ? 'active' : ''}>
         <motion.span 
             initial="initial"
             animate="animate"
-            variants={framerVariant}
-            className="home-section-header">What You Can Do</motion.span>
+            variants={ulFramerVariant}
+            className="home-section-header">What You Can Do
+        </motion.span>
         <ul className="sentences-ul">
             {sentences.map((sentence: Sentence) => {
                 return (
@@ -23,6 +26,13 @@ const HomeSection2 = () => {
                         key={sentence.text} />)
             })}
         </ul>
+        <motion.div 
+            initial="initial"
+            animate="animate"
+            variants={imgFramerVariant}
+            className="adanit-container">
+            <img src={adanit} />
+        </motion.div>
     </section>
   )
 }

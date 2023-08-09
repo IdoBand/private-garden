@@ -4,7 +4,7 @@ import RedButton from "../../components/Button/RedButton"
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { useEffect, useState, useRef } from "react"
 import { useLocation } from 'react-router-dom'
-import logo from '/assets/leaf-svgrepo-com.svg'
+import logo from '/leaf-svgrepo-com.svg'
 import Modal from "../../components/Modal/Modal"
 import AddOrEditUpdateForm from "../../components/forms/AddUpdateForm/AddOrEditUpdateForm"
 import { addPlants, setCurrentPlant, setCurrentUpdate, setUpdatesToCurrentPlant, switchCurrentPlantToExistingOne } from "../../redux/plantsSlice"

@@ -3,7 +3,7 @@ import { plantNames } from "./plants"
 import GreenButton from "../../components/Button/GreenButton"
 import Spinner from "../../components/Spinner/Spinner"
 import { fetchRandom } from '../../util/fetch'
-import logo from '/assets/leaf-svgrepo-com.svg'
+import logo from '/leaf-svgrepo-com.svg'
 import { plantManager } from "../../types/PlantManager"
 import { useSnackbar } from "../../hooks/useSnackbar"
 interface RandomPlantProps {

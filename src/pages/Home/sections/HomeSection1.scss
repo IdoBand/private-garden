@@ -22,24 +22,26 @@
   color: mixin.$dark-color;
   @include mixin.flexCenter();
   flex-direction: column;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 140px;
-    left: -120px;
-    width: 330px;
-    height: 3px;
-    background: mixin.$green-background-color;
-    border-radius: 2px;
-  }
 }
 .main-purpose {
+  margin-top: 120px;
   width: max-content;
   text-align: center;
   line-height: 1.6;
   letter-spacing: 1.4px;
   white-space: normal;
   font-size: mixin.$font-size-5xl;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 140px;
+    left: -250px;
+    width: 450px;
+    height: 3px;
+    background: mixin.$green-background-color;
+    border-radius: 2px;
+  }
 }
 .main-purpose-span {
   position: relative;
@@ -207,26 +209,13 @@ $duration: 0.6s;
     justify-content: flex-start;
     flex-direction: column;
   }
+  .main-purpose {
+    margin-top: 100px;
 
+  }
   .home-text {
-    position: relative;
     margin-top: 30px;
     padding: 20px 30px;
-    z-index: 100;
-
-    color: mixin.$dark-color;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 140px;
-      left: -80px;
-      width: 200px;
-      height: 3px;
-      background: mixin.$green-background-color;
-      border-radius: 2px;
-    }
-
-
   }
 
   .desktop-home-main-img-container{
@@ -305,22 +294,8 @@ $duration: 0.6s;
 //////////////////////////////////////////      1300 PX      ///////////////////////////////////////////
 @media screen and (max-width: 1300px) {
   .home-text {
-    position: relative;
     margin-top: 10px;
     padding: 20px 0px;
-    z-index: 100;
-
-    color: mixin.$dark-color;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 140px;
-      left: -60px;
-      width: 150px;
-      height: 3px;
-      background: mixin.$green-background-color;
-      border-radius: 2px;
-    }
   }
   .main-purpose {
     font-size: mixin.$font-size-4xl;
@@ -330,28 +305,12 @@ $duration: 0.6s;
 //////////////////////////////////////////      1100 PX      ///////////////////////////////////////////
 @media screen and (max-width: 1100px) { 
   .home-text {
-    position: relative;
-    margin-top: 10px;
     padding: 20px 0px;
-    z-index: 100;
     width: max-content;
-    color: mixin.$dark-color;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 140px;
-      left: -75px;
-      width: 70px;
-      height: 3px;
-      background: mixin.$green-background-color;
-      border-radius: 2px;
-    }
   }
-
 
   .home-main-img-container{
     position: relative;
-
   }
   
   #green-img-bg{
@@ -382,28 +341,32 @@ $duration: 0.6s;
 @media screen and (max-width: 850px) { 
   .main-purpose {
     font-size: mixin.$font-size-xl;
+    &::after {
+      top: 90px;
+      width: 450px;
+    }
   }
 }
 //////////////////////////////////////////      650 PX      ///////////////////////////////////////////
 @media screen and (max-width: 650px) { 
   .home-text {
-    position: relative;
-    margin-top: 10px;
     padding: 160px 0px;
-    z-index: 100;
     width: 100%;
-    @include mixin.flexCenter();
-    flex-direction: column;
-    color: mixin.$dark-color;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 100px;
-      left: -90px;
-      width: 80%;
-      height: 3px;
-      background: mixin.$green-background-color;
-      border-radius: 2px;
+  }
+  .main-purpose {
+    font-size: mixin.$font-size-md;
+    &::after {
+      top: 70px;
+      width: 450px;
+    }
+  }
+  .main-purpose-span {
+    &::before{
+      left: -2px;
+      transform: skew(-0.05turn, 2deg);
+      width: calc(100% + 3px);
+      height: calc(100% + 3px);
+      border-radius: 10px;
     }
   }
   #decorative-container-1 {

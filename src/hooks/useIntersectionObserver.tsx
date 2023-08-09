@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef, useContext } from 'react'
 // import { currentSectionContext } from '../providers/currentSectionProvider'
-export const useIntersectionObserver = (sectionId: string) => {
+export const useIntersectionObserver = (sectionId: string, threshold=0.3) => {
     const [isVisible, setIsVisible] = useState(false)
     const [firstIntersection, setFirstIntersection] = useState(false)
     const htmlElementRef = useRef<HTMLElement | null>(null)
@@ -19,7 +19,7 @@ export const useIntersectionObserver = (sectionId: string) => {
           },
           {
             rootMargin: "0px",
-            threshold: 0.3,
+            threshold: threshold,
           }
         );
     
@@ -29,7 +29,11 @@ export const useIntersectionObserver = (sectionId: string) => {
 
         return () => {
           if (htmlElementRef.current || firstIntersection) {
-            observer.unobserve(htmlElementRef.current!);
+            try {
+              observer.unobserve(htmlElementRef.current!);
+            } catch (err) {
+              console.log(err);
+            }
           }
         };
       }, [firstIntersection]);

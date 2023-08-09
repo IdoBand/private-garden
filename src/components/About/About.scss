@@ -21,8 +21,6 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  
-
 }
 .tool-li {
   @include mixin.flexCenter();
@@ -34,6 +32,7 @@
 .about-sub-header {
     width: 100%;
     text-align: center;
+    margin: 10px 0;
 }
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////

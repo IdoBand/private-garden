@@ -4,7 +4,7 @@ import GreenButton from "../../components/Button/GreenButton"
 import RedButton from "../../components/Button/RedButton"
 import Modal from "../../components/Modal/Modal"
 import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
-import searchLogo from '/assets/search_icon-white2.png'
+import searchLogo from '/search_icon-white2.png'
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
 import Spinner from "../../components/Spinner/Spinner"

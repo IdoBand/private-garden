@@ -1,0 +1,39 @@
+@use '../../../mixin.scss' as mixin;
+#home-section-3 {
+    height: 100dvh;
+    width: 100%;
+    @include mixin.flexCenter();
+    background-color: black;
+    position: relative;
+    overflow-x: hidden;
+}
+#gsap-scroll-video {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: auto;
+}
+.home-section-header-white {
+    @include mixin.home-section-header();
+    color: mixin.$light-color;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+
+//////////////////////////////////////////      800 PX      ///////////////////////////////////////////
+@media screen and (max-width: 800px) {
+    #home-section-3 {
+        overflow-y: hidden;
+    }
+    #gsap-scroll-video {
+        width: 100%;
+        height: auto;
+    }
+ }

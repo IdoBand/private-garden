@@ -5,8 +5,10 @@
    align-items: center;
    flex-direction: column;
 }
-#home-section-2.active {
-   min-height: 100dvh; 
+.home-section-header {
+   font-size: mixin.$font-size-4xl;
+  font-weight: mixin.$font-weight-lg;
+  margin: 40px 0;
 }
 .sentences-ul{
    @include mixin.flexCenter();
@@ -52,4 +54,24 @@
    &:hover {
       background: mixin.$green-background-color;
    } 
+}
+.adanit-container {
+   width: 35%;
+   img {
+      width: 100%;
+      height: auto;
+   }
+}
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+
+//////////////////////////////////////////      800 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1200px) {
+   .adanit-container {
+      width: 75%;
+   }
 }

@@ -2,7 +2,7 @@ import { ArrowRightIcon} from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
 import { Plant } from '../../types/interface'
 import { plantManager } from '../../types/PlantManager'
-import logo from '/assets/leaf-svgrepo-com.svg'
+import logo from '/leaf-svgrepo-com.svg'
 interface PlantCardProps {
   plant: Plant
   removeButtons: boolean
