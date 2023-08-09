@@ -21,19 +21,18 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  
-
 }
 .tool-li {
   @include mixin.flexCenter();
   margin: 3px 0;
 }
 .about-header {
-    font-size: mixin.$desktop-lg-font-size;
+    font-size: mixin.$font-size-lg;
 }
 .about-sub-header {
     width: 100%;
     text-align: center;
+    margin: 10px 0;
 }
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
@@ -53,6 +52,6 @@
         width: 100%;
     }
     .about-header {
-        font-size: mixin.$desktop-md-font-size;
+        font-size: mixin.$font-size-md;
     }
 }

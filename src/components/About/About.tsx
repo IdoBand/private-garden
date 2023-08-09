@@ -1,7 +1,7 @@
 import { AWSIcon } from "../../util/svgs"
 export function generatePath(logoName: string): string {
     if (logoName !== 'vite') {
-        return `/assets/logos/${logoName}.png`
+        return `/logos/${logoName}.png`
     }
     return `assets/logos/${logoName}.svg`
 }

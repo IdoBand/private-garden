@@ -1,0 +1,91 @@
+@use '../../../mixin.scss' as mixin;
+#home-section-4 {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow-y: hidden;
+}
+.section-4-content {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    border: lightgray solid 1px;
+    border-radius: 30px;
+    @include mixin.shadow();
+    padding: 20px;
+}
+.laptop-lady-container {
+    max-width: 330px;
+    margin-right: 200px;
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.reasons-ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+.section-4-reason {
+    font-size: mixin.$font-size-4xl;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.banana-bottom-container {
+    position: absolute;
+    left: 50%;
+    bottom: 0%;
+    transform: translate(-50%, 40%) !important;
+    width: 85%;
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
+
+
+//////////////////////////////////////////      1200 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1200px) {
+
+    .section-4-content {
+        width: 90%;
+        gap: 0px;
+    }
+    .laptop-lady-container {
+        margin-right: 0px;
+    }
+}
+//////////////////////////////////////////      1000 PX      ///////////////////////////////////////////
+@media screen and (max-width: 1000px) {
+
+    .section-4-content {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 50px;
+    }
+    .section-4-reason {
+        font-size: mixin.$font-size-xl;
+    }
+}
+//////////////////////////////////////////      600 PX      ///////////////////////////////////////////
+@media screen and (max-width: 600px) {
+    .section-4-content {
+        width: 95%;
+        gap: 20px;
+    }
+    .section-4-reason {
+        font-size: mixin.$font-size-md;
+    }
+}

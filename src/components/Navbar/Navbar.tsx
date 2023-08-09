@@ -4,7 +4,7 @@ import Modal from '../Modal/Modal';
 import About, { generatePath } from '../About/About';
 import { useAppDispatch } from "../../redux/reduxHooks"
 import { setMobile } from '../../redux/windowSlice';
-import a from '/assets/home-page/111.png'
+import a from '/home-page/111.png'
 import { PrivateGardenLogo } from '../../util/svgs';
 export default function Navbar() {
     const mediaQuery = window.matchMedia('(max-width: 1100px)')

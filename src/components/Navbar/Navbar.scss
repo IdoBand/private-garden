@@ -72,7 +72,7 @@ header {
   z-index: 100;
   margin: 0 5px 0 5px;
   color: mixin.$dark-color;
-  font-size: mixin.$desktop-md-font-size;
+  font-size: mixin.$font-size-md;
   &:hover {
     cursor: pointer;
   }
@@ -96,10 +96,10 @@ header {
 }
 
 .page-header {
-  font-size: mixin.$desktop-lg-font-size;
+  font-size: mixin.$font-size-lg;
 }
 .page-subheader {
-  font-size: mixin.$desktop-md-font-size
+  font-size: mixin.$font-size-md
 }
 
 @mixin basicMobileMenuButton {
@@ -108,7 +108,7 @@ header {
   padding: 2px;
   border: 1px solid transparent;
   border: none;
-  font-size: mixin.$desktop-lg-font-size;
+  font-size: mixin.$font-size-lg;
   position: absolute;
   z-index: 100;
   transition: color 0.4s;
@@ -141,7 +141,7 @@ header {
 ///////////////////////////      1000 PX      ///////////////////////////
 @media screen and (max-width: 1000px) {
   .app-name {
-    font-size: mixin.$desktop-md-font-size;
+    font-size: mixin.$font-size-md;
   }
 }
 ///////////////////////////      1100 PX      ///////////////////////////
@@ -158,7 +158,7 @@ header {
   }
   .mobile-nav-link {
     display: flex;
-    font-size: mixin.$desktop-md-font-size;
+    font-size: mixin.$font-size-md;
     color: black;
     width: max-content;
     &:hover{
@@ -176,10 +176,10 @@ header {
     }
   }
   .page-header {
-    font-size: mixin.$desktop-md-font-size;
+    font-size: mixin.$font-size-md;
   }
   .page-subheader {
-    font-size: mixin.$desktop-sm-font-size
+    font-size: mixin.$font-size-sm
   }
   .app-name {
     @include mixin.flexCenter();
