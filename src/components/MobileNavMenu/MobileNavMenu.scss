@@ -1,0 +1,26 @@
+@use '../../mixin.scss' as mixin;
+.mobile-nav-container {
+    width: 100%;
+    display: grid;
+    gap: 16px;
+    padding: 0 0 0 10px;
+    position: relative;
+    padding: 40px 40px 40px 10px;
+    overflow-y: hidden;
+}
+
+.mobile-menu-bg-img-container {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    opacity: 0.8;
+    width: 50%;
+}
+.mobile-menu-bg-img {
+    width: 100%;
+    height: auto;
+}
+.mobile-menu-sign-out {
+    width: 100%;
+    height: auto;
+}

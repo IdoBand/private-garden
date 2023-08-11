@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
+import { RouterProvider, redirect } from 'react-router-dom'
 import { router } from './routes'
 import './pages/RandomPlant/RandomPlant.scss'
 import './pages/Home/Home.scss'
@@ -18,9 +18,13 @@ import './pages/Home/sections/HomeSection1.scss'
 import './pages/Home/sections/HomeSection2.scss'
 import './pages/Home/sections/HomeSection3.scss'
 import './pages/Home/sections/HomeSection4.scss'
+import './components/Button/Button.scss'
+import './components/SignedInDropdown/SignedInDropdown.scss'
+import './components/MobileNavMenu/MobileNavMenu.scss'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import { Auth0Provider } from '@auth0/auth0-react'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,13 +35,16 @@ const queryClient = new QueryClient({
     },
   },
 })
+const domain =  import.meta.env.VITE_AUTH0_DOMAIN
+const clientId =  import.meta.env.VITE_AUTH0_CLIENT_ID
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-  <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </Provider>
-  // </React.StrictMode>,
+<Auth0Provider domain={domain} clientId={clientId} authorizationParams={{redirect_uri: window.location.origin}} >
+            <Provider store={store}>
+                <QueryClientProvider client={queryClient}>
+                  <RouterProvider router={router} />
+                </QueryClientProvider>
+              </Provider>
+          </Auth0Provider>
+
 )
