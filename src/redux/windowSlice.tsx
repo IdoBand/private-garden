@@ -5,15 +5,16 @@ interface WindowState {
     isFetching: boolean
     user: any
 }
+const dummyUser = {
+    userId: '1',
+    followers: [],
+    following: [],
+}
 
 const initialState: WindowState = {
     isMobile: false,
     isFetching: false,
-    user: {
-        userId: '1',
-        followers: [],
-        following: [],
-    }
+    user: dummyUser
 }
 
 const windowSlice = createSlice({
@@ -32,7 +33,7 @@ const windowSlice = createSlice({
             state.isFetching = !state.isFetching
         },
         signInUser: {
-            reducer: (state, action: PayloadAction<any>) => {
+            reducer: (state, action: PayloadAction<User>) => {
                 state.user = action.payload
             },
             prepare: (userObject) => {
@@ -40,11 +41,7 @@ const windowSlice = createSlice({
             }
         },
         signOutUser(state) {
-            state.user = {
-                userId: '',
-                followers: [],
-                following: [],
-            }
+            state.user = dummyUser
         },
     }
 })

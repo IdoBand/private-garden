@@ -11,6 +11,10 @@ import { SignInArrow, SignOutArrow } from '../../util/svgs';
 import FullScreenOverlay from '../FullScreenOverlay/FullScreenOverlay';
 import SignedInDropdown from '../SignedInDropdown/SignedInDropdown';
 import MobileNavMenu from '../MobileNavMenu/MobileNavMenu';
+import { User } from '../../types/interface';
+import { fetchSignInUser } from '../../util/fetch';
+import { userManager } from '../../types/UserManager';
+
 export default function Navbar() {
     const mediaQuery = window.matchMedia('(max-width: 1100px)')
     const [about, setAbout] = useState<boolean>(false)
@@ -20,7 +24,7 @@ export default function Navbar() {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const pathName = location.pathname
-    const { loginWithPopup, logout, isAuthenticated, user, isLoading: isSignInLoading, error } = useAuth0()
+    const { loginWithPopup, logout, isAuthenticated, user, getAccessTokenSilently, isLoading: isSignInLoading, error } = useAuth0()
   
     useEffect(() => {
         const handleScreenChange = (event: MediaQueryListEvent) => {
@@ -45,9 +49,19 @@ export default function Navbar() {
     }, [pathName])
 
     useEffect(() => {
+        async function waitForUserData(rawUserData: Partial<User>) {
+            const result = await fetchSignInUser(rawUserData)
+            dispatch(signInUser(result.data))
+        }
         if (user) {
-            dispatch(signInUser(user))
             
+            const authenticatedUser: User = {
+                id: user.email as string,
+                firstName: user.given_name!,
+                lastName: user.family_name!,
+            }
+            waitForUserData(authenticatedUser)
+
         } else {
             dispatch(signOutUser())
         }

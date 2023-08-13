@@ -32,9 +32,12 @@ export interface PlantUpdate {
   checked?: boolean
 }
 export interface User {
-  userId: string
-  name?: string
-  img?: string
-  followers: string[]
-  following: string[]
+  id: string
+  firstName: string
+  lastName: string
+  dateAdded?: Date | number
+  lastActive?: Date | number
+  profileImg?: ImgBuffer | string | File
+  followers?: string[]
+  following?: string[]
 }

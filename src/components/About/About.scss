@@ -5,6 +5,10 @@
   margin: 0 10px 0 0;
   width: 20px;
   height: 20px;
+  transition: scale 0.3s ease;
+  &:hover {
+    scale: 120%;
+  }
 }
 
 #details-container {
@@ -12,19 +16,18 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
 }
 .tools {
-  padding: 0 0 0 ;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 15px;
   width: 100%;
 }
 .tool-li {
   @include mixin.flexCenter();
-  margin: 3px 0;
 }
 .about-header {
     font-size: mixin.$font-size-lg;
@@ -34,24 +37,24 @@
     text-align: center;
     margin: 10px 0;
 }
+.contact-container {
+  @include mixin.flexCenter();
+  gap: 15px;
+}
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
 //////////////////      R E S P O N S I V E      ///////////////////
 //////////////////                               ///////////////////
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 @media screen and (max-width: 600px) {
-    #details-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 0;
-    }
-    .tools {
-        padding: 0;
-        width: 100%;
-    }
-    .about-header {
-        font-size: mixin.$font-size-md;
-    }
+  #details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  }
+
+  .about-header {
+      font-size: mixin.$font-size-md;
+  }
 }
