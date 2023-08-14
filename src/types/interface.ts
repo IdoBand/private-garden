@@ -37,7 +37,7 @@ export interface User {
   lastName: string
   dateAdded?: Date | number
   lastActive?: Date | number
-  profileImg?: ImgBuffer | string | File
+  profileImg?: ImgBuffer | string | File // for now user image is taken only from auth0
   followers?: string[]
   following?: string[]
 }

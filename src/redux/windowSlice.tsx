@@ -6,7 +6,7 @@ interface WindowState {
     user: any
 }
 const dummyUser = {
-    userId: '1',
+    id: '1',
     followers: [],
     following: [],
 }

@@ -3,6 +3,9 @@ import { ChevronDown, SignOutArrow } from '../../util/svgs'
 import { useState } from 'react'
 import Button from '../Button/Button'
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '../../redux/reduxHooks'
+import { useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
 interface NavbarDropdownProps {
     linkData: {
       title: string
@@ -13,41 +16,75 @@ interface NavbarDropdownProps {
     }
   }
   interface TitleAndSpanProps {
-    title: string
+    link: DropDownLinkProps
+    onClick: () => void
   }
-  const TitleAndSpan = ({title}: TitleAndSpanProps) => {
+  const TitleAndSpan = ({link, onClick}: TitleAndSpanProps) => {
+    const location = useLocation()
+
     return (
-      <li className='dropdown-li'>
-          {title}
-          <span className='dropdown-span'>&nbsp;</span>
-      </li>
+      <Link to={link.to ? link.to : location.pathname} className='dropdown-li' onClick={onClick}>
+        <span>{link.title}<span className='coming-soon'>{link.comingSoon && 'Coming Soon'}</span></span>
+      </Link >
     )
   }
 const SignedInDropdown = () => {
 
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
-    const { loginWithPopup, logout, isAuthenticated, user, isLoading: isSignInLoading, error } = useAuth0()
+    const { loginWithPopup, logout, isAuthenticated,  isLoading: isSignInLoading, error } = useAuth0()
+    const user = useAppSelector(state => state.window.user)
   return (
     <div
-    // onClick ={() =>setShowDropdown(prev => ! prev)}
     onMouseEnter={() => setShowDropdown(true)}
     onMouseLeave={() => setShowDropdown(false)}
         className="dropdown-container"
     >
-        <span>{user ? `Profile` : 'NO USER'}</span>
+        <span>{user ? `Private` : 'NO USER'}</span>
         <ChevronDown className="dropdown-chevron" />
         {showDropdown && 
-          <div className='dropdown-ul-container'>
+          <motion.div
+            initial={{
+              opacity: 0,
+              height: 0
+            }}
+            animate={{
+              opacity: 1,
+              height: 'auto',
+              transition: {duration: 0.3}
+            }}
+            className='dropdown-ul-container'>
             <div className='dropdown-transparent-gap'></div>
             <ul className="dropdown-ul">
-                <TitleAndSpan title={'Profile'} />
-                <Link to={'MyGarden'} >My Garden</Link>
+                <section className='user-greeting'>
+                  {`Hi, ${user.firstName}`}
+                  {user.profileImg && <img src={user.profileImg} className='dropdown-user-profile-img' />}
+                </section>
+                {DROPDOWN_LINKS.map(link => {
+                  return <TitleAndSpan key={`dropdown+${link.title}`} link={link} onClick={() => setShowDropdown(false)} />
+                })}
                 <Button className='green-button' onClick={async() => {await logout()}} type='button' text='Sign Out' isDisabled={false} ><SignOutArrow width={14} /></Button>
             </ul>
-          </div>
+          </motion.div>
         }
   </div>
   )
 }
 
 export default SignedInDropdown
+interface DropDownLinkProps {
+  to: string
+  title: string
+  comingSoon: boolean
+}
+const DROPDOWN_LINKS = [
+  {
+    to: '',
+    title: 'Profile',
+    comingSoon: true,
+  },
+  {
+    to: '/MyGarden',
+    title: 'My Garden',
+    comingSoon: false,
+  },
+]

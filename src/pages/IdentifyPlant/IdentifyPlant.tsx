@@ -26,7 +26,7 @@ export default function IdentifyPlant() {
                     const plant: Plant = {
                         plantName: result.data,
                         img: '',
-                        userId: user.userId,
+                        userId: user.id,
                         dateAdded: 0
                     }
                     identifiedPlant.current = plant
@@ -98,7 +98,7 @@ export default function IdentifyPlant() {
                     <div className='identify-buttons-container'>
                         {imageFiles.length > 0 &&  <>
                             <GreenButton type="submit" onClick={handleIdentifyClick} text="Identify" isDisabled={isFetching}/>
-                            {(identifiedPlant.current && (selectedImageIdx !== null) && user.userId) && 
+                            {(identifiedPlant.current && (selectedImageIdx !== null) && user.id) && 
                                 <GreenButton onClick={() => setAddPlantModal(true)} text="Add to My Garden" isDisabled={selectedImageIdx === null}/>}
                                             </>
                         }

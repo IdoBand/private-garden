@@ -50,18 +50,22 @@ export default function Navbar() {
 
     useEffect(() => {
         async function waitForUserData(rawUserData: Partial<User>) {
+            // for now user image is taken only from auth0
             const result = await fetchSignInUser(rawUserData)
-            dispatch(signInUser(result.data))
+            const userData = userManager.serializerUser({...result.data, profileImg: rawUserData.profileImg})
+            dispatch(signInUser(userData))
         }
+
         if (user) {
+            console.log(user);
             
             const authenticatedUser: User = {
                 id: user.email as string,
                 firstName: user.given_name!,
                 lastName: user.family_name!,
+                profileImg: user.picture ? user.picture : '',
             }
             waitForUserData(authenticatedUser)
-
         } else {
             dispatch(signOutUser())
         }

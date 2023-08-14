@@ -8,6 +8,7 @@ class UserManager extends AbstractManager {
     serializerUser(user: User): User {
         const serializerUser: User = {
             ...user,
+            id: user.id,
             dateAdded: this.serializeDate(user.dateAdded!),
             lastActive: this.serializeDate(user.lastActive!),
         }
