@@ -16,6 +16,7 @@ import { useSnackbar } from "../../hooks/useSnackbar"
 export default function MyGarden() {
     const isFetching = useAppSelector(state => state.window.isFetching)
     const reduxPlants = useAppSelector(state => state.plants.plants)
+    const user = useAppSelector(state => state.window.user)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const [removeButtons, setRemoveButtons] = useState(false)
     const [plants, setPlants] = useState<Plant[]>([])
@@ -26,7 +27,7 @@ export default function MyGarden() {
     async function onMyGardenMount () {
             dispatch(setIsFetching())
         try {
-            const response = await fetchMyGarden('1')
+            const response = await fetchMyGarden(user.id)
             const newPlants = response.data.map((plant: Plant) => {
                 return plantManager.serializePlant(plant)
             })
@@ -40,7 +41,7 @@ export default function MyGarden() {
     }
     useEffect(() => {
         onMyGardenMount()
-    }, [])
+    }, [user])
 
     async function handleRemovePlantsPermanently() {
         const newPlants: Plant[] = []

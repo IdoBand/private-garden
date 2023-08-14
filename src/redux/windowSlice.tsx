@@ -3,17 +3,22 @@ import { User } from '../types/interface'
 interface WindowState {
     isMobile: boolean
     isFetching: boolean
-    user: User
+    user: any
+}
+const dummyUser: User = {
+    id: '1',
+    firstName: 'Dummy User',
+    lastName: '',
+    profileImg: '/dummy-user-img.png',
+    followers: [],
+    following: [],
+
 }
 
 const initialState: WindowState = {
     isMobile: false,
     isFetching: false,
-    user: {
-        userId: '1',
-        followers: [],
-        following: [],
-    }
+    user: dummyUser
 }
 
 const windowSlice = createSlice({
@@ -30,9 +35,20 @@ const windowSlice = createSlice({
         },
         setIsFetching(state) {
             state.isFetching = !state.isFetching
-        }
+        },
+        signInUser: {
+            reducer: (state, action: PayloadAction<User>) => {
+                state.user = action.payload
+            },
+            prepare: (userObject) => {
+                return { payload: userObject }
+            }
+        },
+        signOutUser(state) {
+            state.user = dummyUser
+        },
     }
 })
 
-export const { setMobile, setIsFetching } = windowSlice.actions
+export const { setMobile, setIsFetching, signInUser, signOutUser } = windowSlice.actions
 export default windowSlice.reducer

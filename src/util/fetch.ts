@@ -1,4 +1,4 @@
-import { Plant, PlantUpdate } from "../types/interface"
+import { Plant, PlantUpdate, User } from "../types/interface"
 const BASIC_URL: string = import.meta.env.VITE_BASIC_SERVER_URL
 export async function fetchMyGarden(userId: string) {
     const response = await fetch(`${BASIC_URL}/plants/${userId}`)
@@ -120,4 +120,16 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
   })
     const result = await response.json()
     return result 
+}
+
+
+///////////////////       U  S  E  R  S        ///////////////////
+export async function fetchSignInUser(rawUser: Partial<User>) {
+    const response = await fetch(`${BASIC_URL}/users`,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ user: rawUser })
+    })
+    const result = await response.json()
+    return result
 }

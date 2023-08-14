@@ -29,7 +29,7 @@ export function generatePath(logoName: string): string {
                     <li className="tool-li"><img className='logo' src={generatePath('mongodb')} />MongoDB</li>
                 </ul >
                 <b className='about-sub-header'>Contact</b>
-                <ul className='nav-container'>
+                <ul className='contact-container'>
                     <li className="nav-links"><a href='https://www.linkedin.com/in/ido-band/' target="_blank" rel="noreferrer"><img className='logo' src={generatePath('linkedin')} /></a></li>
                     <li className="nav-links"><a href='https://github.com/IdoBand' target="_blank" rel="noreferrer"><img className='logo' src={generatePath('github')} /></a></li>
                     <li className="nav-links"><a href="mailto:ido.bandd@gmail.com"><img className='logo' src={generatePath('gmail')} /></a></li>

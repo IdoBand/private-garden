@@ -5,6 +5,7 @@
 .form{
     text-align: center;
     max-height: 80%;
+    padding: 20px;
 }
 .form-section {
     position: relative;
@@ -95,7 +96,7 @@ input[type="file"]{
         flex-direction: column;
         gap:8px;
         margin: 15px 0 15px 0;
-        min-width: 240px;
+        min-width: 0px;
     }
     .form-label {
         margin-right: auto;
@@ -104,11 +105,9 @@ input[type="file"]{
         max-width: 250px;
       }
     .form-file-input {
-        width: min(150px, 35%);
+        width: min(100px, 35%);
     }
     .one-line-text-input {
         width: 100%;
     }
-    
-
 }

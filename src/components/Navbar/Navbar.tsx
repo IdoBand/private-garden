@@ -3,9 +3,17 @@ import { useState, useEffect } from 'react'
 import Modal from '../Modal/Modal';
 import About, { generatePath } from '../About/About';
 import { useAppDispatch } from "../../redux/reduxHooks"
-import { setMobile } from '../../redux/windowSlice';
+import { setMobile, signInUser, signOutUser } from '../../redux/windowSlice';
 import a from '/home-page/111.png'
 import { PrivateGardenLogo } from '../../util/svgs';
+import { useAuth0 } from '@auth0/auth0-react'
+import FullScreenOverlay from '../FullScreenOverlay/FullScreenOverlay';
+import SignedInDropdown from '../SignedInDropdown/SignedInDropdown';
+import MobileNavMenu from '../MobileNavMenu/MobileNavMenu';
+import { User } from '../../types/interface';
+import { fetchSignInUser } from '../../util/fetch';
+import { userManager } from '../../types/UserManager';
+
 export default function Navbar() {
     const mediaQuery = window.matchMedia('(max-width: 1100px)')
     const [about, setAbout] = useState<boolean>(false)
@@ -15,7 +23,8 @@ export default function Navbar() {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const pathName = location.pathname
-
+    const { loginWithPopup, logout, isAuthenticated, user, getAccessTokenSilently, isLoading: isSignInLoading, error } = useAuth0()
+  
     useEffect(() => {
         const handleScreenChange = (event: MediaQueryListEvent) => {
             setIsMobile(event.matches);
@@ -37,26 +46,34 @@ export default function Navbar() {
             }, 700)
         }
     }, [pathName])
+
+    useEffect(() => {
+        async function waitForUserData(rawUserData: Partial<User>) {
+            // for now user image is taken only from auth0
+            const result = await fetchSignInUser(rawUserData)
+            const userData = userManager.serializerUser({...result.data, profileImg: rawUserData.profileImg})
+            dispatch(signInUser(userData))
+        }
+
+        if (user) {
+            const authenticatedUser: User = {
+                id: user.email as string,
+                firstName: user.given_name!,
+                lastName: user.family_name!,
+                profileImg: user.picture ? user.picture : '',
+            }
+            waitForUserData(authenticatedUser)
+        } else {
+            dispatch(signOutUser())
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (!isMobile) {
+            setMobileMenu(false)
+        }
+    }, [isMobile])
     
-    const navbarLinks = (containerClassName: string, linksClassName: string) => {
-        return (
-            <nav className={containerClassName}>
-                <Link to={'MyGarden'}className={linksClassName} onClick={() => setMobileMenu(false)}>My Garden</Link>
-                <Link to={'IdentifyPlant'} className={linksClassName} onClick={() => setMobileMenu(false)}>Identify Plant</Link>
-                <Link to={'RandomPlant'} className={linksClassName} onClick={() => setMobileMenu(false)}>Random Plant</Link>
-                <div className={linksClassName} onClick={() => {setAbout(true); () => setMobileMenu(false)}}>About</div>
-                {(pathName === '/' && !isMobile) &&
-                    <div className='desktop-home-main-img-container'>
-                        <div id='green-img-bg' className={className.greenImgBg}>
-                            <img id="home-main-img" src={a} />
-                        </div>
-                    </div>
-                }
-         
-            </nav>
-        )
-    }
-        
     return (
         <>
             <PrivateGardenLogo className='sticky-logo' />
@@ -74,6 +91,7 @@ export default function Navbar() {
                         <PrivateGardenLogo className='navbar-logo' />
                         Private Garden
                     </Link>
+
                     {(isMobile && pathName === '/') && 
                         <div className='home-main-img-container'>
                             <div id='green-img-bg' className={className.greenImgBg}>
@@ -88,7 +106,28 @@ export default function Navbar() {
                         </div>
                     }
                     {!isMobile &&
-                        navbarLinks('nav-container', 'nav-link')
+                        <nav className='nav-container'>
+                            {
+                                NAVBAR_LINKS.map(link => {
+                                    return (
+                                        <Link
+                                            key={link.title}
+                                            to={link.title === 'About' ? location : link.to}
+                                            className='nav-link'
+                                            onClick={link.title === 'About' ? () => setAbout(true) : undefined}>
+                                                {link.title}
+                                        </Link>)
+                                })
+                            }
+                            <div className='nav-link'><SignedInDropdown /></div>
+                            {(pathName === '/' && !isMobile) &&
+                                <div className='desktop-home-main-img-container'>
+                                    <div id='green-img-bg' className={className.greenImgBg}>
+                                        <img id="home-main-img" src={a} />
+                                    </div>
+                                </div>
+                            }
+                        </nav>
                     }
                 </div>
             </header>
@@ -96,8 +135,24 @@ export default function Navbar() {
             {mobileMenu && <Modal
                                 open={mobileMenu} 
                                 onClose={() => setMobileMenu(false)} >
-                                {navbarLinks('mobile-nav-container', 'mobile-nav-link')} </Modal>}
+                                <MobileNavMenu setAbout={setAbout} setMobileMenu={setMobileMenu} /> </Modal>}
+            {isSignInLoading && <FullScreenOverlay />}
             <Outlet/>
         </>
     )
 }
+
+const NAVBAR_LINKS = [
+    {
+        to: 'IdentifyPlant',
+        title: 'Identify Plant',
+    },
+    {
+        to: 'RandomPlant',
+        title: 'Random Plant',
+    },
+    {
+        to: 'About',
+        title: 'About',
+    },
+]

@@ -48,4 +48,10 @@ export abstract class AbstractManager {
         const day = `${today.getDate()}`.padStart(2, "0");
         return `${year}-${month}-${day}`;
     }
+    serializeDate(date: Date | number): number {
+        if (date instanceof Date) {
+            date = date.getTime()
+        }
+        return date
+    }
 }

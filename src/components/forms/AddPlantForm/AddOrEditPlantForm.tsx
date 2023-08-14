@@ -27,7 +27,7 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(plant? plant.img as string : null);
   const imageFileRef = useRef<File | null>(null);
   const reduxPlants = useAppSelector(state => state.plants.plants)
-  const userId = useAppSelector(state => state.window.user.userId)
+  const userId = useAppSelector(state => state.window.user.id)
   const dispatch = useAppDispatch()
   const assignCroppedImageToRef = useCallback((file: any) => {
     imageFileRef.current = file
