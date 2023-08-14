@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { ChevronDown, SignOutArrow } from '../../util/svgs'
+import { ChevronDown, SignInArrow, SignOutArrow } from '../../util/svgs'
 import { useState } from 'react'
 import Button from '../Button/Button'
 import { Link } from 'react-router-dom'
@@ -62,7 +62,12 @@ const SignedInDropdown = () => {
                 {DROPDOWN_LINKS.map(link => {
                   return <TitleAndSpan key={`dropdown+${link.title}`} link={link} onClick={() => setShowDropdown(false)} />
                 })}
-                <Button className='green-button' onClick={async() => {await logout()}} type='button' text='Sign Out' isDisabled={false} ><SignOutArrow width={14} /></Button>
+                {
+                  user.id === '1' ? // meaning user = dummy user
+                    <Button className='green-button' onClick={async() => {await loginWithPopup()}} type='button' text='Sign In' isDisabled={false}><SignInArrow width={14} /></Button>
+                  :
+                    <Button className='green-button' onClick={async() => {await logout()}} type='button' text='Sign Out' isDisabled={false} ><SignOutArrow width={14} /></Button>
+                }
             </ul>
           </motion.div>
         }

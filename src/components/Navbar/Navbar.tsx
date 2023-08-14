@@ -7,7 +7,6 @@ import { setMobile, signInUser, signOutUser } from '../../redux/windowSlice';
 import a from '/home-page/111.png'
 import { PrivateGardenLogo } from '../../util/svgs';
 import { useAuth0 } from '@auth0/auth0-react'
-import { SignInArrow, SignOutArrow } from '../../util/svgs';
 import FullScreenOverlay from '../FullScreenOverlay/FullScreenOverlay';
 import SignedInDropdown from '../SignedInDropdown/SignedInDropdown';
 import MobileNavMenu from '../MobileNavMenu/MobileNavMenu';
@@ -57,8 +56,6 @@ export default function Navbar() {
         }
 
         if (user) {
-            console.log(user);
-            
             const authenticatedUser: User = {
                 id: user.email as string,
                 firstName: user.given_name!,
@@ -122,11 +119,7 @@ export default function Navbar() {
                                         </Link>)
                                 })
                             }
-                            {isAuthenticated ? 
-                                <div className='nav-link'><SignedInDropdown /></div>
-                            :
-                                <div className='nav-link' onClick={async() => {await loginWithPopup()}}>Sign In&nbsp;<SignInArrow width={14} /></div>
-                            }
+                            <div className='nav-link'><SignedInDropdown /></div>
                             {(pathName === '/' && !isMobile) &&
                                 <div className='desktop-home-main-img-container'>
                                     <div id='green-img-bg' className={className.greenImgBg}>
@@ -142,7 +135,7 @@ export default function Navbar() {
             {mobileMenu && <Modal
                                 open={mobileMenu} 
                                 onClose={() => setMobileMenu(false)} >
-                                <MobileNavMenu setAbout={setAbout}/> </Modal>}
+                                <MobileNavMenu setAbout={setAbout} setMobileMenu={setMobileMenu} /> </Modal>}
             {isSignInLoading && <FullScreenOverlay />}
             <Outlet/>
         </>

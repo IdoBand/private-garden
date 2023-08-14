@@ -5,10 +5,14 @@ interface WindowState {
     isFetching: boolean
     user: any
 }
-const dummyUser = {
+const dummyUser: User = {
     id: '1',
+    firstName: 'Dummy User',
+    lastName: '',
+    profileImg: '/dummy-user-img.png',
     followers: [],
     following: [],
+
 }
 
 const initialState: WindowState = {

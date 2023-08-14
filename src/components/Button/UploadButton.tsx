@@ -10,7 +10,7 @@ const NewLabel = styled.label`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 5px;
+    padding: 12px 5px;
     font-weight: 200;
     color: white;
     border: none;
@@ -19,7 +19,6 @@ const NewLabel = styled.label`
     gap: 0.5rem;
     height: 15px;
     min-width: 100px;
-    margin: 5px;
     white-space: nowrap;
     &:hover {
         background-color: rgb(0, 90, 0);

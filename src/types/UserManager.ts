@@ -12,8 +12,6 @@ class UserManager extends AbstractManager {
             dateAdded: this.serializeDate(user.dateAdded!),
             lastActive: this.serializeDate(user.lastActive!),
         }
-        console.log(serializerUser);
-        
         return serializerUser
     }
 }
