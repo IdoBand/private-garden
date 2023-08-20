@@ -1,0 +1,11 @@
+@use '../../mixin' as mixin;
+.community-page-container {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 100%;
+}
+.posts-container {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 100%;
+}

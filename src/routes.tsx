@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import MyGarden from './pages/MyGarden/MyGarden';
 import PlantTimeline from './pages/PlantTimeline/PlantTimeline';
 import IdentifyPlant from './pages/IdentifyPlant/IdentifyPlant'
+import Community from './pages/Community/Community';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             {
                 path: '/IdentifyPlant',
                 element: <IdentifyPlant />
+            },
+            {
+                path: '/Community',
+                element: <Community />
             },
         ]
     }

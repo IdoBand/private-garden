@@ -41,3 +41,19 @@ export interface User {
   followers?: string[]
   following?: string[]
 }
+export type Post = {
+  _id: string
+  userId: string
+  userName: string
+  profileImg: string
+  images: string[]
+  comments: number
+  dateAdded: Date | number
+  text: string
+  likes: number
+  didLike: boolean
+  lastPostRef?: any // future pagination
+}
+export type Comment = {
+  
+}
