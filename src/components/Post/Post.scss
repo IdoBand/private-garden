@@ -10,7 +10,7 @@ $main-background-color: white;
     background: white;
     width: 60%;
     margin-top: 15px;
-    border-radius: 0.5rem;
+    border-radius: mixin.$posts-section-border-radius;
     border: solid 0.5px mixin.$gray-color;
 }
 
@@ -30,10 +30,14 @@ $main-background-color: white;
     display: flex;
 }
 .user-name {
-    font-weight: 600;
+    font-weight: mixin.$font-weight-lg;
 }
-.shop-name {
+.follow-button {
     color: royalblue;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 .time {
     color: mixin.$gray-color;
@@ -127,11 +131,11 @@ $main-background-color: white;
     stroke: mixin.$dark-green-color;
 }
 
-.add-comment-text-area {
+.add-comment-post-textarea {
     width: 95%;
     outline: none;
     border: none;
-    border-radius: 10px;
+    border-radius: mixin.$posts-section-border-radius;
     padding: $top-padding $side-padding;
     background-color: mixin.$light-color;
     resize: none;

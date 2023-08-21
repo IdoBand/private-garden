@@ -1,8 +1,8 @@
 import { useState } from "react"
 import UploadButton from "../components/Button/UploadButton"
 import { Controller, useForm } from "react-hook-form";
-
-export const useUploadImages = (limitImages: number, existingImages: number, callback? :() => void) => {
+import { PhotoIcon } from '@heroicons/react/24/solid'
+export const useUploadImages = (limitImages: number, existingImages: number, smallButton: boolean =false, callback? :() => void) => {
     const { setError, clearErrors, formState: { errors }, control } = useForm();
     const [imageFiles, setImageFiles] = useState<File[]>([])
 
@@ -42,7 +42,11 @@ export const useUploadImages = (limitImages: number, existingImages: number, cal
                                 });
                             }
                     }} />
-                    <UploadButton htmlFor="images" text='Upload Images' />
+                    {smallButton ?
+                        <label htmlFor="images" style={{cursor: 'pointer', border: 'none', outline: 'none', background: 'none'}}><PhotoIcon width={20} color="#007449" /></label>
+                    :   
+                        <UploadButton htmlFor="images" text='Upload Images' />
+                    }
                 </>
                 )}
                 />

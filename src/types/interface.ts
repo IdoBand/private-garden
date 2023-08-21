@@ -44,16 +44,19 @@ export interface User {
 export type Post = {
   _id: string
   userId: string
-  userName: string
-  profileImg: string
-  images: string[]
-  comments: number
+  images: ImgBuffer[] | string[] | File[]
   dateAdded: Date | number
   text: string
-  likes: number
-  didLike: boolean
+  likes: string[]
+  comments: Comment[]
+  userName: string
+  profileImg: string
+  // frontend
   lastPostRef?: any // future pagination
 }
 export type Comment = {
-  
+  _id: string
+  userId: string
+  text: string
+  profileImg: string
 }

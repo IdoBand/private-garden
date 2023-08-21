@@ -1,0 +1,36 @@
+@use '../../mixin' as mixin;
+
+.add-post-form {
+    background: white;
+    width: 60%;
+    padding: 10px;
+    @include mixin.flexCenter();
+    flex-direction: column;
+    border-radius: mixin.$posts-section-border-radius;
+    opacity: 0.6;
+    border: 0.5px solid mixin.$gray-color;
+    transition: opacity 0.5s ease-in;
+}
+.add-post-form.active {
+    opacity: 1;
+}
+
+.add-post-buttons-container {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.add-post-header-img-container {
+    @include mixin.flexCenter();
+    position: relative;
+    width: 95%;
+    padding: 10px 0;
+}
+.add-post-profile-img {
+    @include mixin.post-profile-img();
+    position: absolute;
+    left: 0;
+}

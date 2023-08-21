@@ -6,11 +6,20 @@ import david from '/mock-users/imageDavid.jpg'
 import jonathan from '/mock-users/imageJonathan.jpg'
 import lilly from '/mock-users/imageLilly.jpg'
 import rose from '/mock-users/imageRose.jpg'
+import AddPost from '../../components/Post/AddPost'
+import useFetchPosts from '../../hooks/useFetchPosts'
 const Community = () => {
+
+  const { posts, errorMessage } = useFetchPosts()
+
   return (
     <main className='community-page-container'>
         <title className='page-header'>Community</title>
+        <AddPost />
         <section className='posts-container'>
+            {posts.map(post => {
+                return <PostComponent key={post._id} post={post} />
+            })}
             {mockPosts.map(post => {
                 return <PostComponent key={post._id} post={post} />
             })}
@@ -24,62 +33,57 @@ export default Community
 const mockPosts: Post[] = [
     {
       _id: 'post1',
-      userId: 'user1',
+      userId: 'daniel.clifford@dummy.com',
       userName: 'Daniel Clifford',
       profileImg: daniel,
       images: [],
-      comments: 1,
+      comments: [],
       dateAdded: 1,
       text: 'Check out my new plant!',
-      likes: 25,
-      didLike: false,
+      likes: ['', '', '', ],
     },
     {
       _id: 'post2',
-      userId: 'user2',
+      userId: 'jonathan.walters@dummy.com',
       userName: 'Jonathan Walters',
       profileImg: jonathan,
       images: [],
-      comments: 5,
+      comments: [],
       dateAdded: 1,
       text: 'Excited to share how much my Monstera has grown :)',
-      likes: 288,
-      didLike: false,
+      likes: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ],
     },
     {
       _id: 'post3',
-      userId: 'user3',
+      userId: 'rose.white@dummy.com',
       userName: 'Rose White',
       profileImg: rose,
       images: [],
-      comments: 0,
+      comments: [],
       dateAdded: 1,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      likes: 41,
-      didLike: false,
+      likes: ['', ],
     },
     {
       _id: 'post4',
-      userId: 'user4',
+      userId: 'lilly.harmon@dummy.com',
       userName: 'Lilly Harmon',
       profileImg: lilly,
       images: [],
-      comments: 3,
+      comments: [],
       dateAdded: 1,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      likes: 8,
-      didLike: false,
+      likes: ['', '', '', '', '', '', '', '', '', '', '', ],
     },
     {
       _id: 'post5',
-      userId: 'user5',
+      userId: 'david.abrams@dummy.com',
       userName: 'David Abrams',
       profileImg: david,
       images: [],
-      comments: 1,
+      comments: [],
       dateAdded: 1,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      likes: 14,
-      didLike: false,
+      likes: ['', '', '', '', '', '', ],
     },
   ];

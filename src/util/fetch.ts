@@ -1,4 +1,4 @@
-import { Plant, PlantUpdate, User } from "../types/interface"
+import { Plant, PlantUpdate, Post, User } from "../types/interface"
 const BASIC_URL: string = import.meta.env.VITE_BASIC_SERVER_URL
 export async function fetchMyGarden(userId: string) {
     const response = await fetch(`${BASIC_URL}/plants/${userId}`)
@@ -79,9 +79,9 @@ export async function fetchEditPlantUpdate(plantUpdate: Partial<PlantUpdate>, im
     const response = await fetch(`${BASIC_URL}/plantUpdates/${plantUpdate._id}`, {
         method: 'PATCH',
         body: formData
-  });
-  const result = await response.json()
-  return result
+    });
+    const result = await response.json()
+    return result
 }
 export async function fetchDeletePlantUpdates(IdsToRemove: string[]) {
     const response = await fetch(
@@ -132,4 +132,28 @@ export async function fetchSignInUser(rawUser: Partial<User>) {
     })
     const result = await response.json()
     return result
+}
+///////////////////       P  O  S  T  S        ///////////////////
+export async function fetchAddPost(post: Partial<Post>, images: File[]) {
+    const formData = new FormData();
+    formData.append('post',JSON.stringify(post))
+    if (images.length) {
+        for (let i = 0 ; i < images.length ; i++) {
+            formData.append('postImages', images[i])
+        } 
+    }
+    const response = await fetch(`${BASIC_URL}/posts`, {
+        method: 'POST',
+        body: formData
+    });
+    const result = await response.json()
+    return result
+}
+export async function fetchAllPosts() {
+    const response = await fetch(`${BASIC_URL}/posts`, {
+        method: 'GET'
+    })
+    const result = await response.json()
+    return result
+    
 }
