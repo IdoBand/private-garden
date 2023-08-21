@@ -6,9 +6,9 @@ interface WindowState {
     user: any
 }
 const dummyUser: User = {
-    id: '1',
-    firstName: 'Dummy User',
-    lastName: '',
+    id: 'dummy.user@dummy.com',
+    firstName: 'dummy',
+    lastName: 'user',
     profileImg: '/dummy-user-img.png',
     followers: [],
     following: [],

@@ -45,7 +45,7 @@ export type Post = {
   _id: string
   userId: string
   images: ImgBuffer[] | string[] | File[]
-  dateAdded: Date | number
+  dateAdded: Date | number | string
   text: string
   likes: string[]
   comments: Comment[]

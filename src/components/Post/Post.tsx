@@ -6,7 +6,7 @@ type PostComponentProps = {
     post: Post
 }
 export default function PostComponent ({ post }: PostComponentProps) {
-
+    
     const user = useAppSelector(state => state.window.user)
     const [likedByUser, setLikedByUser] = useState<boolean>(post.likes.includes(user.id))
     const [showComments, setShowComments] = useState<boolean>(false)

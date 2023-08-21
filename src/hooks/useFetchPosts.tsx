@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Post } from '../types/interface'
 import { fetchAllPosts } from '../util/fetch'
+import { postManager } from '../types/PostManager'
 
 const useFetchPosts = () => {
 
@@ -12,8 +13,10 @@ const useFetchPosts = () => {
     async function fetchPosts(){
         setIsFetching(true)
         try {
-            const result = await fetchAllPosts()    
-            setPosts(result.data)
+            const result = await fetchAllPosts()
+            const serializedPosts = result.data.map((post: Post) => {
+                return postManager.serializePost(post)})
+            setPosts(serializedPosts)
         } catch (err) {
             const errorMessage: string = 'There was an error fetching the posts'
             console.log(`${errorMessage}: ` + err);
