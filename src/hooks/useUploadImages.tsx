@@ -10,6 +10,9 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
         const updatedArray = imageFiles.filter((image, idx) =>  idx !== index )
         setImageFiles(updatedArray)
     }
+    function deleteAllImages() {
+        setImageFiles([])
+    }
 
     const filesInput = (
         <div className="image-select-container">
@@ -58,6 +61,7 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
         imageFiles,
         filesInput,
         errorMessage,
-        deleteImageFromArray
+        deleteImageFromArray,
+        deleteAllImages,
     }
 }

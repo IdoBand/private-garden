@@ -1,9 +1,9 @@
 @use '../../mixin' as mixin;
 
-$side-padding: 20px;
-$top-padding: 20px;
-$active-color: pink;
+$side-padding: 1rem;
+$top-padding: 1rem;
 $main-background-color: white;
+$post-border-settings: solid 0.5px mixin.$gray-color;
 .post-container {
     @include mixin.flexCenter();
     flex-direction: column;
@@ -11,23 +11,28 @@ $main-background-color: white;
     width: 60%;
     margin-top: 15px;
     border-radius: mixin.$posts-section-border-radius;
-    border: solid 0.5px mixin.$gray-color;
+    border: $post-border-settings;
 }
 
 .post-header {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    padding: $top-padding 0 0 $side-padding;
+    justify-content: space-between;
+    padding: $top-padding $side-padding 0 $side-padding;
+}
+.post-user-info-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .post-avatar {
-    margin-right: 10px;
     border-radius: 50%;
     width: 40px;
     height: 40px;
 }
-.shop-name-time{
+.follow-time-container{
     display: flex;
+    gap: 0.7rem;
 }
 .user-name {
     font-weight: mixin.$font-weight-lg;
@@ -42,7 +47,7 @@ $main-background-color: white;
 .time {
     color: mixin.$gray-color;
     position: relative;
-    margin: 0 5px 0 10px;
+    font-size: mixin.$font-size-sm;
     &::before {
         content: '';
         position: absolute;
@@ -59,24 +64,27 @@ $main-background-color: white;
     padding: $top-padding $side-padding $top-padding $side-padding;
 }
 .images-background {
-    background: $active-color;
-    width: 100%;
-    height: 100%
+    max-width: 100%
 }
 @mixin images-container {
-    display: flex;
-    align-items: center;
+    @include mixin.flexCenter();
     overflow: hidden;
-    max-height: 500px;
+    gap: clamp(1rem , 2vw, 10rem);
 }
 .single-image-container {
     @include images-container();
-    justify-content: center;
+}
+.single-image-container > img {
+    width: 100%;
+    height: auto
 }
 .double-image-container {
     @include images-container();
     justify-content: space-between;
-
+}
+.double-image-container > img {
+    max-width: 50%;
+    height: auto
 }
 .post-image {
     width: auto;
@@ -140,4 +148,95 @@ $main-background-color: white;
     background-color: mixin.$light-color;
     resize: none;
     margin-bottom: 1rem;
+}
+
+.post-options-menu-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: mixin.$gray-color;
+    }
+}
+.post-options-menu-button.active {
+    background-color: mixin.$gray-color;
+}
+.post-menu-ul {
+    position: absolute;
+    display: none;
+    top: 1.6rem;
+    right: 0;
+    background-color: white;
+    padding: 0.7rem;
+    border-radius: mixin.$posts-section-border-radius;
+    border: $post-border-settings;
+    height: 0;
+    transition: all 0.3s ease-out;
+    cursor: auto;
+    @include mixin.shadow();
+}
+.post-menu-ul.active {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: auto;
+}
+.post-options-menu-button > svg {
+    position: absolute;
+    @include mixin.transformTranslate50();
+}
+.post-menu-li {
+    display: flex;
+    gap: 0.7rem;
+    cursor: pointer;
+    &:hover svg {
+        stroke: mixin.$dark-green-color;
+    }
+}
+.post-menu-li > svg {
+    fill: mixin.$light-color;
+    stroke: mixin.$dark-color;
+    width: 16px;
+}
+.post-options-button {
+    background: none;
+    border: none;
+    font-size: mixin.$font-size-sm;
+    cursor: pointer;
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+@media screen and (max-width: 1000px) {
+    .post-container {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .post-avatar {
+        margin-right: 5px;
+
+    }
+    .follow-time-container {
+        flex-direction: column;
+        gap: 0.2rem;
+        margin-top: 0.2rem;
+        justify-content: flex-start;
+        align-items: start;
+    }
+    .time{
+        margin-left: 0.4rem;
+    }
 }

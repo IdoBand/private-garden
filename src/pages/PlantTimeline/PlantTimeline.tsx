@@ -58,8 +58,6 @@ export default function PlantTimeline() {
                 dispatch(setUpdatesToCurrentPlant(plantUpdateManager.serializeUpdatesArray(response.data)))
             }
         } catch (err) {
-            console.log('hi');
-            
             showSnackbar("Failed to load Timeline", "error");
         } finally {
             setIsFetching(false)
@@ -162,8 +160,7 @@ export default function PlantTimeline() {
         }
         dispatch(setUpdatesToCurrentPlant(newUpdates))
     }
-    console.log(currentPlant.plantName);
-    
+
     return(
         <>
             {isFetching ? <Spinner />

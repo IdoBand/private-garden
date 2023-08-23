@@ -3,16 +3,15 @@ import { User } from '../types/interface'
 interface WindowState {
     isMobile: boolean
     isFetching: boolean
-    user: any
+    user: User
 }
 const dummyUser: User = {
     id: 'dummy.user@dummy.com',
-    firstName: 'dummy',
+    firstName: 'dummy user',
     lastName: 'user',
     profileImg: '/dummy-user-img.png',
     followers: [],
     following: [],
-
 }
 
 const initialState: WindowState = {

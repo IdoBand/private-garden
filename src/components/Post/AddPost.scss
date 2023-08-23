@@ -20,17 +20,27 @@
     width: 95%;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .add-post-header-img-container {
     @include mixin.flexCenter();
     position: relative;
     width: 95%;
-    padding: 10px 0;
+    padding: 1rem 0;
 }
 .add-post-profile-img {
     @include mixin.post-profile-img();
     position: absolute;
     left: 0;
+}
+
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+//////////////////                               ///////////////////
+//////////////////      R E S P O N S I V E      ///////////////////
+//////////////////                               ///////////////////
+///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
+@media screen and (max-width: 1000px) {
+    .add-post-form {
+        width: 95%;
+    }
 }

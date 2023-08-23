@@ -11,7 +11,7 @@ interface MobileNavMenuProps {
 }
 const MobileNavMenu = ({setAbout, setMobileMenu}: MobileNavMenuProps) => {
   const user = useAppSelector(state => state.window.user)
-  const { loginWithPopup, logout, isAuthenticated, isLoading: isSignInLoading, error } = useAuth0()
+  const { loginWithPopup, logout, isAuthenticated, } = useAuth0()
   return (
     <nav className="mobile-nav-container">
       <div className="mobile-menu-bg-img-container">
@@ -48,6 +48,10 @@ const NAVBAR_LINKS = [
   {
       to: 'MyGarden',
       title: 'My Garden',
+  },
+  {
+      to: 'Community',
+      title: 'Community',
   },
   {
       to: 'IdentifyPlant',

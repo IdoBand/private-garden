@@ -124,12 +124,19 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
 
 
 ///////////////////       U  S  E  R  S        ///////////////////
-export async function fetchSignInUser(rawUser: Partial<User>) {
-    const response = await fetch(`${BASIC_URL}/users`,{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ user: rawUser })
-    })
+export async function fetchSignInUser(rawUser: Partial<User>, profileImg: File | string) {
+    const formData = new FormData();
+    if (rawUser.profileImg) {
+        delete rawUser.profileImg
+    }
+    formData.append('user',JSON.stringify(rawUser))
+    if (profileImg) {
+        formData.append('profileImg', profileImg);
+    }
+    const response = await fetch(`${BASIC_URL}/users`, {
+      method: 'POST',
+      body: formData
+    });
     const result = await response.json()
     return result
 }
@@ -155,5 +162,28 @@ export async function fetchAllPosts() {
     })
     const result = await response.json()
     return result
-    
+}
+export async function fetchDeletePost(postId: string) {
+    const response = await fetch(`${BASIC_URL}/posts/delete/${postId}`, {
+        method: 'GET'
+    })
+    const result = await response.json()
+    return result
+}
+export async function fetchLike(postId: string, userId: string, like: boolean) {
+    const data = {
+        postId,
+        userId,
+        like
+    }
+
+    const response = await fetch(
+        `${BASIC_URL}/posts/like`,
+        {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+    const result = await response.json()
+    return result
 }

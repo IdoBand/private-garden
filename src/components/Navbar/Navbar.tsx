@@ -8,12 +8,13 @@ import a from '/home-page/111.png'
 import { PrivateGardenLogo } from '../../util/svgs';
 import { useAuth0 } from '@auth0/auth0-react'
 import FullScreenOverlay from '../FullScreenOverlay/FullScreenOverlay';
-import SignedInDropdown from '../SignedInDropdown/SignedInDropdown';
+import SignedInDropdown from '../Dropdown/SignedInDropdown';
+import Dropdown from '../Dropdown/Dropdown';
 import MobileNavMenu from '../MobileNavMenu/MobileNavMenu';
 import { User } from '../../types/interface';
 import { fetchSignInUser } from '../../util/fetch';
 import { userManager } from '../../types/UserManager';
-
+import getCroppedImg from '../ImageCrop/canvasToFile';
 export default function Navbar() {
     const mediaQuery = window.matchMedia('(max-width: 1100px)')
     const [about, setAbout] = useState<boolean>(false)
@@ -23,7 +24,7 @@ export default function Navbar() {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const pathName = location.pathname
-    const { loginWithPopup, logout, isAuthenticated, user, getAccessTokenSilently, isLoading: isSignInLoading, error } = useAuth0()
+    const { user, isLoading: isSignInLoading, } = useAuth0()
   
     useEffect(() => {
         const handleScreenChange = (event: MediaQueryListEvent) => {
@@ -49,20 +50,24 @@ export default function Navbar() {
 
     useEffect(() => {
         async function waitForUserData(rawUserData: Partial<User>) {
+            let imgFile: File | string = ''
+            if (rawUserData.profileImg) {
+                imgFile = await getCroppedImg(rawUserData.profileImg as string,{ height:0, width:0, x:0, y:0})
+            }
             // for now user image is taken only from auth0
-            const result = await fetchSignInUser(rawUserData)
-            const userData = userManager.serializerUser({...result.data, profileImg: rawUserData.profileImg})
+            const result = await fetchSignInUser(rawUserData, imgFile)
+            const userData = userManager.serializerUser(result.data)
             dispatch(signInUser(userData))
         }
 
         if (user) {
-            const authenticatedUser: User = {
+            const authenticatedUserRawData: Partial<User> = {
                 id: user.email as string,
                 firstName: user.given_name!,
                 lastName: user.family_name!,
                 profileImg: user.picture ? user.picture : '',
             }
-            waitForUserData(authenticatedUser)
+            waitForUserData(authenticatedUserRawData)
         } else {
             dispatch(signOutUser())
         }
@@ -119,6 +124,7 @@ export default function Navbar() {
                                         </Link>)
                                 })
                             }
+                            <div className='nav-link'><Dropdown title='Tools' links={TOOLS_LINKS} /></div>
                             <div className='nav-link'><SignedInDropdown /></div>
                             {(pathName === '/' && !isMobile) &&
                                 <div className='desktop-home-main-img-container'>
@@ -144,15 +150,22 @@ export default function Navbar() {
 
 const NAVBAR_LINKS = [
     {
+        to: 'Community',
+        title: 'Community',
+    },
+    {
+        to: 'About',
+        title: 'About',
+    },
+]
+
+const TOOLS_LINKS = [
+    {
         to: 'IdentifyPlant',
         title: 'Identify Plant',
     },
     {
         to: 'RandomPlant',
         title: 'Random Plant',
-    },
-    {
-        to: 'About',
-        title: 'About',
     },
 ]

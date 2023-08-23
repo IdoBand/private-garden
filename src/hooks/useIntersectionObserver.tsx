@@ -1,10 +1,10 @@
-import {useEffect, useState, useRef, useContext } from 'react'
-// import { currentSectionContext } from '../providers/currentSectionProvider'
+import {useEffect, useState, useRef } from 'react'
+
 export const useIntersectionObserver = (sectionId: string, threshold=0.3) => {
     const [isVisible, setIsVisible] = useState(false)
     const [firstIntersection, setFirstIntersection] = useState(false)
     const htmlElementRef = useRef<HTMLElement | null>(null)
-    // const { setCurrentSection } = useContext<any>(currentSectionContext);
+
     useEffect(() => {
         const observer = new IntersectionObserver(
           ([entry]) => {

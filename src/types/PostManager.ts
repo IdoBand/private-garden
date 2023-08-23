@@ -1,15 +1,19 @@
 import { AbstractManager } from "./AbstractManager";
-import { Post } from "./interface";
+import { ImgBuffer, Post } from "./interface";
 
 class PostManager extends AbstractManager {
     constructor() {
         super()
     }
     serializePost(post: Post) {
-        console.log(typeof post.dateAdded);
-        
+        /**
+         * Serialize a post thats coming from the data base.
+         * post images and user profile images are of type binary data.
+         */
         return {
             ...post,
+            userName: this.capitalize(post.userName),
+            images: this.decideMultipleImg(post.images as ImgBuffer[]),
             profileImg: this.decideImg(post.profileImg),
             dateAdded: this.generateTimeString(post.dateAdded as string)
         }
@@ -35,6 +39,18 @@ class PostManager extends AbstractManager {
         }
         return result
         
+    }
+    serializeNewPost(newPost: Post) {
+        /**
+         * Serialize a post thats coming from the data base.
+         * post images are .jpg files.
+         * user profile image is a temporary url string.
+         */
+        return { ...newPost,
+            userName: this.capitalize(newPost.userName),
+            images: this.generateImgSrcUrl(newPost.images as File[]),
+            dateAdded: this.generateTimeString(newPost.dateAdded as string)
+        }
     }
 }
 

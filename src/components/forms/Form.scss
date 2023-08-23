@@ -109,4 +109,7 @@ input[type="file"]{
     .one-line-text-input {
         width: 100%;
     }
+    .error-div{
+        font-size: mixin.$font-size-sm;
+    }
 }

@@ -19,6 +19,11 @@ export abstract class AbstractManager {
         }
         return ''
     }
+    decideMultipleImg(imgArray: ImgBuffer[] | string[]) {
+        return imgArray.map(img => {
+            return this.decideImg(img)
+        })
+    }
     extractDateString(date: Date | number) {
         const dateInstance = new Date(date).toISOString()
         return dateInstance.slice(8,10) + '-' + dateInstance.slice(5,7) + '-' + dateInstance.slice(0,4)
@@ -53,5 +58,8 @@ export abstract class AbstractManager {
             date = date.getTime()
         }
         return date
+    }
+    generateImgSrcUrl(imageFiles: File[]) {
+        return imageFiles.map(file => {return URL.createObjectURL(file)})
     }
 }
