@@ -6,7 +6,7 @@ interface WindowState {
     user: any
 }
 const dummyUser: User = {
-    id: '1',
+    id: 'dummy.user@dummy.com',
     firstName: 'Dummy User',
     lastName: '',
     profileImg: '/dummy-user-img.png',
