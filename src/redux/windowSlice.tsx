@@ -14,14 +14,6 @@ const dummyUser: User = {
     following: [],
 
 }
-const dummyUser: User = {
-    id: 'dummy.user@dummy.com',
-    firstName: 'dummy user',
-    lastName: 'user',
-    profileImg: '/dummy-user-img.png',
-    followers: [],
-    following: [],
-}
 
 const initialState: WindowState = {
     isMobile: false,
