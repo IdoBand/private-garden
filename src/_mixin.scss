@@ -11,7 +11,6 @@ html, body {
 }
 
 
-
 ////////////////////////////    F O N T - S I Z E    //////////////////////////////////
 $font-size-5xl: 40px;
 $font-size-4xl: 36px;
@@ -32,7 +31,6 @@ $font-weight-sm: lighter;
 ////////////////////////////    C O L O R S    //////////////////////////////////
 
 $container-background-color: #f5f5f5;
-// $container-background-color: #e1e6e3;
 $gray-color: #c1c3c2;
 $green-background-color: rgb(195, 237, 224);
 $light-color: #f5f5f5;
@@ -40,6 +38,20 @@ $dark-color: #1b1b1b;
 $dark-green-color: #007449;
 $danger-color: rgb(190, 60, 60);
 
+////////////////////////////    P O S T S    //////////////////////////////////
+
+$posts-section-border-radius: 0.5rem;
+@mixin post-profile-img {
+  border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+@mixin images-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  max-height: 500px;
+}
 ////////////////////////////    M I X I N S    //////////////////////////////////
 
 @mixin flexCenter {

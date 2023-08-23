@@ -1,0 +1,111 @@
+@use '../../mixin.scss' as mixin;
+.dropdown-container {
+    display: flex;
+    z-index: 100;
+    gap: 5px;
+    width: max-content;
+    position: relative;
+}
+
+.dropdown-chevron {
+    width: 20px;
+    stroke: mixin.$dark-color;
+}
+.dropdown-ul-container {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+}
+.dropdown-transparent-gap {
+    position: relative;
+    background: transparent;
+    width: 100%;
+    height: 10px;
+    right: 0;
+}
+.dropdown-ul {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: auto;
+    background: white;
+    padding: 10px 20px 8px 20px;
+    top: 100%;
+    right: 0;
+    gap: 10px;
+    border-radius: 20px;
+    @include mixin.shadow();
+}
+.dropdown-li {
+    display: flex;
+    position: relative;
+    color: mixin.$dark-color;
+    cursor: pointer;
+    white-space: nowrap;
+    gap: 4px;
+    width: max-content;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: background-color 0.4s;
+    &::before{
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: mixin.$dark-green-color;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    &:hover::before{
+        opacity: 1;
+    }
+    &:hover > span {
+        position: relative;
+        transform: translateX(0.6rem);
+    }
+}
+.dropdown-li > span {
+    transition: transform 0.3s ease;
+}
+
+.coming-soon {
+    color: mixin.$danger-color;
+    font-size: mixin.$font-size-xs;
+    margin-left: 2px;
+}
+
+
+////////////////    S I G N   I N   D R O P D O W N    ////////////////
+.signed-in{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 38px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 130%;
+        height: 0.5px;
+        background-color: mixin.$dark-green-color;
+        opacity: 0.4;
+    }
+}
+.user-greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: mixin.$font-weight-md;
+    margin-bottom: 0.2rem;
+}
+.dropdown-user-profile-img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}

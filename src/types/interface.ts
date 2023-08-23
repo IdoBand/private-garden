@@ -38,6 +38,26 @@ export interface User {
   dateAdded?: Date | number
   lastActive?: Date | number
   profileImg?: ImgBuffer | string | File // for now user image is taken only from auth0
-  followers?: string[]
-  following?: string[]
+  followers: string[]
+  following: string[]
+}
+export type Post = {
+  _id: string
+  userId: string
+  images: ImgBuffer[] | string[] | File[]
+  dateAdded: Date | number | string
+  text: string
+  likes: string[]
+  comments: Comment[]
+  userName: string
+  profileImg: string
+  // frontend
+  lastPostRef?: any // future pagination
+}
+export type Comment = {
+  _id: string
+  userId: string
+  text: string
+  profileImg: string
+
 }

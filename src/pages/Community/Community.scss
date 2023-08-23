@@ -1,0 +1,21 @@
+@use '../../mixin' as mixin;
+#community-page-container {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 100%;
+    padding: 0 0 2rem 0;
+}
+.posts-container {
+    @include mixin.flexCenter();
+    flex-direction: column;
+    width: 100%;
+}
+.back-to-top {
+    position: fixed;
+    bottom: 0.8rem;
+    left: 0.8rem;
+    background: none;
+    border: none;
+    color: mixin.$dark-color;
+    cursor: pointer;
+}

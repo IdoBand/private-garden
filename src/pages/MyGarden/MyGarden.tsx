@@ -7,12 +7,15 @@ import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPla
 import searchLogo from '/search_icon-white2.png'
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
-import Spinner from "../../components/Spinner/Spinner"
 import PlantCard from "../../components/PlantCard/PlantCard"
 import { fetchMyGarden, fetchDeletePlants } from "../../util/fetch"
 import { setIsFetching } from "../../redux/windowSlice"
 import { plantManager } from "../../types/PlantManager"
 import { useSnackbar } from "../../hooks/useSnackbar"
+import PlantCardSkeleton from "../../components/PlantCard/PlantCardSkeleton"
+
+const skeletonArray = Array.from(Array(4).keys())
+
 export default function MyGarden() {
     const isFetching = useAppSelector(state => state.window.isFetching)
     const reduxPlants = useAppSelector(state => state.plants.plants)
@@ -110,42 +113,41 @@ export default function MyGarden() {
     }
 
     return (
-
         <div className="my-garden-container">
-        {isFetching ? <Spinner />
-                            :
-                <>
-                    <div id="my-garden-options">
-                        <div id="my-garden-buttons">
-                        <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)} isDisabled={removeButtons}/>
-                        <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
-                        {removeButtons && <>
-                            <br />
-                            <RedButton text="Select All" onClick={selectAll}/>
-                            <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
-                                        </>
-                        }
+            <div id="my-garden-options">
+                <div id="my-garden-buttons">
+                <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)} isDisabled={removeButtons}/>
+                <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
+                {removeButtons && <>
+                    <br />
+                    <RedButton text="Select All" onClick={selectAll}/>
+                    <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
+                                </>
+                }
+                </div>
+                <div id="search-bar-and-count">
+                    <div className="search-bar-container">
+                        <div id="search-bar-left"><img src={searchLogo}/></div>
+                        <input id="search-input" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
+                    </div>
+                    <div id="plants-counter">{searchBarInputRef.current?.value ? `${plants.length} Plant${plants.length > 1 ? 's' : ''} Matching Search`: `You Have ${plants.length} Plant${plants.length > 1 ? 's' : ''}`}</div>
+                </div>    
+            </div>
+            <div id="plants-container">
+                {isFetching ?
+                    skeletonArray.map(_ => {return <PlantCardSkeleton key={_} />})
+                :
+                    plants.map(plant =>
+                        <div key={plant._id!} className="card-key-container" onClick={() => dispatch(setCurrentPlant(plant))}>
+                            <PlantCard 
+                                plant={plant}
+                                removeButtons={removeButtons}
+                                checkBoxPlant={checkBoxPlant}
+                                />
                         </div>
-                        <div id="search-bar-and-count">
-                            <div className="search-bar-container">
-                                <div id="search-bar-left"><img src={searchLogo}/></div>
-                                <input id="search-input" type="text" ref={searchBarInputRef} onChange={handleSearch} placeholder="Search" />
-                            </div>
-                            <div id="plants-counter">{searchBarInputRef.current?.value ? `${plants.length} Plant${plants.length > 1 ? 's' : ''} Matching Search`: `You Have ${plants.length} Plant${plants.length > 1 ? 's' : ''}`}</div>
-                        </div>    
-                    </div>
-                    <div id="plants-container">
-                        {plants.map(plant =>
-                            <div key={plant._id!} className="card-key-container" onClick={() => dispatch(setCurrentPlant(plant))}>
-                                <PlantCard 
-                                    plant={plant}
-                                    removeButtons={removeButtons}
-                                    checkBoxPlant={checkBoxPlant}
-                                    />
-                            </div>
-                        )}
-                    </div>
-                </>}
+                    )
+            }
+            </div>
         {addPlantModal && 
             <Modal 
                 open={addPlantModal} 
@@ -158,7 +160,6 @@ export default function MyGarden() {
                     showSnackbar={showSnackbar}
                     />
             </Modal>}
-
         {snackBar}
         </div>
     )

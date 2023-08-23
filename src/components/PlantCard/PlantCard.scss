@@ -12,6 +12,7 @@
     margin: 25px 0 0 0;
     border-radius: 5px;
     @include mixin.shadow();
+    background-color: mixin.$light-color;
     &:hover {
         &::before {
             opacity: 1;
