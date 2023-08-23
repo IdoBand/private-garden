@@ -15,6 +15,7 @@ import { User } from '../../types/interface';
 import { fetchSignInUser } from '../../util/fetch';
 import { userManager } from '../../types/UserManager';
 import getCroppedImg from '../ImageCrop/canvasToFile';
+
 export default function Navbar() {
     const mediaQuery = window.matchMedia('(max-width: 1100px)')
     const [about, setAbout] = useState<boolean>(false)
@@ -25,6 +26,7 @@ export default function Navbar() {
     const location = useLocation()
     const pathName = location.pathname
     const { user, isLoading: isSignInLoading, } = useAuth0()
+
   
     useEffect(() => {
         const handleScreenChange = (event: MediaQueryListEvent) => {

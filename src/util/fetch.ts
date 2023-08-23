@@ -1,4 +1,5 @@
 import { Plant, PlantUpdate, Post, User } from "../types/interface"
+
 const BASIC_URL: string = import.meta.env.VITE_BASIC_SERVER_URL
 export async function fetchMyGarden(userId: string) {
     const response = await fetch(`${BASIC_URL}/plants/${userId}`)
@@ -122,8 +123,8 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
     return result 
 }
 
-
 ///////////////////       U  S  E  R  S        ///////////////////
+
 export async function fetchSignInUser(rawUser: Partial<User>, profileImg: File | string) {
     const formData = new FormData();
     if (rawUser.profileImg) {

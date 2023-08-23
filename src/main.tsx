@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
+import { RouterProvider, redirect } from 'react-router-dom'
 import { router } from './routes'
 import './pages/RandomPlant/RandomPlant.scss'
 import './pages/Home/Home.scss'

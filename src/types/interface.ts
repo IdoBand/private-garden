@@ -59,4 +59,5 @@ export type Comment = {
   userId: string
   text: string
   profileImg: string
+
 }

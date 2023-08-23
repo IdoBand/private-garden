@@ -1,6 +1,7 @@
 import { ImgBuffer, User } from './interface'
 import { AbstractManager } from "./AbstractManager";
 import getCroppedImg from '../components/ImageCrop/canvasToFile';
+
 class UserManager extends AbstractManager {
     constructor() {
         super()
