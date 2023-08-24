@@ -18,16 +18,16 @@ it was created using:
 * TypeScript
 * SCSS
 
-## 🛠️ How to use
+## 🛠️ How to run
 
 * npm install
 * npm start
 
+remember that this is the frontend only.
 
 ## 📸 / 🎥 Screenshots
 
-<details>
-    <img src="public/screen-shots/home-page-1.jpg" raw=true style=“margin-bottom: 10px;”/>
-    <img src="public/screen-shots/my-garden.jpg" raw=true style=“margin-bottom: 10px;”/>
-    <img src="public/screen-shots/community.jpg" raw=true />
-</details>
+
+![image]<img src="public/screen-shots/home-page-1.jpg" raw=true style=“margin-bottom: 10px;”/>
+![image]<img src="public/screen-shots/my-garden.jpg" raw=true style=“margin-bottom: 10px;”/>
+![image]<img src="public/screen-shots/community.jpg" raw=true />
