@@ -25,9 +25,8 @@ it was created using:
 
 remember that this is the frontend only.
 
-## 📸 / 🎥 Screenshots
+## 📸 Screenshots
 
-
-![image]<img src="public/screen-shots/home-page-1.jpg" raw=true style=“margin-bottom: 10px;”/>
-![image]<img src="public/screen-shots/my-garden.jpg" raw=true style=“margin-bottom: 10px;”/>
-![image]<img src="public/screen-shots/community.jpg" raw=true />
+![Home Page](public/screen-shots/home-page-1.jpg)
+![My Garden](public/screen-shots/my-garden.jpg)
+![Community](public/screen-shots/community.jpg)
