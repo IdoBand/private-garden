@@ -37,9 +37,22 @@ const postsSlice = createSlice({
                 return { payload: postId }
             }
         },
-
+        likePost: {
+            reducer: (state, action: PayloadAction<Post>) => {
+                state.posts = state.posts.map(post => {
+                    if (post._id === action.payload._id) {
+                        action.payload.didUserLike ? post.likes += 1 : post.likes -= 1
+                    }
+                    return post
+                })
+            },
+            prepare: (post) => {
+                return { payload: post }
+            }
+        },
+        
     }
 })
 
-export const { setPosts, addPost, removePost, } = postsSlice.actions
+export const { setPosts, addPost, removePost, likePost } = postsSlice.actions
 export default postsSlice.reducer

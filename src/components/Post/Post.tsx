@@ -6,14 +6,14 @@ import { EllipsisVerticalIcon, ShieldExclamationIcon, PencilSquareIcon, TrashIco
 import { fetchDeletePost, fetchLike } from "../../util/fetch"
 import { useSnackbar } from "../../hooks/useSnackbar"
 import { useAppDispatch } from "../../redux/reduxHooks"
-import { removePost } from "../../redux/postsSlice"
+import { removePost, likePost } from "../../redux/postsSlice"
 type PostComponentProps = {
     post: Post
 }
 export default function PostComponent ({ post }: PostComponentProps) {
     
     const user = useAppSelector(state => state.window.user)    
-    const [likedByUser, setLikedByUser] = useState<boolean>(post.likes.includes(user.id))
+    const [likedByUser, setLikedByUser] = useState<boolean>(post.didUserLike)
     const [showComments, setShowComments] = useState<boolean>(false)
     const [addComment, setAddComment] = useState<boolean>(false)
     const [postMenu, setPostMenu] = useState<boolean>(false)
@@ -22,18 +22,13 @@ export default function PostComponent ({ post }: PostComponentProps) {
     const { show: showSnackbar, component: snackBar } = useSnackbar();
     async function handleLikeClick() {
         setIsFetching(true)
-        let like: boolean = true;
-        if (likedByUser) {
-            post.likes.splice(post.likes.length - 1)
-            like = false
-        } else {
-            post.likes.push(user.id)
-        }
+        const like = likedByUser ? false : true
         try {
             await fetchLike(post._id, user.id, like)
         } catch (err) {
             console.log(err);
         } finally {
+            dispatch(likePost({...post, didUserLike: like}))
             setLikedByUser(prev => !prev)
             setIsFetching(false)
         }
@@ -108,7 +103,7 @@ export default function PostComponent ({ post }: PostComponentProps) {
                 }
         </div>
         <div className="total-likes-comments-container">
-            <div className="total-likes">{post.likes.length} Like{post.likes.length === 1 ? '' : 's'}</div>
+            <div className="total-likes">{post.likes} Like{post.likes === 1 ? '' : 's'}</div>
             <div className="total-comments" onClick={() => setShowComments(prev => !prev)}>{post.comments.length} Comment{post.comments.length === 1 ? '' : 's'}</div>
         </div>
         <div className="like-comment-buttons-container">
