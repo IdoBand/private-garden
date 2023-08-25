@@ -157,8 +157,8 @@ export async function fetchAddPost(post: Partial<Post>, images: File[]) {
     const result = await response.json()
     return result
 }
-export async function fetchAllPosts() {
-    const response = await fetch(`${BASIC_URL}/posts`, {
+export async function fetchAllPosts(userId: string) {
+    const response = await fetch(`${BASIC_URL}/posts/${userId}`, {
         method: 'GET'
     })
     const result = await response.json()

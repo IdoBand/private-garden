@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Post } from '../types/interface'
 import { fetchAllPosts } from '../util/fetch'
 import { postManager } from '../types/PostManager'
-import { useAppDispatch } from '../redux/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../redux/reduxHooks'
 import { setPosts } from '../redux/postsSlice'
 const useFetchPosts = () => {
-
+    const user = useAppSelector(state => state.window.user)
     const [isFetching, setIsFetching] = useState<boolean>(false)
     const [errorMessage, setErrorMessage] = useState<null | string>(null)
     const [hasMore, setHasMore] = useState<boolean>(true) // future pagination
@@ -13,11 +13,11 @@ const useFetchPosts = () => {
     async function fetchPosts(){
         setIsFetching(true)
         try {
-            const result = await fetchAllPosts()
+            const result = await fetchAllPosts(user.id)
             const serializedPosts = result.data.map((post: Post) => {
                 return postManager.serializePost(post)}
             )
-
+                
             dispatch(setPosts(serializedPosts))
         } catch (err) {
             const errorMessage: string = 'There was an error fetching the posts'

@@ -47,10 +47,11 @@ export type Post = {
   images: ImgBuffer[] | string[] | File[]
   dateAdded: Date | number | string
   text: string
-  likes: string[]
+  likes: number
   comments: Comment[]
   userName: string
   profileImg: string
+  didUserLike: boolean
   // frontend
   lastPostRef?: any // future pagination
 }
