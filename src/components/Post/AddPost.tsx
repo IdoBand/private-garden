@@ -63,8 +63,9 @@ const AddPost = () => {
                     dateAdded: createPost.dateAdded as Date,
                     text: data.text,
                     images: imageFiles,
-                    likes: [],
-                    comments: []
+                    likes: 0,
+                    comments: [],
+                    didUserLike: false,
                 }
                 const serializedPost = postManager.serializeNewPost(newPost)
                 console.log(serializedPost);
