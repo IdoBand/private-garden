@@ -33,6 +33,11 @@
         color: mixin.$dark-color;
     }
 }
+.plant-timeline-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
 #plant-updates{
     margin: 0 auto 0em;
     max-width: 34.15em;
@@ -52,14 +57,14 @@
 }
 
   .update-card:nth-child(odd) {
-    border-left: 2px solid #888;
+    border-left: 2px solid mixin.$gray-color;
     padding-left: 2em;
     transform: translate(17em);
   }
   
   .update-card:nth-child(odd)::before {
     content: '';
-    background: #888;
+    background: mixin.$gray-color;
     width: 2em;
     height: 2px;
     position: absolute;
@@ -82,14 +87,14 @@
   }
   
   .update-card:nth-child(even) {
-    border-right: 2px solid #888;
+    border-right: 2px solid mixin.$gray-color;
     padding-right: 3em;
-    transform: translate(-17.05em);
+    transform: translate(-16.9em);
   }
   
   .update-card:nth-child(even)::before {
     content: '';
-    background: #888;
+    background: mixin.$gray-color;
     width: 1.6em;
     height: 2px;
     position: absolute;
@@ -112,7 +117,7 @@
   }
 
 .update-card-content {
-    border: 2px solid #888;
+    border: 2px solid mixin.$gray-color;
     border-radius: 10px;
     padding: 0.2em 0.5em 0.5em 0.5em;
     min-width: 500px;
@@ -123,6 +128,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin-bottom: 1rem;
 }
 .info{
     margin: 3px 0 0 0;
@@ -235,6 +241,8 @@ select {
     }
     .plant-timeline-buttons {
         width: 95%;
+        @include mixin.flexCenter();
+        padding: 0.3rem;
     }
     .select-current-plant {
         width: 95%;

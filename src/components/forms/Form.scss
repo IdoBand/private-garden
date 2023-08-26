@@ -1,4 +1,5 @@
-@use '../../mixin.scss';
+@use '../../mixin.scss' as mixin;
+@use '../Button/Button.scss' as button;
 .form-container {
     @include mixin.flexCenter();
 }
@@ -6,6 +7,8 @@
     text-align: center;
     max-height: 80%;
     padding: 20px;
+    @include mixin.flexCenter();
+    flex-direction: column;
 }
 .form-section {
     position: relative;
@@ -28,6 +31,7 @@
 }
 .form-header {
     font-size: mixin.$font-size-lg;
+    font-weight: mixin.$font-weight-lg;
 }
 .form-subheader {
     font-size: mixin.$font-size-md;
@@ -53,19 +57,13 @@
     width: min(250px, 45%);
 }
 .file-upload-button{
-    font-weight: 200;
-  color: white;
-  border: none;
-  background: #007449;
-  border-radius: 5px;
-  height: 25px;
-  min-width: 100px;
-  margin: 5px;
-  white-space: nowrap;
-  &:hover {
-    background-color: rgb(0, 90, 0);
-    cursor: pointer;
-  }
+    @include button.button-skeleton();
+    background: mixin.$dark-green-color;
+    gap: 0.3rem;
+    &:hover {
+        background-color: rgb(0, 90, 0);
+        cursor: pointer;
+    } 
 }
 input[type="file"]{
     display: none;

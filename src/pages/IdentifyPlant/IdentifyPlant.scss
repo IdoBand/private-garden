@@ -7,7 +7,7 @@
     flex-direction: column;
 }
 .identify-plant-options{
-    width: 90%;
+    width: 95%;
     color: mixin.$dark-color;
     padding: 10px 0;
     border-radius: 10px; 
@@ -22,16 +22,17 @@
 }
 .form-container{
     color: mixin.$dark-color;
-    width: 90%;
+    width: 95%;
     border-radius: 10px;
     padding: 0 0 20px 0;
     @include mixin.shadow();
-    min-height: 50vh;
+    min-height: 60vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 .identify-images-input-container {
+    margin-top: 10px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -74,7 +75,9 @@
     border-radius: 15px;
 }
 .identify-buttons-container {
-    @include mixin.flexCenter()
+    @include mixin.flexCenter();
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 .footer-message{
     text-align: left;

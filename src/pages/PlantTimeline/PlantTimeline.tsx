@@ -1,6 +1,5 @@
 import { Plant, PlantUpdate } from "../../types/interface"
-import GreenButton from "../../components/Button/GreenButton"
-import RedButton from "../../components/Button/RedButton"
+import Button from "../../components/Button/Button"
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { useEffect, useState, useRef } from "react"
 import { useLocation } from 'react-router-dom'
@@ -100,7 +99,6 @@ export default function PlantTimeline() {
 
     async function switchCurrentPlant() {
         const selectedOptionId = selectInput.current?.selectedOptions[0].getAttribute("data-key")
-        console.log(selectedOptionId);
         dispatch(switchCurrentPlantToExistingOne(selectedOptionId as string))
         setCurrentPlantId(selectedOptionId as string)
     }
@@ -114,11 +112,7 @@ export default function PlantTimeline() {
         if (IdsToRemove.length > 0) {
             setIsFetching(true)
             try {
-                console.log(IdsToRemove);
-                
                 const response = await fetchDeletePlantUpdates(IdsToRemove)
-                console.log(response);
-                
                 if (response.success) {
                     setRemoveButtons(false)
                     dispatch(setUpdatesToCurrentPlant(newUpdates))
@@ -178,12 +172,12 @@ export default function PlantTimeline() {
                             </div> 
                         </div>
                         <div className="plant-timeline-buttons">
-                            <GreenButton text="Add an Update" onClick={() => setAddPlantUpdateModal(true)} isDisabled={removeButtons} waitOrNotAllowed="not-allowed"/>
-                            <GreenButton text="Edit Plant" onClick={() => setEditPlantModal(true)} isDisabled={removeButtons}/>
-                            <RedButton text="Remove Updates" onClick={() => setRemoveButtons(prev => !prev)} />
+                            <Button className="green-button" type="button" text="Add an Update" onClick={() => setAddPlantUpdateModal(true)} isDisabled={removeButtons} icon="add" />
+                            <Button className="green-button" type="button" text="Edit Plant" onClick={() => setEditPlantModal(true)} isDisabled={removeButtons} icon="edit" />
+                            <Button className="red-button" type="button" text="Remove Updates" onClick={() => setRemoveButtons(prev => !prev)} isDisabled={false} icon="trash" />
                             {removeButtons && <>
-                            <RedButton text="Select All" onClick={selectAll}/>
-                            <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
+                            <Button className="red-button" type="button" text="Select All" onClick={selectAll} isDisabled={false} />
+                            <Button className="red-button" type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} />
                                         </>
                         }
                         </div>

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { plantNames } from "./plants"
-import GreenButton from "../../components/Button/GreenButton"
+import Button from "../../components/Button/Button"
 import Spinner from "../../components/Spinner/Spinner"
 import { fetchRandom } from '../../util/fetch'
 import logo from '/leaf-svgrepo-com.svg'
@@ -45,7 +45,9 @@ export default function RandomPlant() {
     return (
         <div className="random-plant-container">
             <div id="random-plant-options">
-                <GreenButton 
+                <Button
+                    className="green-button"
+                    type="button" 
                     text="Click for Randomness"
                     onClick={handleRandomness}
                     isDisabled={false}

@@ -25,6 +25,12 @@
     min-height: 80vh;
     border-radius: 10px;
 }
+#my-garden-buttons {
+    @include mixin.flexCenter();
+    justify-content: flex-start;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+}
   
 //////////     S E A R C H   B A R     //////////
 #search-bar-and-count{
@@ -76,9 +82,8 @@
 }
 
 #my-garden-buttons {
-    @include mixin.flexCenter();
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     width: 95%;
 }
 #search-bar-and-count{
