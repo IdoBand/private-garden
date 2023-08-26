@@ -68,8 +68,6 @@ const AddPost = () => {
                     didUserLike: false,
                 }
                 const serializedPost = postManager.serializeNewPost(newPost)
-                console.log(serializedPost);
-                
                 if (result.success) {
                     showSnackbar("Post added successfully", "success")
                     resetAddPostForm()
@@ -125,7 +123,7 @@ const AddPost = () => {
             {errors.space && 
                 <div className="error-div">{errors.space.message as string}</div>
             }
-            <Button type='submit' className="green-button" isDisabled={isFetching} onClick={() => {return}} text="Add Post"/>
+            <Button type='submit' className="green-button" isDisabled={isFetching} onClick={() => {return}} text="Add Post" icon="add" />
         </section>
     </form>
     {snackBar}
@@ -134,7 +132,3 @@ const AddPost = () => {
 }
 
 export default AddPost
-
-function setError(arg0: string, arg1: { type: string; message: string; }) {
-    throw new Error("Function not implemented.");
-}

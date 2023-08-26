@@ -1,19 +1,72 @@
 @use '../../mixin.scss' as mixin;
-.green-button {
-    font-weight: 200;
+
+@mixin disabled {
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+@mixin button-skeleton {
+  font-weight: 200;
   color: white;
   border: none;
-  background: #007449;
-  border-radius: 5px;
-  height: 25px;
-  min-width: 100px;
-  margin: 5px;
+  border-radius: 25px;
+  height: 30px;
+  min-width: 120px;
   white-space: nowrap;
+  max-width: max-content;
   @include mixin.flexCenter();
-  width: max-content;
-  gap: 3px;
+  gap: 0.4rem;
+  padding: 10px;
+  @include disabled();
+}
+
+.green-button {
+  background: mixin.$dark-green-color;
+  border: solid 2px mixin.$dark-green-color;
   &:hover {
     background-color: rgb(0, 90, 0);
     cursor: pointer;
   }
+  @include button-skeleton();
+}
+.green-button.blank {
+  color: mixin.$dark-green-color;
+  background-color: mixin.$light-color;
+  border: solid 2px mixin.$dark-green-color;
+  &:hover {
+    color: white;
+    border: solid 2px rgb(0, 90, 0);
+    background-color: rgb(0, 90, 0);
+    cursor: pointer;
+  }
+}
+
+.red-button {
+  @include button-skeleton();
+  background: linear-gradient(25deg, rgb(190, 60, 60), rgb(255, 0, 0));
+  &:hover {
+    background: mixin.$danger-color;;
+    cursor: pointer;
+  }
+}
+
+.edit-button {
+  @include mixin.flexCenter();
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  border: solid 0.5px mixin.$gray-color;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: mixin.$gray-color;
+    }
+    @include disabled();
 }

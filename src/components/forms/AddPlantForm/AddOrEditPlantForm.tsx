@@ -1,6 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState, useRef, useEffect, useCallback } from 'react'
-import GreenButton from '../../Button/GreenButton';
+import Button from "../../Button/Button";
 import { useAppDispatch, useAppSelector } from "../../../redux/reduxHooks"
 import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
 import { Plant } from "../../../types/interface";
@@ -147,7 +147,7 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
                                 <img className="preview-image" src={imagePreviewUrl} alt="Preview"/>
                               </>}
           </div>
-          <GreenButton type="submit" onClick={handleSubmit} text="Submit" isDisabled={isFetching} waitOrNotAllowed="wait"/>
+          <Button type="submit" className="green-button" onClick={handleSubmit} text="Submit" isDisabled={isFetching} spinner={isFetching} />
         </form>
     </>
   )

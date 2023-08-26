@@ -6,15 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../redux/reduxHooks'
 import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-interface NavbarDropdownProps {
-    linkData: {
-      title: string
-      link: string
-      dropdown: boolean,
-      dropdownTitles?: string[],
-      dropdownLinks?: string[]
-    }
-  }
+
   interface TitleAndSpanProps {
     link: DropDownLinkProps
     onClick: () => void
@@ -31,7 +23,7 @@ interface NavbarDropdownProps {
 const SignedInDropdown = () => {
 
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
-    const { loginWithPopup, logout, isAuthenticated,  isLoading: isSignInLoading, error } = useAuth0()
+    const { loginWithPopup, logout } = useAuth0()
     const user = useAppSelector(state => state.window.user)
   return (
     <div
