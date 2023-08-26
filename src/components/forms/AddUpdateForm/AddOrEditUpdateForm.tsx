@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import GreenButton from '../../Button/GreenButton';
+import Button from "../../Button/Button";
 import { Plant, PlantUpdate } from "../../../types/interface";
 import { useState} from 'react'
 import { plantUpdateManager } from "../../../types/PlantUpdateManager";
@@ -160,7 +160,7 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
                 <textarea id="notes-form-input" {...register("notes")} defaultValue={plantUpdate ? plantUpdate.notes : ''}/>
             </div>
           </>
-          <GreenButton type="submit" onClick={handleSubmit} text="Submit" isDisabled={isSubmitClicked} />
+          <Button className="green-button" type="submit" onClick={handleSubmit} text="Submit" isDisabled={isSubmitClicked} />
         </form>
     </>
   )

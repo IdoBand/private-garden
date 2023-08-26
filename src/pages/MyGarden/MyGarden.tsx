@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Plant } from "../../types/interface"
-import GreenButton from "../../components/Button/GreenButton"
-import RedButton from "../../components/Button/RedButton"
+import Button from "../../components/Button/Button"
 import Modal from "../../components/Modal/Modal"
 import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
 import searchLogo from '/search_icon-white2.png'
@@ -116,13 +115,12 @@ export default function MyGarden() {
         <div className="my-garden-container">
             <div id="my-garden-options">
                 <div id="my-garden-buttons">
-                <GreenButton text="Add a Plant" onClick={() => setAddPlantModal(true)} isDisabled={removeButtons}/>
-                <RedButton text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)}/>
+                    <Button className='green-button' type="button" text="Add a Plant" onClick={() => setAddPlantModal(true)} isDisabled={removeButtons} icon="add" />
+                    <Button className='red-button' type="button" text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)} isDisabled={false} icon="trash" />
                 {removeButtons && <>
-                    <br />
-                    <RedButton text="Select All" onClick={selectAll}/>
-                    <RedButton text="Remove Permanently" onClick={handleRemovePlantsPermanently}/>
-                                </>
+                    <Button className='red-button' type="button" text="Select All" onClick={selectAll} isDisabled={false} />
+                    <Button className='red-button' type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} />
+                    </>
                 }
                 </div>
                 <div id="search-bar-and-count">
@@ -139,7 +137,7 @@ export default function MyGarden() {
                 :
                     plants.map(plant =>
                         <div key={plant._id!} className="card-key-container" onClick={() => dispatch(setCurrentPlant(plant))}>
-                            <PlantCard 
+                            <PlantCard
                                 plant={plant}
                                 removeButtons={removeButtons}
                                 checkBoxPlant={checkBoxPlant}

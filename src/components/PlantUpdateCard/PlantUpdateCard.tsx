@@ -1,5 +1,4 @@
 import { Plant, PlantUpdate } from '../../types/interface'
-import GreenButton from '../Button/GreenButton'
 import checkedSVG from '/checked.png'
 import redXsvg from '/redX.png'
 import { plantUpdateManager } from '../../types/PlantUpdateManager'
@@ -8,6 +7,8 @@ import Modal from '../Modal/Modal'
 import logo from '/leaf-svgrepo-com.svg'
 import { setCurrentUpdate } from '../../redux/plantsSlice'
 import { useAppDispatch } from '../../redux/reduxHooks'
+import EditButton from '../Button/EditButton'
+
 interface PlantUpdateCardProps {
     plantUpdate: PlantUpdate
     currentPlant: Plant
@@ -69,12 +70,7 @@ const PlantUpdateCard = ({plantUpdate, removeButtons, checkBoxUpdate, setEditPla
                             onClick={(e) => e.stopPropagation()}
                             onChange={() => checkBoxUpdate(plantUpdate._id)}/>
                 }
-                <GreenButton 
-                    text="Edit Update"
-                    onClick={() => {dispatch(setCurrentUpdate(plantUpdate)) ;setEditPlantUpdateModal(true)}}
-                    isDisabled={removeButtons}
-                    waitOrNotAllowed='not-allowed'
-                    />
+                <EditButton onClick={() => {dispatch(setCurrentUpdate(plantUpdate)) ;setEditPlantUpdateModal(true)}} isDisabled={removeButtons} />
             </div>
             <div className="info">
                 <div className="update-card-irrigation-container">

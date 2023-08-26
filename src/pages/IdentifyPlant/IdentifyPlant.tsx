@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import GreenButton from '../../components/Button/GreenButton'
+import Button from '../../components/Button/Button'
 import Spinner from '../../components/Spinner/Spinner'
 import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
 import { fetchIdentifyPlant } from '../../util/fetch'
@@ -15,7 +15,7 @@ export default function IdentifyPlant() {
     const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const { show: showSnackbar, component: snackBar } = useSnackbar();
-    const { imageFiles, filesInput, errorMessage, deleteImageFromArray } = useUploadImages(5, 0, false ,() => {identifiedPlant.current = null})
+    const { imageFiles, filesInput, errorMessage, deleteImageFromArray, deleteAllImages } = useUploadImages(5, 0, false ,() => {identifiedPlant.current = null})
     const user = useAppSelector(state => state.window.user)
     async function handleIdentifyClick() {
         if (imageFiles.length) {
@@ -41,7 +41,11 @@ export default function IdentifyPlant() {
             }
         }
     }
-
+    function handleClearClick() {
+        deleteAllImages()
+        setSelectedImageIdx(null)
+        identifiedPlant.current = null
+    }
     return (
         <div className='identify-plant-container'>
             <div className="identify-plant-options">
@@ -59,7 +63,7 @@ export default function IdentifyPlant() {
             {isFetching ? 
             <div className='page Header'>
                 <Spinner />
-                This Might Take a Moment ot Two...
+                This Might Take a Moment or Two...
             </div>
                         :
             <div className="form-container">
@@ -97,10 +101,12 @@ export default function IdentifyPlant() {
                     
                     <div className='identify-buttons-container'>
                         {imageFiles.length > 0 &&  <>
-                            <GreenButton type="submit" onClick={handleIdentifyClick} text="Identify" isDisabled={isFetching}/>
-                            {(identifiedPlant.current && (selectedImageIdx !== null) && user.id) && 
-                                <GreenButton onClick={() => setAddPlantModal(true)} text="Add to My Garden" isDisabled={selectedImageIdx === null}/>}
-                                            </>
+                            <Button className='green-button blank' type="button" onClick={handleClearClick} text="Clear" isDisabled={isFetching}/>
+                            <Button className='green-button' type="submit" onClick={handleIdentifyClick} text="Identify" isDisabled={isFetching}/>
+                            {(identifiedPlant.current && (selectedImageIdx !== null) && user.id) &&
+                            <Button className='green-button' type='button' onClick={() => setAddPlantModal(true)} text="Add to My Garden" isDisabled={selectedImageIdx === null}/>
+                                }
+                                </>
                         }
                     </div>
                 </main>
