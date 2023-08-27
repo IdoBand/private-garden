@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    min-height: mixin.$page-container-min-height;
 }
 .identify-plant-options{
     width: 95%;

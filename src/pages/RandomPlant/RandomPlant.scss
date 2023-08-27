@@ -1,9 +1,12 @@
 @use '../../mixin.scss';
+
 .random-plant-container {
-  @include mixin.flexCenter();
+  display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  min-height: mixin.$page-container-min-height;
 }
 #random-plant-options{
     display: flex;
