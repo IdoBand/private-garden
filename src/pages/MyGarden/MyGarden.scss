@@ -5,7 +5,7 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: calc(100% - 60px);
+    min-height: mixin.$page-container-min-height;
 
     background: mixin.$container-background-color;
 }
