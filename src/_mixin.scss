@@ -10,7 +10,6 @@ html, body {
   height: 100%;
 }
 
-
 ////////////////////////////    F O N T - S I Z E    //////////////////////////////////
 $font-size-5xl: 40px;
 $font-size-4xl: 36px;
@@ -37,6 +36,10 @@ $light-color: #f5f5f5;
 $dark-color: #1b1b1b;
 $dark-green-color: #007449;
 $danger-color: rgb(190, 60, 60);
+
+/////////////////////    M I S C E L L A N E O U S   ///////////////////////////
+
+$page-container-min-height: calc(100% - 53px);
 
 ////////////////////////////    P O S T S    //////////////////////////////////
 
@@ -101,7 +104,6 @@ $posts-section-border-radius: 0.5rem;
       background-color: rgb(190, 60, 60);
   }
   &:checked::before{
-
   content: "X";
   position: absolute;
   top: 50%;

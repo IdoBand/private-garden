@@ -6,6 +6,7 @@ import MyGarden from './pages/MyGarden/MyGarden';
 import PlantTimeline from './pages/PlantTimeline/PlantTimeline';
 import IdentifyPlant from './pages/IdentifyPlant/IdentifyPlant'
 import Community from './pages/Community/Community';
+import Footer from './components/Footer/Footer';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -13,27 +14,27 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: [<Home />, <Footer />]
             },
             {
                 path: '/RandomPlant',
-                element: <RandomPlant />
+                element: [<RandomPlant />, <Footer />]
             },
             {
                 path: '/MyGarden',
-                element: <MyGarden />
+                element: [<MyGarden />, <Footer />]
             },
             {
                 path: '/PlantTimeline/:id',
-                element: <PlantTimeline />
+                element: [<PlantTimeline />, <Footer />]
             },
             {
                 path: '/IdentifyPlant',
-                element: <IdentifyPlant />
+                element: [<IdentifyPlant />, <Footer />]
             },
             {
                 path: '/Community',
-                element: <Community />
+                element: [<Community />, <Footer />]
             },
         ]
     }
