@@ -1,5 +1,5 @@
 import { AbstractManager } from "./AbstractManager";
-import { ImgBuffer, Post } from "./interface";
+import { Post } from "./interface";
 
 class PostManager extends AbstractManager {
     constructor() {
@@ -13,7 +13,7 @@ class PostManager extends AbstractManager {
         return {
             ...post,
             userName: this.capitalize(post.userName),
-            images: this.decideMultipleImg(post.images as ImgBuffer[]),
+            images: this.decideMultipleImg(post.images as string[]),
             profileImg: this.decideImg(post.profileImg),
             dateAdded: this.generateTimeString(post.dateAdded as string)
         }

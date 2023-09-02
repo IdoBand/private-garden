@@ -7,8 +7,8 @@ import { fetchAddPlantUpdate, fetchEditPlantUpdate } from "../../../util/fetch";
 import { useUploadImages } from "../../../hooks/useUploadImages";
 import { useAppDispatch, useAppSelector } from "../../../redux/reduxHooks";
 import ExistingImage from "../../ExistingImage/ExistingImage";
-import getCroppedImg from "../../ImageCrop/canvasToFile";
 import { deleteImageFromCurrentUpdate } from "../../../redux/plantsSlice";
+import { loadImageFromS3 } from "../../ImageCrop/s3CanvasToFile";
 interface addPlantUpdateDataObject {
   dateAdded: Date | number
   images: File[] 
@@ -39,7 +39,8 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
   async function convertExistingImages() {
     const converted = await Promise.all(
       existingImages.map(async (image: string) => {
-        return await getCroppedImg(image, { height:0, width:0, x:0, y:0})
+        // return await getCroppedImg(image, { height:0, width:0, x:0, y:0})
+        return await loadImageFromS3(image)
       })
     )
     return converted
@@ -95,16 +96,16 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
         <form className="form" onSubmit={handleSubmit(data => {extractAndOrganize(data as addPlantUpdateDataObject);})} >
           <div className="form-header">{formHeader}</div>
           <div className="form-subheader">{plantUpdateManager.capitalize(currentPlant.plantName)}</div>
-          <div className="form-section">
+          <section className="form-section one-liner">
             <label className="form-label">Date:</label>
             <input type="date" {...register("dateAdded", {required: true})} defaultValue={addOrEdit === 'add' ? plantUpdateManager.getTodaysDateString() : plantUpdateManager.getDateStringFormatForInput(plantUpdate!.dateAdded)} />
             {errors.date && <span className="error-span">Date is required.</span>}
-          </div>
+          </section>
           
-          <div className="form-section">
+          <section className="form-section one-liner">
             <label className="form-label">Images: {imageFiles.length + existingImages!.length}/3</label>
             {filesInput}
-          </div>
+          </section>
           {errorMessage}
           <div className="plant-updates-images-container">
             {imageFiles &&  // new images uploaded by the user - Files
@@ -132,33 +133,33 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
             }
           </div>
           
-          <div className="form-section">
+          <section className="form-section one-liner">
             <label className="form-label">Irrigation:</label>
             <input type="checkbox" {...register("irrigationBoolean")} onChange={() => setIrrigationFormSection(!irrigationFormSection)} checked={irrigationFormSection}/>
-          </div>
+          </section>
           {irrigationFormSection && 
           <>
-            <div className="form-section">
+            <section className="form-section one-liner">
                 <label className="form-label">Water Quantity (ml):</label>
                 <input {...register("waterQuantity")} className="one-line-text-input" type="number" min="0" defaultValue={plantUpdate! ? +plantUpdate!.irrigation.waterQuantity : 0}/>
-            </div>
-            <div className="form-section">
+            </section>
+            <section className="form-section one-liner">
                 <label className="form-label">Fertilizer:</label>
                 <input {...register("fertilizer")} className="one-line-text-input" defaultValue={plantUpdate ? plantUpdate!.irrigation.fertilizer : ''}/>
-            </div>
-            <div className="form-section">
+            </section>
+            <section className="form-section one-liner">
                 <label className="form-label">Fertilizer Quantity (ml):</label>
                 <input {...register("fertilizerQuantity")} className="one-line-text-input" type="number" min="0" defaultValue={plantUpdate ? +plantUpdate!.irrigation.fertilizerQuantity : 0}/>
-            </div>
+            </section>
           </>
           }
-          <div className="form-section">
+          <section className="form-section">
             <label className="form-label">Notes:</label>
-          </div>
+          </section>
           <>
-            <div className="form-section">
+            <section className="form-section">
                 <textarea id="notes-form-input" {...register("notes")} defaultValue={plantUpdate ? plantUpdate.notes : ''}/>
-            </div>
+            </section>
           </>
           <Button className="green-button" type="submit" onClick={handleSubmit} text="Submit" isDisabled={isSubmitClicked} />
         </form>

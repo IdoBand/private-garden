@@ -1,4 +1,4 @@
-import { ImgBuffer, User } from './interface'
+import { User } from './interface'
 import { AbstractManager } from "./AbstractManager";
 import getCroppedImg from '../components/ImageCrop/canvasToFile';
 
@@ -12,7 +12,7 @@ class UserManager extends AbstractManager {
             id: user.id,
             dateAdded: this.serializeDate(user.dateAdded!),
             lastActive: this.serializeDate(user.lastActive!),
-            profileImg: this.decideImg(user.profileImg as ImgBuffer),
+            profileImg: this.decideImg(user.profileImg as string),
         }
         return serializerUser
     }

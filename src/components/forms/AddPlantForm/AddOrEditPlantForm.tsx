@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import Button from "../../Button/Button";
 import { useAppDispatch, useAppSelector } from "../../../redux/reduxHooks"
 import ImageCropDialog from "../../ImageCrop/ImageCropDialog";
@@ -22,9 +22,10 @@ interface AddPlantFormProps {
 }
 
 export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnackbar, setPlants, refetch}: AddPlantFormProps) {
+
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const { register, handleSubmit, formState: { errors }, control } = useForm();
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(plant? plant.img as string : null);
+  const [imageCropPreviewUrl, setImageCropPreviewUrl] = useState<string>('');
   const imageFileRef = useRef<File | null>(null);
   const reduxPlants = useAppSelector(state => state.plants.plants)
   const userId = useAppSelector(state => state.window.user.id)
@@ -33,14 +34,8 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
     imageFileRef.current = file
   }, [])
 
-  const formHeader: string = addOrEdit === 'add' ? 'Add a New Plant' : 'Edit a Plant' ;
-
-  useEffect(() => {
-    // coming from edit --> image already uploaded
-    if (plant) {
-      setImagePreviewUrl(plant.img as string)
-    }
-  }, [])
+  
+  const formHeader: string = addOrEdit === 'add' ? 'Add a New Plant' : 'Edit a Plant';  
 
   function concatNewPlantToReduxState(plant: Plant) {
     const imageString = imageFileRef.current ? URL.createObjectURL(imageFileRef.current) : ''
@@ -103,7 +98,7 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
           extractDataFromForm(data as addPlantDataObject);
         })} id="add-plant-form">
           <div className="form-header">{formHeader}</div>
-          <div className="form-section">
+          <section className="form-section one-liner">
             <label className="form-label">Plant Name:</label>
             <input {...register("plantName", {required: true})}
               className="one-line-text-input"
@@ -111,8 +106,8 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
               defaultValue={errors.plantName? 'Plant name is required.' : plant?.plantName as string}
               style={{color: errors.plantName? 'red' : 'black'}}
             />
-          </div>
-          <div className="form-section">
+          </section>
+          <section className="form-section one-liner">
             <label className="form-label">Plant Image:</label>
             <Controller
               name="plantImage"
@@ -126,27 +121,37 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
                         // imageFileRef makes sure that the cropped image will receive the image's original name
                         field.onChange(selectedFile);
                         imageFileRef.current = selectedFile
-                        setImagePreviewUrl(URL.createObjectURL(selectedFile));
+                        setImageCropPreviewUrl(URL.createObjectURL(selectedFile));
                       }
                     }} />
                     <UploadButton htmlFor="add-plant-upload" text="Upload Image" />
                   </>
                 )}
             />
-          </div>
-          <div className="form-section" id="image-crop-container">
-          {imagePreviewUrl && <>
-                                <ImageCropDialog 
-                                  imageUrl={imagePreviewUrl} 
-                                  cropInit={null} 
-                                  zoomInit={null} 
-                                  aspectInit={null}
-                                  assignCroppedImageToRef={assignCroppedImageToRef}
-                                  imageName={imageFileRef.current?.name as string}
-                                />
-                                <img className="preview-image" src={imagePreviewUrl} alt="Preview"/>
-                              </>}
-          </div>
+          </section>
+          {
+            plant && plant.img &&
+            <section className="form-section dir-column">
+              <div className="form-label">Existing Image:</div>
+              <img
+                src={plant.img as string}
+                className="preview-image"
+                />
+            </section>
+          }
+          {imageCropPreviewUrl &&
+            <section className="form-section dir-column">
+              <span className="form-label">New Image:</span>
+              <ImageCropDialog 
+                imageUrl={imageCropPreviewUrl} 
+                cropInit={null} 
+                zoomInit={null} 
+                aspectInit={null}
+                assignCroppedImageToRef={assignCroppedImageToRef}
+                imageName={imageFileRef.current?.name as string}
+              /> 
+            </section>    
+          }
           <Button type="submit" className="green-button" onClick={handleSubmit} text="Submit" isDisabled={isFetching} spinner={isFetching} />
         </form>
     </>

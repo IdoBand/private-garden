@@ -1,4 +1,4 @@
-import { ImgBuffer, Plant, PlantUpdate } from "./interface";
+import { Plant, PlantUpdate } from "./interface";
 import { AbstractManager } from "./AbstractManager";
 class PlantManager extends AbstractManager {
     serializePlant(plant: Plant, existingUpdates?: PlantUpdate[]): Plant {
@@ -11,7 +11,7 @@ class PlantManager extends AbstractManager {
             // this if statement is to not get a type error...
             serializedPlant.dateAdded = serializedPlant.dateAdded.getTime()
         }
-        serializedPlant.img = this.decideImg(serializedPlant.img as ImgBuffer)
+        serializedPlant.img = this.decideImg(serializedPlant.img as string)
         return serializedPlant
     }
     deserializePlant(plant: Plant): Plant {

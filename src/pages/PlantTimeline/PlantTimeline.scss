@@ -1,13 +1,14 @@
 @use '../../mixin.scss';
 
-
 .plant-timeline-container{
     width: 100%;
-    @include mixin.flexCenter();
-    background: mixin.$container-background-color;
+    display: flex;
+    align-items: center;
+    background: mixin.$light-color;
     flex-direction: column;
-    padding: 10px 0 ;
+    padding: 20px 0px 50px 0px;
     color: mixin.$dark-color;
+    min-height: mixin.$page-container-min-height;
 }
 .plant-timeline-options{
     display: flex;
@@ -41,6 +42,7 @@
 #plant-updates{
     margin: 0 auto 0em;
     max-width: 34.15em;
+    text-align: center;
 }
 .update-card {
     max-width: 34em;
@@ -63,6 +65,7 @@
   }
   
   .update-card:nth-child(odd)::before {
+    // line going out right from dot
     content: '';
     background: mixin.$gray-color;
     width: 2em;
@@ -74,6 +77,7 @@
   }
   
   .update-card:nth-child(odd) .update-card-content::before {
+    // white glowing dots odd
     content: '';
     background: #fff;
     box-shadow: 0 0 0.5em mixin.$dark-green-color;
@@ -93,9 +97,10 @@
   }
   
   .update-card:nth-child(even)::before {
+    // line going out left from dot
     content: '';
     background: mixin.$gray-color;
-    width: 1.6em;
+    width: 2.7em;
     height: 2px;
     position: absolute;
     top: 50%;
@@ -104,6 +109,7 @@
   }
   
   .update-card:nth-child(even) .update-card-content::before {
+    // white glowing dots even
     content: '';
     background: #fff;
     box-shadow: 0 0 0.5em mixin.$dark-green-color;
@@ -197,7 +203,17 @@ select {
     top: 5px;
     right: 110px;
 }
-
+.this-is-where-it-all-started {
+    @include mixin.flexCenter();
+    gap: 0.4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid mixin.$gray-color;
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: mixin.$font-size-sm;
+}
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
 //////////////////      R E S P O N S I V E      ///////////////////
@@ -206,22 +222,13 @@ select {
 
 ///////////////////////////      1000 PX      ///////////////////////////
 @media screen and (max-width: 1100px) {
-    .plant-timeline-container{
-        width: 100%;
-        @include mixin.flexCenter();
-        background: mixin.$container-background-color;
-        flex-direction: column;
-        padding: 0;
-        color: mixin.$dark-color;
-    }
+
     .plant-timeline-options{
         @include mixin.flexCenter();
         flex-direction: column;
         width: 95%;
-        border-radius: 5px;
-    @include mixin.shadow();
-    padding: 10px 0px;
-    margin-bottom: 16px;
+        padding: 10px 0px;
+        margin-bottom: 16px;
     }
     #plant-intro{
         display: flex;

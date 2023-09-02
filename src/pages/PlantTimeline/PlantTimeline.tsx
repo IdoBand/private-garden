@@ -7,13 +7,15 @@ import logo from '/leaf-svgrepo-com.svg'
 import Modal from "../../components/Modal/Modal"
 import AddOrEditUpdateForm from "../../components/forms/AddUpdateForm/AddOrEditUpdateForm"
 import { addPlants, setCurrentPlant, setCurrentUpdate, setUpdatesToCurrentPlant, switchCurrentPlantToExistingOne } from "../../redux/plantsSlice"
-import Spinner from "../../components/Spinner/Spinner"
 import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
 import { plantManager } from "../../types/PlantManager"
 import { fetchPlantById, fetchPlantUpdates, fetchDeletePlantUpdates, fetchMyGarden } from "../../util/fetch"
 import { useSnackbar } from "../../hooks/useSnackbar"
 import { plantUpdateManager } from "../../types/PlantUpdateManager"
 import PlantUpdateCard from "../../components/PlantUpdateCard/PlantUpdateCard"
+import PlantUpdateCardSkeleton from "../../components/PlantUpdateCard/PlantUpdateCardSkeleton"
+import { HandHoldingPlant } from "../../util/svgs"
+const skeletonArray = Array.from(Array(6).keys())
 
 export default function PlantTimeline() {
     const [addPlantUpdateModal, setAddPlantUpdateModal] = useState<boolean>(false)
@@ -157,8 +159,7 @@ export default function PlantTimeline() {
 
     return(
         <>
-            {isFetching ? <Spinner />
-                                : 
+            {
                 currentPlant && 
                 <div className="plant-timeline-container">
                     <div className="plant-timeline-options">
@@ -194,16 +195,29 @@ export default function PlantTimeline() {
                         </div>
                     </div>
                     <div id="plant-updates">
-                        {plantUpdates && plantUpdates.map((update) => {
-                        return (<PlantUpdateCard 
-                                    key={update._id}
-                                    plantUpdate={update}
-                                    currentPlant={currentPlant}
-                                    removeButtons={removeButtons}
-                                    checkBoxUpdate={checkBoxUpdate}
-                                    setEditPlantUpdateModal={setEditPlantUpdateModal}
-                                />)
-                        })}
+                        {isFetching &&  
+                        skeletonArray.map((_, idx)=> <PlantUpdateCardSkeleton key={idx} />)
+                        }
+                        { plantUpdates && plantUpdates.length > 0 ?
+                        <>
+                            {plantUpdates.map((update) => {
+                            return (<PlantUpdateCard 
+                                        key={update._id}
+                                        plantUpdate={update}
+                                        currentPlant={currentPlant}
+                                        removeButtons={removeButtons}
+                                        checkBoxUpdate={checkBoxUpdate}
+                                        setEditPlantUpdateModal={setEditPlantUpdateModal}
+                                    />)
+                            })}
+                            <div className="this-is-where-it-all-started">
+                                This Is Where It All Started 
+                                <HandHoldingPlant />
+                            </div>
+                        </>
+                        :
+                            <div style={{marginTop: '25px'}}>No Updates Yet :(</div>
+                    }
                     </div>
                 </div>
                 }

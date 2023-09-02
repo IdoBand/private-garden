@@ -35,7 +35,18 @@
     right: 0;
     gap: 10px;
     border-radius: 20px;
+    overflow-x: hidden;
     @include mixin.shadow();
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 100%;
+        background-color: mixin.$dark-green-color;
+    }
 }
 .dropdown-li {
     display: flex;
@@ -79,12 +90,14 @@
 }
 
 
+///////////////   ///////////////    ///////////////   ///////////////
 ////////////////    S I G N   I N   D R O P D O W N    ////////////////
+///////////////   ///////////////    ///////////////   ///////////////
 .signed-in{
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     &::before {
         content: '';
         position: absolute;
