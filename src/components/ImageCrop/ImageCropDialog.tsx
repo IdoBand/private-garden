@@ -20,17 +20,21 @@ export interface CroppedArea {
     x: number
     y: number
 }
-
+async function s3BucketUrlToLocalUrl(url: string): Promise<string> {
+  const response = await fetch(url, {method: 'GET'})
+  const blobObject = await response.blob()
+  return  URL.createObjectURL(blobObject)
+}
 export default function ImageCropDialog({imageUrl, cropInit, zoomInit, aspectInit, assignCroppedImageToRef, imageName}: ImageCropProps) {
-    if (zoomInit == null) {
-        zoomInit = 1
-    }
-    if (cropInit == null) {
-        cropInit = {x: 0, y: 0}
-    }
-    if (aspectInit == null) {
-        aspectInit = aspectRatios[0]
-    }
+  if (zoomInit == null) {
+    zoomInit = 1
+  }
+  if (cropInit == null) {
+    cropInit = {x: '100%', y: '100%'}
+  }
+  if (aspectInit == null) {
+    aspectInit = aspectRatios[0]
+  }
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CroppedArea | null>(null)
@@ -39,13 +43,15 @@ export default function ImageCropDialog({imageUrl, cropInit, zoomInit, aspectIni
     // console.log(croppedAreaPixels);
     
     setCroppedAreaPixels(croppedAreaPixels)
-    const croppedImageFile = await getCroppedImg(imageUrl, croppedAreaPixels as CroppedArea, imageName)
+    const url = await s3BucketUrlToLocalUrl(imageUrl)
+    const croppedImageFile = await getCroppedImg(url, croppedAreaPixels as CroppedArea, imageName)
     assignCroppedImageToRef(croppedImageFile)
     // imageName dependency was added in case of editing in oppose of adding
   }, [imageName]) 
 
   return (
     <>
+      <div className="image-crop-container">
         <Cropper
         image={imageUrl}
         crop={crop}
@@ -55,6 +61,19 @@ export default function ImageCropDialog({imageUrl, cropInit, zoomInit, aspectIni
         onCropComplete={onCropComplete}
         onZoomChange={setZoom}
         />
+        <img className="preview-image" src={imageUrl} alt="Preview"/>
+      </div>
+      <div className='cropper-controls'>
+        <input
+          className='cropper-slider'
+          type='range'
+          min={1}
+          max={3}
+          step={0.1}
+          value={zoom}
+          onInput={(e: React.ChangeEvent<HTMLInputElement>) => { setZoom(+e.target.value)}}
+          />
+      </div>
     </>
     )
 }

@@ -10,7 +10,7 @@ export interface Plant {
   userId: string
   plantName: string
   dateAdded: Date | number
-  img: ImgBuffer | string | File
+  img: | string | File
   // frontend
   checked?: boolean
   updates?: any[]
@@ -21,7 +21,7 @@ export interface PlantUpdate {
   plantId: string
   dateAdded: Date | number
   notes: string
-  images: string[] | ImgBuffer[]
+  images: string[]
   irrigation: {
     boolean: boolean,
     waterQuantity: number,
@@ -37,14 +37,14 @@ export interface User {
   lastName: string
   dateAdded?: Date | number
   lastActive?: Date | number
-  profileImg?: ImgBuffer | string | File // for now user image is taken only from auth0
+  profileImg?:  string | File // for now user image is taken only from auth0
   followers: string[]
   following: string[]
 }
 export type Post = {
   _id: string
   userId: string
-  images: ImgBuffer[] | string[] | File[]
+  images: string[] | File[]
   dateAdded: Date | number | string
   text: string
   likes: number
