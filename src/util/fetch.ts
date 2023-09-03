@@ -114,11 +114,11 @@ export async function fetchIdentifyPlant(plantImages: File[]) {
         formData.append('plantImages', plantImages[i])
     } 
     
-    const response = await fetch(`${BASIC_URL}/IdentifyPlant`, 
+    const response = await fetch(`${BASIC_URL}/planetNet/identify`, 
     {
         method: 'POST',
         body: formData
-  })
+    })
     const result = await response.json()
     return result 
 }
