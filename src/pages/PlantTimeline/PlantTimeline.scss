@@ -222,7 +222,6 @@ select {
 
 ///////////////////////////      1000 PX      ///////////////////////////
 @media screen and (max-width: 1100px) {
-
     .plant-timeline-options{
         @include mixin.flexCenter();
         flex-direction: column;
