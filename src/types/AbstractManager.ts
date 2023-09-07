@@ -14,8 +14,8 @@ export abstract class AbstractManager {
         if (typeof img === 'string') {
             return img
         }
-        if (img.data.data.length) {
-            return this.bufferToImage(img.data.data)
+        if (img instanceof File) {
+            return URL.createObjectURL(img)
         }
         return ''
     }
