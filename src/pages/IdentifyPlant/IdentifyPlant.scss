@@ -1,6 +1,6 @@
 @use '../../mixin';
 .identify-plant-container {
-    background: mixin.$container-background-color;
+    background: mixin.$light-color;
     width: 100%;
     display: flex;
     align-items: center;

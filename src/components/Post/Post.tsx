@@ -56,7 +56,7 @@ export default function PostComponent ({ post }: PostComponentProps) {
                 <div className="">
                     <div className="user-name">{post.userName}</div>
                     <div className="follow-time-container">
-                        <button className="follow-button">{user.following.includes(post.userId) ? 'Unfollow User' : 'Follow User'}</button>
+                        {/* <button className="follow-button">{user.following.includes(post.userId) ? 'Unfollow User' : 'Follow User'}</button> */}
                         <div className="time">{post.dateAdded as number}</div>
                     </div>
                 </div>
@@ -65,25 +65,27 @@ export default function PostComponent ({ post }: PostComponentProps) {
                 className={`post-options-menu-button ${postMenu ? 'active' : ''}`}
                 onClick={() => setPostMenu(prev => !prev)}>
                 <EllipsisVerticalIcon width={20} />
-                <ul className={`post-menu-ul ${postMenu ? 'active' : ''}`}>
-                    <li className="post-menu-li" onClick={() => {return}}>
-                        <ShieldExclamationIcon />
-                        <span className="post-options-button">Report</span>
-                    </li>
-                    {
-                    post.userId === user.id && 
-                    <>
-                        <li className="post-menu-li" onClick={() => {return}}>
-                            <PencilSquareIcon />
-                            <span className="post-options-button">Edit</span>
-                        </li>
-                        <li className="post-menu-li" onClick={() => handleDeleteClick(post._id)}>
-                            <TrashIcon />
-                            <span className="post-options-button">Delete</span>
-                        </li>
-                    </>
-                    }
-                </ul>
+                {postMenu &&
+                    <ul className={`post-menu-ul ${postMenu ? 'active' : ''}`}>
+                                <li className="post-menu-li" onClick={() => {return}}>
+                                <ShieldExclamationIcon />
+                                <span className="post-options-button">Report</span>
+                                </li>
+                            {
+                            post.userId === user.id && 
+                            <>
+                                <li className="post-menu-li" onClick={() => {return}}>
+                                    <PencilSquareIcon />
+                                    <span className="post-options-button">Edit</span>
+                                </li>
+                                <li className="post-menu-li" onClick={() => handleDeleteClick(post._id)}>
+                                    <TrashIcon />
+                                    <span className="post-options-button">Delete</span>
+                                </li>
+                            </>
+                            }
+                    </ul>
+                }
             </nav>
         </section>
         <section className="post-text-container" >
@@ -121,14 +123,14 @@ export default function PostComponent ({ post }: PostComponentProps) {
                     <CommentSvg />Comment
             </button>
         </div>
-        {showComments && <section>
-            Comments section Coming Soon...
-            </section>
-        }
         {
             addComment && <textarea className="add-comment-post-textarea" placeholder="Write a comment...">
 
             </textarea>
+        }
+        {showComments && <section className="comments-section">
+            Comments section Coming Soon...
+            </section>
         }
         {snackBar}
     </article>

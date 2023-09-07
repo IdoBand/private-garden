@@ -9,7 +9,7 @@
     @include mixin.main-scrollbar();
     margin: 0;
     padding: 0;
-    background: mixin.$container-background-color;
+    background: mixin.$light-color;
     min-width: 250px
   }
 

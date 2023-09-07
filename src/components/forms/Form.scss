@@ -1,22 +1,40 @@
 @use '../../mixin.scss' as mixin;
 @use '../Button/Button.scss' as button;
+
+@mixin inputRules {
+    border: none;
+    outline: none;
+    background-color: mixin.$light-color;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 10px;
+    outline: none;
+}
+
 .form-container {
     @include mixin.flexCenter();
 }
 .form{
     text-align: center;
     max-height: 80%;
-    padding: 20px;
+    padding: 1rem 2rem;
     @include mixin.flexCenter();
     flex-direction: column;
 }
 .form-section {
-    position: relative;
+    margin: 15px 0;
+    width: 100%;
+}
+.form-section.one-liner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 15px 0 15px 0;
-    min-width: 400px;
+    min-width: 300px;
+}
+.form-section.dir-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 .error-div{
     text-align: center;
@@ -28,6 +46,7 @@
     width: 100%;
     height: 100px;
     resize: none;
+    @include inputRules();
 }
 .form-header {
     font-size: mixin.$font-size-lg;
@@ -43,18 +62,45 @@
     display: flex;
     justify-content: flex-start;
 }
-#image-crop-container {
+.image-crop-container {
     @include mixin.flexCenter();
+    position: relative;
 }
 
 .preview-image {
     max-width: 400px;
+}
+.cropper-controls {
+    margin: 0.5rem 0 2rem 0;
+}
+
+//////////////////////////   S L I D E R   //////////////////////////
+.cropper-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: mixin.$green-background-color;
+    cursor: pointer;
+    width: 10rem;
+    border-radius: 10px;
   }
-  .form-file-input {
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+
+    background-color: mixin.$dark-green-color;
+    height: 1rem;
+    width: 1rem;    
+    border-radius: 50%;
+ }
+//////////////////////////////////////////////////////////////////////
+
+
+.form-file-input {
     width: min(250px, 45%);
 }
 .one-line-text-input {
     width: min(250px, 45%);
+    @include inputRules();
 }
 .file-upload-button{
     @include button.button-skeleton();
@@ -67,6 +113,9 @@
 }
 input[type="file"]{
     display: none;
+}
+input[type="date"] {
+    @include inputRules();
 }
 
 .plant-updates-images-container {
@@ -87,12 +136,15 @@ input[type="file"]{
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 @media screen and (max-width: 800px) {
     .form {
-        width: 90%;
+        width: 95%;
+        padding: 1.4rem 0.2rem;
     }
     .form-section {
         flex-direction: column;
         gap:8px;
-        margin: 15px 0 15px 0;
+        min-width: 0px;
+    }
+    .form-section.one-liner {
         min-width: 0px;
     }
     .form-label {
@@ -100,7 +152,7 @@ input[type="file"]{
     }
     .preview-image {
         max-width: 250px;
-      }
+    }
     .form-file-input {
         width: min(100px, 35%);
     }
