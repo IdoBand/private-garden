@@ -15,7 +15,7 @@ export default function IdentifyPlant() {
     const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null)
     const [addPlantModal, setAddPlantModal] = useState(false)
     const { show: showSnackbar, component: snackBar } = useSnackbar();
-    const { imageFiles, filesInput, errorMessage, deleteImageFromArray, deleteAllImages } = useUploadImages(5, 0, false ,() => {identifiedPlant.current = null})
+    const { imageFiles, filesInput, errorMessage, deleteImageFromArray, deleteAllImages } = useUploadImages(5, 0, false ,'images')
     const user = useAppSelector(state => state.window.user)
     async function handleIdentifyClick() {
         if (imageFiles.length) {
