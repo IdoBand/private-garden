@@ -71,7 +71,7 @@ export async function fetchAddPlantUpdate(plantUpdate: Partial<PlantUpdate>, ima
 }
 export async function fetchEditPlantUpdate(plantUpdate: Partial<PlantUpdate>, images: File[]) {
     const formData = new FormData();
-        formData.append('plantUpdate',JSON.stringify(plantUpdate))
+    formData.append('plantUpdate',JSON.stringify(plantUpdate))
     if (images.length) {
         for (let i = 0 ; i < images.length ; i++) {
             formData.append('updateImages', images[i])
@@ -185,6 +185,21 @@ export async function fetchLike(postId: string, userId: string, like: boolean) {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             })
+    const result = await response.json()
+    return result
+}
+export async function fetchEditPost(post: Partial<Post>, images: File[]) {
+    const formData = new FormData();
+    formData.append('post',JSON.stringify(post))
+    if (images.length > 0) {
+        for (let i = 0 ; i < images.length ; i++) {
+            formData.append('postImages', images[i])
+        } 
+    }
+    const response = await fetch(`${BASIC_URL}/posts`, {
+        method: 'PATCH',
+        body: formData
+    });
     const result = await response.json()
     return result
 }

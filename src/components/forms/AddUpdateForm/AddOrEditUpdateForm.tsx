@@ -8,7 +8,7 @@ import { useUploadImages } from "../../../hooks/useUploadImages";
 import { useAppDispatch, useAppSelector } from "../../../redux/reduxHooks";
 import ExistingImage from "../../ExistingImage/ExistingImage";
 import { deleteImageFromCurrentUpdate } from "../../../redux/plantsSlice";
-import { loadImageFromS3 } from "../../ImageCrop/s3CanvasToFile";
+import { convertMultipleExistingImages } from "../../ImageCrop/s3CanvasToFile";
 interface addPlantUpdateDataObject {
   dateAdded: Date | number
   images: File[] 
@@ -36,18 +36,9 @@ export default function AddOrEditPlantUpdateForm({currentPlant, setModal , refet
   const formHeader: string = addOrEdit === 'add' ? 'Add a New Update': 'Edit an Update';
   const dispatch = useAppDispatch()
 
-  async function convertExistingImages() {
-    const converted = await Promise.all(
-      existingImages.map(async (image: string) => {
-        // return await getCroppedImg(image, { height:0, width:0, x:0, y:0})
-        return await loadImageFromS3(image)
-      })
-    )
-    return converted
-  }
   async function extractAndOrganize(data: addPlantUpdateDataObject) {
     setIsSubmitClicked(true)
-    const existing = await convertExistingImages()
+    const existing = await convertMultipleExistingImages(existingImages)
     const imageFilesArray = imageFiles.concat(existing)
     const newPlantUpdate: Partial<PlantUpdate> = {
       userId: currentPlant.userId,

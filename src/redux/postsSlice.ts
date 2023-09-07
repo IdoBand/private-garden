@@ -17,8 +17,8 @@ const postsSlice = createSlice({
             reducer: (state, action: PayloadAction<Post[]>) => {
                 state.posts = action.payload.reverse()
             },
-            prepare: (newMobileState) => {
-                return { payload: newMobileState }
+            prepare: (posts) => {
+                return { payload: posts }
             }
         },
         addPost: {
@@ -35,6 +35,19 @@ const postsSlice = createSlice({
             },
             prepare: (postId) => {
                 return { payload: postId }
+            }
+        },
+        editPost: {
+            reducer: (state, action: PayloadAction<Post>) => {
+                state.posts = state.posts.map(post => {
+                    if (post._id === action.payload._id) {
+                        post = action.payload
+                    }
+                    return post
+                })
+            },
+            prepare: (post) => {
+                return { payload: post }
             }
         },
         likePost: {
@@ -54,5 +67,5 @@ const postsSlice = createSlice({
     }
 })
 
-export const { setPosts, addPost, removePost, likePost } = postsSlice.actions
+export const { setPosts, addPost, removePost, editPost, likePost } = postsSlice.actions
 export default postsSlice.reducer

@@ -2,7 +2,7 @@ import { useState } from "react"
 import UploadButton from "../components/Button/UploadButton"
 import { Controller, useForm } from "react-hook-form";
 import { PhotoIcon } from '@heroicons/react/24/solid'
-export const useUploadImages = (limitImages: number, existingImages: number, smallButton: boolean =false, callback? :() => void) => {
+export const useUploadImages = (limitImages: number, existingImages: number, smallButton: boolean =false, htmlForId?: string, callback? :() => void) => {
     const { setError, clearErrors, formState: { errors }, control } = useForm();
     const [imageFiles, setImageFiles] = useState<File[]>([])
 
@@ -17,14 +17,14 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
     const filesInput = (
         <div className="image-select-container">
             <Controller
-            name="images"
+            name={`images${ htmlForId}`}
             control={control}
             defaultValue=""
             render={({ field }) => (
                 <>
                     <input 
                         type="file" 
-                        id="images" 
+                        id={`images${ htmlForId}`}
                         className='file-upload-button' 
                         accept="image/jpeg, image/jpg" 
                         multiple 
@@ -46,9 +46,9 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
                             }
                     }} />
                     {smallButton ?
-                        <label htmlFor="images" style={{cursor: 'pointer', border: 'none', outline: 'none', background: 'none'}}><PhotoIcon width={20} color="#007449" /></label>
+                        <label htmlFor={`images${ htmlForId}`} style={{cursor: 'pointer', border: 'none', outline: 'none', background: 'none'}}><PhotoIcon width={20} color="#007449" /></label>
                     :   
-                        <UploadButton htmlFor="images" text='Upload Images' />
+                        <UploadButton htmlFor={`images${ htmlForId}`} text='Upload Images' />
                     }
                 </>
                 )}

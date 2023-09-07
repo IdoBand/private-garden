@@ -5,7 +5,7 @@ export const loadImageFromS3 = async (url: string): Promise<File> => {
         });
         const blob = await response.blob();
   
-        const filename = "image.jpg"; // Adjust the filename as needed.
+        const filename = "image.jpg"
   
         const file = new File([blob], filename, { type: blob.type });
         return file;
@@ -13,5 +13,16 @@ export const loadImageFromS3 = async (url: string): Promise<File> => {
         console.log(error);
         throw new Error("Error loading image from S3");
     }
-  };
+};
+export async function convertMultipleExistingImages(urls: string[]) {
+
+    if (urls.length > 0) {
+        const converted = await Promise.all(
+            urls.map( async (url) => {
+            return await loadImageFromS3(url)
+        }))
+        return converted
+    }
+    return []
+}
   
