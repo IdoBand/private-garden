@@ -147,8 +147,7 @@ export default function MyGarden() {
             }
             </div>
         {addPlantModal && 
-            <Modal 
-                open={addPlantModal} 
+            <Modal
                 onClose={() => setAddPlantModal(false)} 
                 >
                 <AddOrEditPlantForm 

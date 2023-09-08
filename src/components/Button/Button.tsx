@@ -7,7 +7,7 @@ interface ButtonProps {
     isDisabled: boolean
     children?: React.ReactNode
     type: 'button' | 'submit'
-    className: 'green-button' | 'red-button' | 'file-upload-button' | 'green-button blank'
+    className: 'green-button' | 'red-button' | 'large-file-upload-button' | 'green-button blank'
     spinner?: boolean
     icon?: string
 }

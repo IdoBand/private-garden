@@ -117,8 +117,7 @@ export default function IdentifyPlant() {
                 Results maybe inaccurate sometimes.
             </div>
             {addPlantModal && 
-                <Modal    
-                    open={addPlantModal} 
+                <Modal
                     onClose={() => setAddPlantModal(false)} 
                 >
                     <AddOrEditPlantForm 

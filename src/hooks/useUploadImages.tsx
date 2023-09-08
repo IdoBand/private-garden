@@ -1,5 +1,4 @@
 import { useState } from "react"
-import UploadButton from "../components/Button/UploadButton"
 import { Controller, useForm } from "react-hook-form";
 import { PhotoIcon } from '@heroicons/react/24/solid'
 export const useUploadImages = (limitImages: number, existingImages: number, smallButton: boolean =false, htmlForId?: string, callback? :() => void) => {
@@ -25,7 +24,7 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
                     <input 
                         type="file" 
                         id={`images${ htmlForId}`}
-                        className='file-upload-button' 
+                        className='large-file-upload-button' 
                         accept="image/jpeg, image/jpg" 
                         multiple 
                         onChange={(e) => {
@@ -46,9 +45,19 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
                             }
                     }} />
                     {smallButton ?
-                        <label htmlFor={`images${ htmlForId}`} style={{cursor: 'pointer', border: 'none', outline: 'none', background: 'none'}}><PhotoIcon width={20} color="#007449" /></label>
+                        <label
+                            htmlFor={`images${ htmlForId}`}
+                            className="small-file-upload-button"
+                        >
+                            <PhotoIcon width={20} color="#007449" />
+                        </label>
                     :   
-                        <UploadButton htmlFor={`images${ htmlForId}`} text='Upload Images' />
+                        <label
+                            htmlFor={`images${ htmlForId}`}
+                            className='large-file-upload-button'
+                            >
+                            <PhotoIcon className="" width={15}/>Upload Images
+                        </label>
                     }
                 </>
                 )}

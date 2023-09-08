@@ -25,14 +25,12 @@ const AddPost = ({post, setIsEditing}: AddPostProps) => {
     const { register, handleSubmit, formState: { errors }, clearErrors, reset, setError } = useForm();
     const [existingPostImages, setExistingPostImages] = useState<string[]>(post ? post.images as string[] : [])
     const { imageFiles, filesInput,errorMessage, deleteImageFromArray, deleteAllImages } = useUploadImages(2, post ? post.images.length : 0, true, post ? post._id : 'add')
-    const [isFormActive, setIsFormActive] = useState<boolean>(post? true : false)
     const [isFetching, setIsFetching] = useState<boolean>(false)
     const { show: showSnackbar, component: snackBar } = useSnackbar();
     const dispatch = useAppDispatch()
     function resetAddPostForm() {
         deleteAllImages()
         reset()
-        setIsFormActive(false)
     }
     function isTextValid(text: string) {
         // checks spaces only for now
@@ -135,8 +133,7 @@ const AddPost = ({post, setIsEditing}: AddPostProps) => {
   return (
     <>
     <form
-        className={`add-post-form ${isFormActive ? 'active' : ''}`}
-        onClick={() => setIsFormActive(true)}
+        className={`add-post-form ${isFetching ? 'fetching' : ''}`}
         onSubmit={handleSubmit((data) => {onSubmit(data as AddPostFormProps)})}>
         <section className="add-post-header-img-container">
             <img src={user.profileImg as string} className="add-post-profile-img"/>

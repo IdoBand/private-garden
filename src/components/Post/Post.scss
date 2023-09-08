@@ -13,7 +13,9 @@ $post-border-settings: solid 0.5px mixin.$gray-color;
     border-radius: mixin.$posts-section-border-radius;
     border: $post-border-settings;
 }
-
+.fetching {
+    opacity: 0.5;
+}
 .post-header {
     width: 100%;
     display: flex;

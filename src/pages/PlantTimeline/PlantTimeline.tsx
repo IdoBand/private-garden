@@ -224,7 +224,6 @@ export default function PlantTimeline() {
                 {snackBar}
         {addPlantUpdateModal && 
             <Modal 
-                open={addPlantUpdateModal} 
                 onClose={() => setAddPlantUpdateModal(false)}                            
             >
                 <AddOrEditUpdateForm 
@@ -236,7 +235,6 @@ export default function PlantTimeline() {
             </Modal>}
         {editPlantUpdateModal && 
             <Modal 
-                open={editPlantUpdateModal} 
                 onClose={() => {dispatch(setCurrentUpdate(null)) ;setEditPlantUpdateModal(false)}}                            
             >
                 <AddOrEditUpdateForm 
@@ -248,7 +246,6 @@ export default function PlantTimeline() {
             </Modal>}
         {editPlantModal &&
             <Modal
-                open={editPlantModal}
                 onClose={() => setEditPlantModal(false)}
             >
                 <AddOrEditPlantForm
