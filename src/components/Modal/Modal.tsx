@@ -1,17 +1,23 @@
 import ReactDom from 'react-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useState } from 'react';
 interface ModalProps {
-    open: boolean;
     onClose: () => void;
     children: React.ReactNode;
 }
-export default function Modal({open, onClose, children}: ModalProps) {
-    if (!open) return null;
+export default function Modal({ onClose, children }: ModalProps) {
+    const [active, setIsActive] = useState<boolean>(true)
+
+    function handleOnClose() {
+        setIsActive(false)
+        setTimeout(() => {
+            onClose()
+        }, 350)
+    }
 
     return ReactDom.createPortal(
         <>
-                    <div className="overlay" onClick={onClose}>
-                        <AnimatePresence>
+                    <div className="overlay" onClick={handleOnClose}>
                         <motion.div
                             initial={{
                                 scale: 0,
@@ -20,30 +26,20 @@ export default function Modal({open, onClose, children}: ModalProps) {
                                 translateY: '50%', 
                             }}
                             animate={{
-                                scale: 1,
-                                opacity: 1,
+                                scale: active? 1 : 0,
+                                opacity: active? 1 : 0,
                                 translateX: '-50%',
-                                translateY: '-50%',
+                                translateY: active? '-50%' : '50%',
                                 transition: {
-                                    duration: 0.3
+                                    duration: 0.35
                                 }
                             }}
-                            exit={{
-                                scale: 0,
-                                opacity: 0,
-                                translateX: '-50%',
-                                translateY: '50%',
-                                transition: {
-                                    duration: 0.3
-                                },
-                            }}
                             className="modal" onClick={(e => e.stopPropagation())}>
-                            <button className="x-button" onClick={onClose}>X</button>
+                            <button className="x-button" onClick={handleOnClose}>X</button>
                             <div className="modal-content"  onClick={(e => e.stopPropagation())}>
                                 {children}
                             </div>
                         </motion.div>
-                        </AnimatePresence>
                     </div>  
                 </>,
         document.getElementById('portal') as HTMLBodyElement

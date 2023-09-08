@@ -124,7 +124,7 @@ export default function AddOrEditPlantForm({setModal, plant, addOrEdit, showSnac
                         setImageCropPreviewUrl(URL.createObjectURL(selectedFile));
                       }
                     }} />
-                    <UploadButton htmlFor="add-plant-upload" text="Upload Image" />
+                    <UploadButton htmlFor="add-plant-upload" text="Upload Image" size="small" />
                   </>
                 )}
             />

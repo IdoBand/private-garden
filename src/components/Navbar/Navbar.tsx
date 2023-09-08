@@ -139,9 +139,8 @@ export default function Navbar() {
                     }
                 </div>
             </header>
-            {about && <Modal open={about} onClose={() => setAbout(false)}><About /></Modal>}
+            {about && <Modal onClose={() => setAbout(false)}><About /></Modal>}
             {mobileMenu && <Modal
-                                open={mobileMenu} 
                                 onClose={() => setMobileMenu(false)} >
                                 <MobileNavMenu setAbout={setAbout} setMobileMenu={setMobileMenu} /> </Modal>}
             {isSignInLoading && <FullScreenOverlay />}

@@ -34,7 +34,6 @@ const PlantUpdateImagesSection = ({plantUpdateImages, dateAdded}: PlantUpdateIma
                 />
                 {viewImages &&
                     <Modal
-                        open={viewImages}
                         onClose={() => setViewImages(false)}
                     >
                         <div className="update-images-modal-container">
