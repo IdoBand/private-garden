@@ -6,7 +6,7 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
     const [imageFiles, setImageFiles] = useState<File[]>([])
 
     function deleteImageFromArray(index: number) {
-        const updatedArray = imageFiles.filter((image, idx) =>  idx !== index )
+        const updatedArray = imageFiles.filter((image, idx) => idx !== index )
         setImageFiles(updatedArray)
     }
     function deleteAllImages() {
@@ -40,7 +40,7 @@ export const useUploadImages = (limitImages: number, existingImages: number, sma
                                 setImageFiles([])
                                 setError("images", {
                                     type: "manual",
-                                    message: `Upload up to ${limitImages} images please`
+                                    message: limitImages > 1 ? `Upload up to ${limitImages} images please` : 'Upload only 1 image please'
                                 });
                             }
                     }} />
