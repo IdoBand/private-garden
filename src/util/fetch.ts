@@ -6,7 +6,7 @@ export async function fetchMyGarden(userId: string) {
     const result = await response.json()
     return result
 }
-export async function fetchAddPlant(plant: Plant, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
+export async function fetchAddPlant(plant: Partial<Plant>, plantImage: null | File) {
     const formData = new FormData()
     formData.append('plant', JSON.stringify(plant))
     if (plantImage) {
@@ -19,7 +19,7 @@ export async function fetchAddPlant(plant: Plant, plantImage?: 'image/jpeg' | 'i
   const result = await response.json()
   return result
 }
-export async function fetchEditPlant(plant: Plant, plantImage?: 'image/jpeg' | 'image/jpg' | null | File) {
+export async function fetchEditPlant(plant: Plant, plantImage?: null | File) {
     const formData = new FormData()
     formData.append('plant', JSON.stringify(plant))
     if (plantImage) {

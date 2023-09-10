@@ -25,6 +25,10 @@
     margin: 15px 0;
     width: 100%;
 }
+.form-section.buttons-container {
+    @include mixin.flexCenter();
+    gap: 1rem;
+}
 .form-section.one-liner {
     display: flex;
     align-items: center;

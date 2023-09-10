@@ -10,7 +10,7 @@ export interface Plant {
   userId: string
   plantName: string
   dateAdded: Date | number
-  img: | string | File
+  img: string | File
   // frontend
   checked?: boolean
   updates?: any[]
@@ -60,5 +60,4 @@ export type Comment = {
   userId: string
   text: string
   profileImg: string
-
 }
