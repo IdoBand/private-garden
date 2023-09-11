@@ -13,7 +13,11 @@ type PostComponentProps = {
 }
 export default function PostComponent ({ post }: PostComponentProps) {
     
-    const user = useAppSelector(state => state.window.user)    
+    const user = useAppSelector(state => state.window.user)
+    const likesFormatter = () => {
+        const formatter = Intl.NumberFormat('en', {notation: 'compact'})
+        return formatter.format(post.likes)
+    }
     const [likedByUser, setLikedByUser] = useState<boolean>(post.didUserLike)
     const [showComments, setShowComments] = useState<boolean>(false)
     const [addComment, setAddComment] = useState<boolean>(false)
@@ -111,7 +115,7 @@ export default function PostComponent ({ post }: PostComponentProps) {
                     }
             </div>
             <div className="total-likes-comments-container">
-                <div className="total-likes">{post.likes} Like{post.likes === 1 ? '' : 's'}</div>
+                <div className="total-likes">{likesFormatter()} Like{post.likes === 1 ? '' : 's'}</div>
                 <div className="total-comments" onClick={() => setShowComments(prev => !prev)}>{post.comments.length} Comment{post.comments.length === 1 ? '' : 's'}</div>
             </div>
             <div className="like-comment-buttons-container">
