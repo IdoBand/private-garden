@@ -2,7 +2,7 @@ import { Plant, PlantUpdate } from "../../types/interface"
 import Button from "../../components/Button/Button"
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
 import { useEffect, useState, useRef } from "react"
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import logo from '/leaf-svgrepo-com.svg'
 import Modal from "../../components/Modal/Modal"
 import AddOrEditUpdateForm from "../../components/forms/AddUpdateForm/AddOrEditUpdateForm"
@@ -31,13 +31,18 @@ export default function PlantTimeline() {
     const plantUpdates = useAppSelector(state => state.plants.currentPlant.updates)
     const reduxPlants = useAppSelector(state => state.plants.plants)
     const location = useLocation();
+    const user = useAppSelector(state => state.window.user)
+    const navigate = useNavigate();
     const { show: showSnackbar, component: snackBar } = useSnackbar();
 
     async function ifUserRefreshPage() {
         setIsFetching(true)
         const plantId = location.pathname.split('/')[2];
         try {
-            const plantResponse = await fetchPlantById(plantId, '1')
+            const plantResponse = await fetchPlantById(plantId, user.id)
+            if (!plantResponse.data) {
+                return
+            }
             const serializedPlant = plantManager.serializePlant(plantResponse.data)
             dispatch(setCurrentPlant(serializedPlant))
             const gardenResponse = await fetchMyGarden('1')
@@ -81,7 +86,10 @@ export default function PlantTimeline() {
         if (!plant._id) {
             plant = await ifUserRefreshPage() as Plant
         }
-        await handleFetchUpdates(plant._id as string)
+        if (plant) {
+            await handleFetchUpdates(plant._id as string)
+        }
+        return plant
     }
     useEffect(() => {
         async function start() {
@@ -94,7 +102,13 @@ export default function PlantTimeline() {
 
     useEffect(() => {
         async function start() {
-           await loadTimelinePage()
+           const plant = await loadTimelinePage()
+           if (!plant) {
+            showSnackbar('Non-existing Plant id. Redirecting...', 'error')
+            setTimeout(() => {
+                navigate('/MyGarden')
+            }, 3000)
+           }
         }
         start()
     },[])
