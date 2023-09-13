@@ -189,6 +189,7 @@ const AddPost = ({post, setIsEditing}: AddPostProps) => {
                 isDisabled={isFetching}
                 onClick={() => setIsEditing!(false)}
                 text='Cancel'
+                icon="goBack"
                  />
             }
             <Button

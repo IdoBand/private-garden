@@ -1,6 +1,6 @@
 import React from 'react'
 import { MoonLoader } from 'react-spinners'
-import { TrashIcon, PlusCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import { TrashIcon, PlusCircleIcon, PencilSquareIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
 interface ButtonProps {
     text: string
     onClick: any
@@ -25,7 +25,8 @@ export default Button
 
 const ICONS: {[key: string]: React.ReactNode} = {
   trash: <TrashIcon width={16} />,
-  add: <PlusCircleIcon width={16} />,
-  edit: <PencilSquareIcon width={16} />
+  add: <PlusCircleIcon width={16} stroke='green'/>,
+  edit: <PencilSquareIcon width={16} />,
+  goBack: <ArrowUturnLeftIcon width={16} />
 }
 

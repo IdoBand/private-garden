@@ -116,10 +116,10 @@ export default function MyGarden() {
             <div id="my-garden-options">
                 <div id="my-garden-buttons">
                     <Button className='green-button' type="button" text="Add a Plant" onClick={() => setAddPlantModal(true)} isDisabled={removeButtons} icon="add" />
-                    <Button className='red-button' type="button" text="Remove Plants" onClick={() => setRemoveButtons(!removeButtons)} isDisabled={false} icon="trash" />
+                    <Button className='red-button' type="button" text={removeButtons ? "Exit Remove" : "Remove Plants"} onClick={() => setRemoveButtons(!removeButtons)} isDisabled={false} icon={removeButtons? "goBack" : "trash"} />
                 {removeButtons && <>
                     <Button className='red-button' type="button" text="Select All" onClick={selectAll} isDisabled={false} />
-                    <Button className='red-button' type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} />
+                    <Button className="red-button" type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} icon="trash"/>
                     </>
                 }
                 </div>
