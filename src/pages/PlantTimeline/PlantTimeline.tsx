@@ -189,10 +189,10 @@ export default function PlantTimeline() {
                         <div className="plant-timeline-buttons">
                             <Button className="green-button" type="button" text="Add an Update" onClick={() => setAddPlantUpdateModal(true)} isDisabled={removeButtons} icon="add" />
                             <Button className="green-button" type="button" text="Edit Plant" onClick={() => setEditPlantModal(true)} isDisabled={removeButtons} icon="edit" />
-                            <Button className="red-button" type="button" text="Remove Updates" onClick={() => setRemoveButtons(prev => !prev)} isDisabled={false} icon="trash" />
+                            <Button className="red-button" type="button" text={removeButtons ? "Exit Remove" : "Remove Updates"} onClick={() => setRemoveButtons(prev => !prev)} isDisabled={false} icon={removeButtons ? "goBack": "trash"} />
                             {removeButtons && <>
                             <Button className="red-button" type="button" text="Select All" onClick={selectAll} isDisabled={false} />
-                            <Button className="red-button" type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} />
+                            <Button className="red-button" type="button" text="Remove Permanently" onClick={handleRemovePlantsPermanently} isDisabled={false} icon="trash"/>
                                         </>
                         }
                         </div>

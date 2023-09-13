@@ -1,5 +1,10 @@
+@use '../../mixin.scss' as mixin;
 .update-images-date {
-    margin: 0px 5px 5px 18px;
+    margin: 0.5rem 1rem;
+    background-color: mixin.$green-background-color;
+    width: max-content;
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 .all-update-images-container {
     display: flex;
@@ -25,9 +30,15 @@
 //////////////////                               ///////////////////
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  
 
-@media screen and (max-width: 500px) {
-.all-update-images-container {
-    padding: 0px 2px 2px 2px;
-    gap: 2px;
+@media screen and (max-width: 800px) {
+    .update-images-date {
+        font-size: mixin.$font-size-sm;
+        margin: 0.5rem 0.5rem;
+    }
 }
+@media screen and (max-width: 500px) {
+    .all-update-images-container {
+        padding: 0px 2px 2px 2px;
+        gap: 2px;
+    }
 }
