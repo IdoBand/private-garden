@@ -1,7 +1,7 @@
 @use '../../mixin.scss' as mixin;
 .update-images-date {
     margin: 0.5rem 1rem;
-    background-color: mixin.$green-background-color;
+    background-color: mixin.$light-green-color;
     width: max-content;
     padding: 5px 10px;
     border-radius: 10px;
@@ -19,10 +19,31 @@
     width: 100%;
     height: auto;
 }
-.update-images-modal-container {
+
+.image-view-scroll-buttons-container {
+    position: sticky;
+    width: 100%;
+    left: 10rem;
+    top: 0.5rem;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
 }
+.image-view-scroll-button {
+    margin: 0.5rem;
+    background-color: rgba(mixin.$light-color, 0.7);
+    border: 0.5px solid transparent;
+    outline: none;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding: 0.2rem;
+    &:hover {
+        cursor: pointer;
+        border: 0.5px solid mixin.$light-green-color
+    }
+}
+
 
 ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///  ///
 //////////////////                               ///////////////////
@@ -40,5 +61,8 @@
     .all-update-images-container {
         padding: 0px 2px 2px 2px;
         gap: 2px;
+    }
+    .update-images-modal-container{
+        padding: 0 10px;
     }
 }

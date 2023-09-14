@@ -31,7 +31,7 @@
     padding: 5px;
     border-radius: 50%;
     &:hover {
-        background-color: mixin.$green-background-color;
+        background-color: mixin.$light-green-color;
     }
 }
 .footer-nav-section {
@@ -47,7 +47,7 @@
 .footer-link {
     color: mixin.$light-color;
     &:hover {
-        color: mixin.$green-background-color;
+        color: mixin.$light-green-color;
     }
 }
 .copy-rights {

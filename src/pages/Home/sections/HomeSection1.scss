@@ -39,7 +39,7 @@
     left: -250px;
     width: 450px;
     height: 3px;
-    background: mixin.$green-background-color;
+    background: mixin.$light-green-color;
     border-radius: 2px;
   }
 }
@@ -123,7 +123,7 @@ $duration: 0.6s;
   right: -0.7rem;
   width: 395px;
   height: 600px;
-  background: mixin.$green-background-color;
+  background: mixin.$light-green-color;
   border-radius: 0 0px 220px 190px;
   transition: opacity 1.3s ease, top 1.3s ease;
 }
@@ -146,8 +146,8 @@ $duration: 0.6s;
   right: -300px;
   width: 850px;
   height: 450px;
-  border-left: 3px solid mixin.$green-background-color;
-  border-top: 3px solid mixin.$green-background-color;
+  border-left: 3px solid mixin.$light-green-color;
+  border-top: 3px solid mixin.$light-green-color;
   border-radius: 9000px;
 
 }
@@ -158,8 +158,8 @@ $duration: 0.6s;
   right: -300px;
   width: 800px;
   height: 400px;
-  border-left: 3px solid mixin.$green-background-color;
-  border-top: 3px solid mixin.$green-background-color;
+  border-left: 3px solid mixin.$light-green-color;
+  border-top: 3px solid mixin.$light-green-color;
   border-radius: 9000px;
 }
 #decorative-container-3 {
@@ -170,7 +170,7 @@ $duration: 0.6s;
   width: 400px;
   height: 100px;
   border-radius: 10px 225px 225px 10px ;
-  background-color: mixin.$green-background-color;
+  background-color: mixin.$light-green-color;
   opacity: 0;
   transition: left 1.5s ease, opacity 1.5s ease-in;
   img {
