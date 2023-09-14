@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef } from 'react'
 
-export const useIntersectionObserver = (sectionId: string, threshold=0.3) => {
+export const useIntersectionObserver = (sectionId: string, threshold=0.3, callback?: any) => {
     const [isVisible, setIsVisible] = useState(false)
     const [firstIntersection, setFirstIntersection] = useState(false)
     const htmlElementRef = useRef<HTMLElement | null>(null)
@@ -8,11 +8,13 @@ export const useIntersectionObserver = (sectionId: string, threshold=0.3) => {
     useEffect(() => {
         const observer = new IntersectionObserver(
           ([entry]) => {
-
             setIsVisible(entry.isIntersecting);
             if (entry.isIntersecting) {
               setTimeout(() => {
                 setFirstIntersection(true)
+                if (callback) {
+                  callback()
+                }
               }, 500)
             //   setCurrentSection(sectionId)
             }
