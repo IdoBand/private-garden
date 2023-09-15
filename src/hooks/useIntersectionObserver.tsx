@@ -30,7 +30,7 @@ export const useIntersectionObserver = (sectionId: string, threshold=0.3, callba
         }
 
         return () => {
-          if (htmlElementRef.current || firstIntersection) {
+          if (htmlElementRef.current) {
             try {
               observer.unobserve(htmlElementRef.current!);
             } catch (err) {
