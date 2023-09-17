@@ -1,3 +1,4 @@
+import './Navbar.scss'
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import Modal from '../Modal/Modal';

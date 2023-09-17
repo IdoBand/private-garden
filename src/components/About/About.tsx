@@ -1,3 +1,4 @@
+import './About.scss'
 import { AWSIcon } from "../../util/svgs"
 export function generatePath(logoName: string): string {
     if (logoName !== 'vite') {

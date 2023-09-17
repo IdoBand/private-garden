@@ -1,3 +1,4 @@
+import './Footer.scss'
 import { Link } from 'react-router-dom'
 import { InstagramSvg, FacebookSvg, LinkedinBorderlessSvg, GithubSvg } from '../../util/svgs'
 import { PrivateGardenLogo } from '../../util/svgs'

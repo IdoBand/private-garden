@@ -1,3 +1,5 @@
+import './MyGarden.scss'
+import '../../components/PlantCard/PlantCard.scss'
 import { useState, useEffect, useRef } from "react"
 import { Plant } from "../../types/interface"
 import Button from "../../components/Button/Button"

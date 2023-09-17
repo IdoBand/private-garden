@@ -1,4 +1,7 @@
 
+import './Community.scss'
+import '../../components/Post/Post.scss'
+import '../../components/Post/AddPost.scss'
 import PostComponent from '../../components/Post/Post'
 import AddPost from '../../components/Post/AddPost'
 import useFetchPosts from '../../hooks/useFetchPosts'

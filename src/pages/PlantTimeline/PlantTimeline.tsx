@@ -1,3 +1,5 @@
+import './PlantTimeline.scss'
+import '../../components/PlantUpdateCard/PlantUpdateCard.scss'
 import { Plant, PlantUpdate } from "../../types/interface"
 import Button from "../../components/Button/Button"
 import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"

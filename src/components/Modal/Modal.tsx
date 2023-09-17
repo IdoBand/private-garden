@@ -1,3 +1,4 @@
+import './Modal.scss'
 import ReactDom from 'react-dom'
 import { motion } from 'framer-motion'
 import { useState } from 'react';
