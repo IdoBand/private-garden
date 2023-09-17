@@ -1,3 +1,4 @@
+import './IdentifyPlant.scss'
 import { useRef, useState } from 'react'
 import Button from '../../components/Button/Button'
 import Spinner from '../../components/Spinner/Spinner'

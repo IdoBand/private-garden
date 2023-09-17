@@ -1,3 +1,4 @@
+import './RandomPlant.scss'
 import { useState } from "react"
 import { plantNames } from "./plants"
 import Button from "../../components/Button/Button"
