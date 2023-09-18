@@ -1,19 +1,19 @@
 import './MyGarden.scss'
-import '../../components/PlantCard/PlantCard.scss'
+import '@components/PlantCard/PlantCard.scss'
 import { useState, useEffect, useRef } from "react"
 import { Plant } from "../../types/interface"
-import Button from "../../components/Button/Button"
-import Modal from "../../components/Modal/Modal"
-import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
+import Button from "@components/Button/Button"
+import Modal from "@components/Modal/Modal"
+import AddOrEditPlantForm from "@components/forms/AddPlantForm/AddOrEditPlantForm"
 import searchLogo from '/search_icon-white2.png'
-import { useAppDispatch, useAppSelector } from "../../redux/reduxHooks"
-import { addPlants, setCurrentPlant } from "../../redux/plantsSlice"
-import PlantCard from "../../components/PlantCard/PlantCard"
-import { fetchMyGarden, fetchDeletePlants } from "../../util/fetch"
-import { setIsFetching } from "../../redux/windowSlice"
+import { useAppDispatch, useAppSelector } from "@redux/reduxHooks"
+import { addPlants, setCurrentPlant } from "@redux/plantsSlice"
+import PlantCard from "@components/PlantCard/PlantCard"
+import { fetchMyGarden, fetchDeletePlants } from "@util/fetch"
+import { setIsFetching } from "@redux/windowSlice"
 import { plantManager } from "../../types/PlantManager"
-import { useSnackbar } from "../../hooks/useSnackbar"
-import PlantCardSkeleton from "../../components/PlantCard/PlantCardSkeleton"
+import { useSnackbar } from "@hooks/useSnackbar"
+import PlantCardSkeleton from "@components/PlantCard/PlantCardSkeleton"
 
 const skeletonArray = Array.from(Array(4).keys())
 

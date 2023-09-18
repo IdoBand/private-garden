@@ -3,8 +3,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useRef } from "react"
 import { motion } from 'framer-motion'
 import flowerTimeLapse from '/home-page/dahlia-flower-blooming-time-lapse.mp4'
-import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver"
-import { animateY } from "../../../util/framerVariants"
+import { useIntersectionObserver } from "@hooks/useIntersectionObserver"
+import { animateY } from "@util/framerVariants"
 
 const HomeSection3 = () => {
   const { htmlElementRef, firstIntersection } = useIntersectionObserver('3')

@@ -1,12 +1,12 @@
 import './RandomPlant.scss'
 import { useState } from "react"
 import { plantNames } from "./plants"
-import Button from "../../components/Button/Button"
-import Spinner from "../../components/Spinner/Spinner"
-import { fetchRandom } from '../../util/fetch'
+import Button from "@components/Button/Button"
+import Spinner from "@components/Spinner/Spinner"
+import { fetchRandom } from '@util/fetch'
 import logo from '/leaf-svgrepo-com.svg'
 import { plantManager } from "../../types/PlantManager"
-import { useSnackbar } from "../../hooks/useSnackbar"
+import { useSnackbar } from "@hooks/useSnackbar"
 interface RandomPlantProps {
     plantName: string
     data: any

@@ -2,7 +2,7 @@ import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
 import a from '/home-page/banana-pot.png'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { animateX } from '../../../util/framerVariants'
+import { animateX } from '@util/framerVariants'
 import { motion } from 'framer-motion'
 
 const HomeSection1 = () => {

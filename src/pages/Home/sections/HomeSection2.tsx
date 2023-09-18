@@ -1,7 +1,7 @@
-import { useIntersectionObserver } from "../../../hooks/useIntersectionObserver"
+import { useIntersectionObserver } from "@hooks/useIntersectionObserver"
 import { motion } from "framer-motion"
-import { PrivateGardenLogo } from "../../../util/svgs"
-import { animateY } from "../../../util/framerVariants"
+import { PrivateGardenLogo } from "@util/svgs"
+import { animateY } from "@util/framerVariants"
 import { Link } from "react-router-dom"
 import adanit from '/home-page/adanit.png'
 const HomeSection2 = () => {

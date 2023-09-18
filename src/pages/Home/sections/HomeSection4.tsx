@@ -1,9 +1,9 @@
-import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver'
-import { animateY, animateX } from '../../../util/framerVariants'
+import { useIntersectionObserver } from '@hooks/useIntersectionObserver'
+import { animateY, animateX } from '@util/framerVariants'
 import laptopLady from '/home-page/laptop-lady.png'
 import bananaBottom from '/home-page/banana-bottom.png'
 import { motion } from 'framer-motion'
-import { PrivateGardenLogo } from "../../../util/svgs"
+import { PrivateGardenLogo } from "@util/svgs"
 const HomeSection4 = () => {
 
     const { htmlElementRef, firstIntersection } = useIntersectionObserver('4')
