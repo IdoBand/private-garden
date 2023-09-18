@@ -1,15 +1,15 @@
 import './IdentifyPlant.scss'
 import { useRef, useState } from 'react'
-import Button from '../../components/Button/Button'
-import Spinner from '../../components/Spinner/Spinner'
-import AddOrEditPlantForm from "../../components/forms/AddPlantForm/AddOrEditPlantForm"
-import { fetchIdentifyPlant } from '../../util/fetch'
-import Modal from '../../components/Modal/Modal'
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { useUploadImages } from '../../hooks/useUploadImages';
+import Button from '@components/Button/Button'
+import Spinner from '@components/Spinner/Spinner'
+import AddOrEditPlantForm from "@components/forms/AddPlantForm/AddOrEditPlantForm"
+import { fetchIdentifyPlant } from '@util/fetch'
+import Modal from '@components/Modal/Modal'
+import { useSnackbar } from '@hooks/useSnackbar';
+import { useUploadImages } from '@hooks/useUploadImages';
 import { Plant } from '../../types/interface';
-import { useAppSelector } from '../../redux/reduxHooks';
-import ExistingImage from '../../components/ExistingImage/ExistingImage'
+import { useAppSelector } from '@redux/reduxHooks';
+import ExistingImage from '@components/ExistingImage/ExistingImage'
 export default function IdentifyPlant() {
     const [isFetching, setIsFetching] = useState(false)
     const identifiedPlant = useRef<Plant | null>(null)
