@@ -89,7 +89,16 @@ export default function PlantTimeline() {
             plant = await ifUserRefreshPage() as Plant
         }
         if (plant) {
-            await handleFetchUpdates(plant._id as string)
+            try {
+                await handleFetchUpdates(plant._id as string)
+                const garden = await fetchMyGarden(user.id)
+                if (garden.data) {
+                    
+                    dispatch(addPlants(garden.data))
+                }
+            } catch (err) {
+                showSnackbar("'couldn't load garden", 'error')
+            }
         }
         return plant
     }
@@ -119,6 +128,7 @@ export default function PlantTimeline() {
         const selectedOptionId = selectInput.current?.selectedOptions[0].getAttribute("data-key")
         dispatch(switchCurrentPlantToExistingOne(selectedOptionId as string))
         setCurrentPlantId(selectedOptionId as string)
+        navigate(`/PlantTimeline/${selectedOptionId}`)
     }
 
     async function handleRemovePlantsPermanently() {
@@ -185,7 +195,7 @@ export default function PlantTimeline() {
                             <div id="current-plant-details">
                                 <div className="form-header">{plantManager.capitalize(currentPlant?.plantName as string)}</div><br />
                                 Added on: {plantManager.extractDateString(currentPlant?.dateAdded)}<br />
-                                Total Updates: {plantUpdates!.length}<br />
+                                Total Updates: {plantUpdates ? plantUpdates.length : ''}<br />
                             </div> 
                         </div>
                         <div className="plant-timeline-buttons">
